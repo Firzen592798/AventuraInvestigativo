@@ -138,7 +138,6 @@ public class GameController : MonoBehaviour {
 	}
 	
 	void ResumeGame(){
-		Screen.showCursor = false;
 		showMenu = false;
 		Time.timeScale = 1.0f;
 	}

@@ -1,42 +1,42 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class TestExamine : MonoBehaviour {
-
+public class TestExamine2 : MonoBehaviour {
+	
 	GameObject g;
 	GameController gm;
 	TextPlaceholder scr;
 	MusicManager mm;
 	int objectindex;
-
+	
 	int objectstate;
 	int nextstate;
-
+	
 	int textindex;
 	int textpages;
 	int pagetype;
 	bool onregion;
-
+	
 	bool dialog_button_pressed;
 	bool up_button_pressed;
 	bool down_button_pressed;
 	bool showingtext;
-
+	
 	bool choosing;
 	int choiceindex;
 	string[] choices;
-
+	
 	int faceset;
 	int faceind;
 	int facepos;
-
+	
 	int charsPerUpdate = 1;
 	float timeelapsed;
 	float timePerUpdate = 1f;
 	float soundPerUpdate = 0.5f;
 	float soundelapse;
 	string showtext;
-
+	
 	// Use this for initialization
 	void Start () {
 		g = GameObject.FindGameObjectWithTag("GameManager");
@@ -63,7 +63,7 @@ public class TestExamine : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 		if (Input.GetKeyDown (KeyCode.Z)) 
 		{
 			dialog_button_pressed = true;
@@ -151,7 +151,7 @@ public class TestExamine : MonoBehaviour {
 		}
 		if ((dialog_button_pressed == true)&&(onregion == true)&&(choosing == false)) 
 		{
-
+			
 			gm.hideppbutton();
 			if (textindex == 0)
 			{
@@ -159,7 +159,7 @@ public class TestExamine : MonoBehaviour {
 				gm.showdialogbox();
 				textpages = scr.NumText(objectindex,objectstate);
 			}
-
+			
 			if (textindex < textpages)
 			{
 				if (showingtext == false)
@@ -201,12 +201,12 @@ public class TestExamine : MonoBehaviour {
 				gm.hidedialogbox();
 				gm.showppbutton();
 				gm.unlockplayer();
-
+				
 			}
 			
 		}
 	}
-
+	
 	string gettxt(string text, int charcount)
 	{
 		if (charcount <= text.Length) {
@@ -216,5 +216,5 @@ public class TestExamine : MonoBehaviour {
 			return null;
 		}
 	}
-
+	
 }
