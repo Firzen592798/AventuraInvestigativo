@@ -60,11 +60,11 @@
      <Compile Include="Assets\Resources\scripts\TextExamine2.cs" />
      <Compile Include="Assets\Resources\scripts\TextPlaceholder.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\Acao.cs" />
-     <Compile Include="Assets\Resources\scripts\acoes\DialogLine.cs" />
-     <Compile Include="Assets\Resources\scripts\acoes\DicionarioAcoes.cs" />
-     <Compile Include="Assets\Resources\scripts\acoes\GerenciadorEstados.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarDialogos.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarEscolhas.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\MoverPersonagem.cs" />
+     <Compile Include="Assets\Resources\scripts\hash\DicionarioAcoes.cs" />
+     <Compile Include="Assets\Resources\scripts\hash\GerenciadorEstados.cs" />
      <Compile Include="Assets\Resources\scripts\items\Escudo.cs" />
      <Compile Include="Assets\Resources\scripts\items\Espada.cs" />
      <Compile Include="Assets\Resources\scripts\items\Estrela.cs" />
@@ -72,6 +72,8 @@
      <Compile Include="Assets\Resources\scripts\items\Item.cs" />
      <Compile Include="Assets\Resources\scripts\items\PickUpItem.cs" />
      <Compile Include="Assets\Resources\scripts\items\Pocao.cs" />
+     <Compile Include="Assets\Resources\scripts\model\DialogLine.cs" />
+     <Compile Include="Assets\Resources\scripts\model\Escolha.cs" />
      <Compile Include="Assets\Resources\scripts\showchoice.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

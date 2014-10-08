@@ -1,23 +1,16 @@
 using UnityEngine;
 using System.Collections;
-public class MostrarDialogos : Acao{
+public class MoverPersonagem : Acao{
 	ArrayList dialogos;
 	DialogLine dialogo;
 	int falaAtual;
-	public MostrarDialogos(ArrayList dialogLines){
-		this.dialogos = dialogLines;
-		falaAtual = 0;
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
-	}
-
-	public MostrarDialogos(DialogLine dialogo){
-		this.dialogo = dialogo;
+	public MoverPersonagem(){
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
 	}
 
 	public override bool Update(){
+		/*
 		if (Input.GetKeyDown (KeyCode.Z)) {
 			gm.lockplayer();
 			if(falaAtual == dialogos.Count){
@@ -31,11 +24,13 @@ public class MostrarDialogos : Acao{
 			gm.showdialogbox();
 			gm.LoadShowTxt(texto);
 			Debug.Log (texto);
-
+			
 			falaAtual++;
 		}
 		return false;
+		*/
+		return false;
 	}
-
-
+	
+	
 }

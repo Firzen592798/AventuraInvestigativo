@@ -15,7 +15,7 @@ public class DialogLine {
 	public string getTexto(){
 		return texto;
 	}
-	public string Personagem(){
+	public string getPersonagem(){
 		return personagem;
 	}
 	public string getImagempath(){

@@ -16,9 +16,9 @@ public class DicionarioAcoes {
 		dialogos.Add (d4);
 		Acao a1 = new  MostrarDialogos(dialogos);
 		ArrayList escolhas = new ArrayList ();
-		escolhas.Add ("Explodir");
-		escolhas.Add ("Detonar");
-		escolhas.Add ("Ganhar");
+		escolhas.Add (new Escolha ("Explodir", 1));
+		escolhas.Add (new Escolha ("Detonar", 0));
+		escolhas.Add (new Escolha ("Ganhar", 0));
 		Acao a2 = new MostrarEscolhas(new DialogLine("Dark Megaman", "O que voce deseja?", ""), escolhas);
 	
 		ArrayList acoesDarkMegamanEstadoZero = new ArrayList();

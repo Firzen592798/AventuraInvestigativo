@@ -26,7 +26,8 @@ public class NPCController2 : MonoBehaviour {
 	bool up_button_pressed;
 	bool down_button_pressed;
 	bool showingtext;
-	
+
+	private GerenciadorEstados gerEstados;
 	private DicionarioAcoes dicionario;
 	private ArrayList sequenciaAcoes;
 	private Acao acaoAtual;
@@ -37,9 +38,10 @@ public class NPCController2 : MonoBehaviour {
 	void Start () { 
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
-		actualstate = 0;	
+		gerEstados =  GerenciadorEstados.getInstance();
+		actualstate = gerEstados.getEstado (nome);
 		dicionario = new DicionarioAcoes ();
-		sequenciaAcoes = dicionario.getAcoesPersonagem (this.nome, 0);
+		sequenciaAcoes = dicionario.getAcoesPersonagem (this.nome, actualstate);
 		proximaAcao = 0;
 		acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
 		// Fim codigo dialogo teste
@@ -195,10 +197,12 @@ public class NPCController2 : MonoBehaviour {
 			bool executou = acaoAtual.Update();
 			if(executou){
 				proximaAcao++;
-				acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
 				if(proximaAcao == sequenciaAcoes.Count){
 					proximaAcao = 0;
+					sequenciaAcoes = dicionario.getAcoesPersonagem(nome, gerEstados.getEstado(nome));
 				}
+				acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
+				executou = false;
 			}
 			//proximaAcaoReady = true;
 		}

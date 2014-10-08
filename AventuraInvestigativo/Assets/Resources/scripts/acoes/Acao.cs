@@ -4,7 +4,6 @@ public abstract class Acao{
 	protected GameObject g;
 	public string nome;
 	private bool teclaPressionada = false;
-	public abstract void executar ();
 	public abstract bool Update ();
 	public string getNome(){
 		return nome;
