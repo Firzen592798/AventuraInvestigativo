@@ -1,48 +1,41 @@
 using UnityEngine;
 using System.Collections;
-public class MostrarDialogos : Acao{
-	ArrayList dialogos;
-	DialogLine dialogo;
-	int falaAtual;
-	public MostrarDialogos(ArrayList dialogLines){
-		this.dialogos = dialogLines;
-		falaAtual = 0;
+public class MostrarEscolhas : Acao{
+	DialogLine dialogLine;
+	ArrayList escolhas;
+	bool mostrouNaTela = false;
+	public MostrarEscolhas(DialogLine dialogLine, ArrayList escolhas){
+		this.dialogLine = dialogLine;
+		this.escolhas = escolhas;
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
 	}
-
-	public MostrarDialogos(DialogLine dialogo){
-		this.dialogo = dialogo;
+	
+	public MostrarEscolhas(DialogLine dialogLine){
+		this.dialogLine = dialogLine;
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
 	}
-
+	
 	public override bool Update(){
-		if (Input.GetKeyDown (KeyCode.Z)) {
-			gm.lockplayer();
-			if(falaAtual == dialogos.Count){
-				Debug.Log("Terminou");
-				falaAtual = 0;
-				gm.hidedialogbox();
-				gm.unlockplayer();
-				return true;
-			}
-			string texto = ((DialogLine)dialogos[falaAtual]).getTexto();
+		//if (Input.GetKeyDown (KeyCode.Z)) {
+		if(mostrouNaTela == false){
+			mostrouNaTela = true;
 			gm.showdialogbox();
-			gm.LoadShowTxt(texto);
-			Debug.Log (texto);
+			gm.lockplayer();
 
-			falaAtual++;
+			gm.showchoicebox((string[])escolhas.ToArray(typeof(string)));
+			gm.LoadShowTxt(dialogLine.getTexto());
+			Debug.Log (escolhas[0]);
 		}
 		return false;
-	}
 
+	}
+	
 	public override void executar(){
-		gm.LoadShowTxt((dialogo).getTexto());
-		Debug.Log (dialogo.getTexto());
 		//Debug.Log(dialogos.Count);
 	}
-
+	
 	/*
 	public override void executar(){
 		Debug.Log(dialogos.Count);
@@ -55,5 +48,5 @@ public class MostrarDialogos : Acao{
 		
 		}
 	}*/
-
+	
 }

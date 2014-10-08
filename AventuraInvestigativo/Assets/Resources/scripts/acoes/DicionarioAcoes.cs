@@ -15,9 +15,17 @@ public class DicionarioAcoes {
 		dialogos.Add (d3);
 		dialogos.Add (d4);
 		Acao a1 = new  MostrarDialogos(dialogos);
+		ArrayList escolhas = new ArrayList ();
+		escolhas.Add ("Explodir");
+		escolhas.Add ("Detonar");
+		escolhas.Add ("Ganhar");
+		Acao a2 = new MostrarEscolhas(new DialogLine("Dark Megaman", "O que voce deseja?", ""), escolhas);
 	
 		ArrayList acoesDarkMegamanEstadoZero = new ArrayList();
 		acoesDarkMegamanEstadoZero.Add (a1);
+		acoesDarkMegamanEstadoZero.Add (a2);
+
+
 		acoesHashtable.Add("Dark Megaman-0", acoesDarkMegamanEstadoZero);
 		DialogLine dd1 = new DialogLine ("Dark Megaman", "Mudando o estado", "");
 		DialogLine dd2 = new DialogLine ("Dark Megaman", "Testando o novo dialogo", "");

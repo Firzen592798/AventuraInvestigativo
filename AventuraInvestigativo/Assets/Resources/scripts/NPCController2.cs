@@ -194,8 +194,8 @@ public class NPCController2 : MonoBehaviour {
 		{
 			bool executou = acaoAtual.Update();
 			if(executou){
-				acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
 				proximaAcao++;
+				acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
 				if(proximaAcao == sequenciaAcoes.Count){
 					proximaAcao = 0;
 				}

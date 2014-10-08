@@ -64,6 +64,7 @@
      <Compile Include="Assets\Resources\scripts\acoes\DicionarioAcoes.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\GerenciadorEstados.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarDialogos.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\MostrarEscolhas.cs" />
      <Compile Include="Assets\Resources\scripts\items\Escudo.cs" />
      <Compile Include="Assets\Resources\scripts\items\Espada.cs" />
      <Compile Include="Assets\Resources\scripts\items\Estrela.cs" />
