@@ -9,22 +9,27 @@ public class DicionarioAcoes {
 		DialogLine d2 = new DialogLine ("Dark Megaman", "Testando o dialogo", "");
 		DialogLine d3 = new DialogLine ("Dark Megaman", "Victor Hugo", "");
 		DialogLine d4 = new DialogLine ("Dark Megaman", "Gin", "");
-		Acao a1 = new  MostrarDialogos(d1);
-		Acao a2 = new MostrarDialogos (d2);
-		Acao a3 = new MostrarDialogos (d3);
-		Acao a4 = new MostrarDialogos (d4);
-		/*ArrayList dialogos = new ArrayList ();
+		ArrayList dialogos = new ArrayList ();
 		dialogos.Add (d1);
 		dialogos.Add (d2);
 		dialogos.Add (d3);
-		dialogos.Add (d4);*/
-		//MostrarDialogos mostrarDialogo1 = new MostrarDialogos (dialogos);
+		dialogos.Add (d4);
+		Acao a1 = new  MostrarDialogos(dialogos);
+	
 		ArrayList acoesDarkMegamanEstadoZero = new ArrayList();
 		acoesDarkMegamanEstadoZero.Add (a1);
-		acoesDarkMegamanEstadoZero.Add (a2);
-		acoesDarkMegamanEstadoZero.Add (a3);
-		acoesDarkMegamanEstadoZero.Add (a4);
 		acoesHashtable.Add("Dark Megaman-0", acoesDarkMegamanEstadoZero);
+		DialogLine dd1 = new DialogLine ("Dark Megaman", "Mudando o estado", "");
+		DialogLine dd2 = new DialogLine ("Dark Megaman", "Testando o novo dialogo", "");
+		ArrayList dialogos2 = new ArrayList();
+		dialogos2.Add (dd1);
+		dialogos2.Add (dd2);
+		Acao aa1 = new  MostrarDialogos(dialogos2);
+		//Acao aa2 = new MostrarDialogos (dd2);
+		ArrayList acoesDarkMegamanEstadoUm = new ArrayList();
+		acoesDarkMegamanEstadoUm.Add (aa1);
+		//acoesDarkMegamanEstadoUm.Add (aa2);
+		acoesHashtable.Add("Dark Megaman-1", acoesDarkMegamanEstadoUm);
 	}
 	
 	public ArrayList getAcoesPersonagem(string personagem, int estado){

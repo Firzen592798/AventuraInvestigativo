@@ -62,6 +62,7 @@
      <Compile Include="Assets\Resources\scripts\acoes\Acao.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\DialogLine.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\DicionarioAcoes.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\GerenciadorEstados.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarDialogos.cs" />
      <Compile Include="Assets\Resources\scripts\items\Escudo.cs" />
      <Compile Include="Assets\Resources\scripts\items\Espada.cs" />

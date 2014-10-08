@@ -19,16 +19,17 @@ public class NPCController2 : MonoBehaviour {
 	
 	private float dirX;
 	private float dirY;
-
+	
 	bool onregion;
 	int proximaAcao = 0;
 	bool dialog_button_pressed;
 	bool up_button_pressed;
 	bool down_button_pressed;
 	bool showingtext;
-
+	
 	private DicionarioAcoes dicionario;
 	private ArrayList sequenciaAcoes;
+	private Acao acaoAtual;
 	//Estado[] statemachine;
 	int actualstate;
 	bool proximaAcaoReady = false;
@@ -39,6 +40,8 @@ public class NPCController2 : MonoBehaviour {
 		actualstate = 0;	
 		dicionario = new DicionarioAcoes ();
 		sequenciaAcoes = dicionario.getAcoesPersonagem (this.nome, 0);
+		proximaAcao = 0;
+		acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
 		// Fim codigo dialogo teste
 		ani = this.GetComponent<Animator> ();
 		if (ani != null) {
@@ -145,7 +148,7 @@ public class NPCController2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//transform.position = new Vector3(transform.position.x + velx*0.01f, transform.position.y);
-		executarAcao ();
+		//executarAcao ();
 		if (waypoints.Length > 0) {
 			move2Waypoint ();
 			if (Vector3.Distance (currentWaypoint.transform.position, transform.position) < minDistance) {
@@ -187,13 +190,21 @@ public class NPCController2 : MonoBehaviour {
 		if (showingtext == true) {
 						gm.LoadShowTxt ("");
 		}
-		if ((dialog_button_pressed == true)&&(onregion == true))
+		if(onregion == true)
 		{
-			proximaAcaoReady = true;
+			bool executou = acaoAtual.Update();
+			if(executou){
+				acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
+				proximaAcao++;
+				if(proximaAcao == sequenciaAcoes.Count){
+					proximaAcao = 0;
+				}
+			}
+			//proximaAcaoReady = true;
 		}
 	}
 
-	public void executarAcao(){
+	/*public void executarAcao(){
 		if(proximaAcaoReady){
 			gm.lockplayer();
 			Acao a = (Acao)sequenciaAcoes [proximaAcao];
@@ -206,7 +217,7 @@ public class NPCController2 : MonoBehaviour {
 			proximaAcaoReady = false;
 			dialog_button_pressed = false;
 		}
-	}		
+	}*/		
 		void OnLevelWasLoaded(int thisLevel) {
 		Vector3 pos = transform.position;
 		pos.z = pos.y + GetComponent<BoxCollider2D>().center.y;

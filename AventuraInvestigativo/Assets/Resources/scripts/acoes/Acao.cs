@@ -5,6 +5,7 @@ public abstract class Acao{
 	public string nome;
 	private bool teclaPressionada = false;
 	public abstract void executar ();
+	public abstract bool Update ();
 	public string getNome(){
 		return nome;
 	}
@@ -12,8 +13,9 @@ public abstract class Acao{
 		this.nome = nome;
 	}
 	public Acao(){
-
+			
 	}
+
 	public Acao(string nome){
 		this.nome = nome;
 	}

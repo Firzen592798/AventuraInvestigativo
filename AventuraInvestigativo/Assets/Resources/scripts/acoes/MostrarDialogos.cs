@@ -3,8 +3,10 @@ using System.Collections;
 public class MostrarDialogos : Acao{
 	ArrayList dialogos;
 	DialogLine dialogo;
+	int falaAtual;
 	public MostrarDialogos(ArrayList dialogLines){
 		this.dialogos = dialogLines;
+		falaAtual = 0;
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
 	}
@@ -14,7 +16,22 @@ public class MostrarDialogos : Acao{
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
 	}
-	
+
+	public override bool Update(){
+
+		if (Input.GetKeyDown (KeyCode.Z)) {
+			string texto = ((DialogLine)dialogos[falaAtual]).getTexto();
+			falaAtual++;
+			gm.LoadShowTxt(texto);
+			Debug.Log (texto);
+			if(falaAtual == dialogos.Count){
+				falaAtual = 0;
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public override void executar(){
 		gm.LoadShowTxt((dialogo).getTexto());
 		Debug.Log (dialogo.getTexto());

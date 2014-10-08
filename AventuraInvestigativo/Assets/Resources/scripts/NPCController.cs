@@ -166,9 +166,6 @@ public class NPCController : MonoBehaviour {
 		int y = x.nextState (param);
 		actualstate = y;
 	}
-
-
-
 }
 
 public class Estado
