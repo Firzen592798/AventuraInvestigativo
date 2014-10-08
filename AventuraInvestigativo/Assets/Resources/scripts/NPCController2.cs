@@ -204,7 +204,6 @@ public class NPCController2 : MonoBehaviour {
 				acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
 				executou = false;
 			}
-			//proximaAcaoReady = true;
 		}
 	}
 
