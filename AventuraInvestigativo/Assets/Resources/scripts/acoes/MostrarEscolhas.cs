@@ -71,12 +71,10 @@ public class MostrarEscolhas : Acao{
 				gm.hidechoicebox();
 				gm.hidedialogbox();
 				gm.unlockplayer();
-				//Debug.Log ("Escolheu opcao:" +choiceindex);
 
 				int novoEstado =((Escolha)escolhas[choiceindex]).getNovoEstado();
 
 				gm.changeState(dialogLine.getPersonagem(), novoEstado);
-				//gerEstados.alterarEstado(dialogLine.getPersonagem(), novoEstado);
 				choiceindex = 0;
 				dialog_button_pressed = false;
 				mostrouNaTela = false;
