@@ -11,8 +11,8 @@ public class MusicManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		asources = GetComponents<AudioSource>();
-		asources[0].clip = musics [0];
-		asources[0].Play ();
+		//asources[0].clip = musics [0];
+		//asources[0].Play ();
 	}
 	
 	// Update is called once per frame
