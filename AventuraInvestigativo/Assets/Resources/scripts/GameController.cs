@@ -328,7 +328,9 @@ public class GameController : MonoBehaviour {
 				if (selectedItem != null)
 				{
 					GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),selectedItem.getNome(),"TextBackground");
-					GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),selectedItem.getSprite().texture,"Menubackground");
+					GUIStyle bigimg = new GUIStyle();
+					bigimg.normal.background = selectedItem.getSprite().texture;
+					GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),"",bigimg);
 				} else
 				{
 					GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),"","TextBackground");
@@ -390,7 +392,10 @@ public class GameController : MonoBehaviour {
 						float posY = j*slot_height;
 						if (item_grid[j,i,page] != null)
 						{
-							itemshow[j,i] = GUI.Button (new Rect(posX,posY,slot_width,slot_height),item_grid[j,i,page].getSprite().texture,"SlotBackground");
+							GUIStyle litimg = new GUIStyle();
+							litimg.normal.background = item_grid[j,i,page].getSprite().texture;
+							itemshow[j,i] = GUI.Button (new Rect(posX,posY,slot_width,slot_height),"","SlotBackground");
+							GUI.Box (new Rect(posX,posY,slot_width,slot_height),"",litimg);
 							if (itemshow[j,i])
 							{
 								selectedItem = item_grid[j,i,page];
