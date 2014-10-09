@@ -103,6 +103,9 @@ public class GameController : MonoBehaviour {
 	static float facearea_width = dialogbox_width / 5;
 	static float facearea_height = facearea_width;
 
+	static float startbtn_width = Screen.width/3;
+	static float startbtn_height = startbtn_width / 6;
+
 	// Use this for initialization
 	void Start () {
 		showMenu = false;
@@ -118,7 +121,7 @@ public class GameController : MonoBehaviour {
 		}
 		gerEstados = GerenciadorEstados.getInstance();
                 
-                //testes do victor
+        //testes do victor
 		on_mainmenu = true;
 		menu_button_press = false;
 		show_menu_GUI = false;
@@ -129,7 +132,7 @@ public class GameController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-                //testes do victor
+      	//testes do victor
 			//Inputs
                 if (Input.GetKeyDown (KeyCode.C)) 
 		{
@@ -165,74 +168,19 @@ public class GameController : MonoBehaviour {
 			persona.set_spot(SpawnPoint);
 			DontDestroyOnLoad(player);
 		}
-                on_mainmenu = false;
+        on_mainmenu = false;
 		DontDestroyOnLoad(this.gameObject);
 		Application.LoadLevel(NextScene);
 	}
 
-	void OnGUI(){
-            /*
-		if (showMenu == true) {
-			GUI.BeginGroup (new Rect(Screen.width/2 - 50, Screen.height/2 - 50, 100, 90), "", ItemStyle);
-			GUI.Box(new Rect(0, 0, 100, 90), "Menu");            
-			if(GUI.Button (new Rect(10, 30, 80, 20), "Items")){
-				ShowItems();
-			}
-			if(GUI.Button(new Rect(10, 60, 80, 20), "Resume")){
-				Debug.Log ("Apertou resume");
-				ResumeGame();
-			}
-			
-			GUI.EndGroup();
-		}
-		
-		if (showItems == true) {
-			Item[] itemsPegos = inventorio.getItems(); 
-			int itemCount = inventorio.count ();
-			int dimensionHeight = Screen.height / 20;
-			int dimensionWidth = Screen.width / 20;
-			GUI.BeginGroup (new Rect(3*Screen.width/5, 0, 2 * Screen.width/5, Screen.height), "", ItemStyle);
-			if(selectedItem != null){
-				GUI.Box(new Rect(5, dimensionHeight, 8 * dimensionWidth, dimensionWidth), selectedItem.getNome(), TextStyle);      
-				GUI.Box(new Rect(3 * dimensionWidth, 2 * dimensionHeight + 10, 3 * dimensionHeight, 3 * dimensionHeight), selectedItem.getSprite().texture, ItemStyle);
-				GUI.TextArea(new Rect(5, 4 * dimensionHeight + 10, 4 * dimensionWidth, 3 * Screen.height / 20), selectedItem.getDescricao(), TextStyle);
-			}
-			GUI.Box(new Rect(5, 3 * Screen.height/7 + 10, 2 * Screen.width/5 - 5, Screen.width / 20), "Items");      
-			int i;
-			int tamButtom = 2 * dimensionHeight;
-			for(i = 0; i < itemCount; i++){
-				Item item = itemsPegos[i];
-				int x = i % 3;
-				int y = i / 3;
-				Debug.Log ("Item "+item.getNome());
-				//GUI.DrawTexture(new Rect(60, 30 * (i + 1), 20, 20), item.getSprite().texture);
-				if(GUI.Button(new Rect(30 + ((tamButtom + 5) * x), 11 * dimensionHeight + 5 + ((tamButtom + 5) * y), tamButtom, tamButtom), item.getSprite().texture, ItemStyle)){
-					selectedItem = item;
-					ShowItemDescription();
-					//item.usar();
-				}
-			}
-			
-			if(GUI.Button (new Rect(0,  13 * dimensionHeight, dimensionHeight, dimensionHeight), "", SetaLeft)){
-				
-			}
-			if(GUI.Button (new Rect(6 * dimensionWidth + 5, 13 * dimensionHeight,  dimensionHeight, dimensionHeight), "", SetaRight)){
-				
-			}
-			
-			if(GUI.Button (new Rect(10, 18 * dimensionHeight, 100, 20), "Sair")){
-				selectedItem = null;
-				CloseItems();
-			}
-			GUI.EndGroup();
-		}*/
+	void OnGUI(){      
                 
-                //testes do victor
-                GUI.skin = game_skin;
+        //testes do victor
+        GUI.skin = game_skin;
 		if (on_mainmenu == false) 
 		{//Mostrando os componentes de GUI
 			
-			//Botao indicador de interacao
+			//Botao de inicio de jogo
 			if (show_intbutton_GUI == true) 
 			{
 				//Definir area do botao de interacao
@@ -380,7 +328,9 @@ public class GameController : MonoBehaviour {
 				if (selectedItem != null)
 				{
 					GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),selectedItem.getNome(),"TextBackground");
-					GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),selectedItem.getSprite().texture,"Menubackground");
+					GUIStyle bigimg = new GUIStyle();
+					bigimg.normal.background = selectedItem.getSprite().texture;
+					GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),"",bigimg);
 				} else
 				{
 					GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),"","TextBackground");
@@ -442,7 +392,10 @@ public class GameController : MonoBehaviour {
 						float posY = j*slot_height;
 						if (item_grid[j,i,page] != null)
 						{
-							itemshow[j,i] = GUI.Button (new Rect(posX,posY,slot_width,slot_height),item_grid[j,i,page].getSprite().texture,"SlotBackground");
+							GUIStyle litimg = new GUIStyle();
+							litimg.normal.background = item_grid[j,i,page].getSprite().texture;
+							itemshow[j,i] = GUI.Button (new Rect(posX,posY,slot_width,slot_height),"","SlotBackground");
+							GUI.Box (new Rect(posX,posY,slot_width,slot_height),"",litimg);
 							if (itemshow[j,i])
 							{
 								selectedItem = item_grid[j,i,page];
@@ -480,6 +433,22 @@ public class GameController : MonoBehaviour {
 				
 				GUI.EndGroup();
 			}
+		}else
+		{
+			//Menu principal
+			//Definir area dos botoes
+			GUI.BeginGroup(new Rect((Screen.width-startbtn_width)/2,3*Screen.height/5,startbtn_width,startbtn_height));
+			
+			//Desenhar botao de iniciar jogo
+			bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"","StartBtnBackground");
+			if (intbtn)
+			{
+				TransiteScene("Cena1", "initial_spot");
+				on_mainmenu = false;
+			}
+			
+			GUI.EndGroup();
+
 		}
 		
 	}
