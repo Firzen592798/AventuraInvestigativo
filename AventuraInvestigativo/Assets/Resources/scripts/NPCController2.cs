@@ -197,10 +197,10 @@ public class NPCController2 : MonoBehaviour {
 				dialog_button_pressed = false;
 				up_button_pressed = false;
 				down_button_pressed = false;
-				if (Input.GetKeyDown (KeyCode.Z)) {
+				if (Input.GetKeyDown (Teclas.Confirma)) {
 					dialog_button_pressed = true;
 				}
-				if (Input.GetKeyUp (KeyCode.Z)) {
+				if (Input.GetKeyUp (Teclas.Confirma)) {
 					dialog_button_pressed = false;
 				}
 				if (Input.GetKeyDown (KeyCode.DownArrow)) {
@@ -247,6 +247,37 @@ public class NPCController2 : MonoBehaviour {
 		Vector3 pos = transform.position;
 		pos.z = pos.y;
 		transform.position = pos;
+//<<<<<<< HEAD
+
+		if (Input.GetKeyDown (Teclas.Confirma)) 
+		{
+			dialog_button_pressed = true;
+		}
+		if (Input.GetKeyUp (Teclas.Confirma)) 
+		{
+			dialog_button_pressed = false;
+		}
+		if (Input.GetKeyDown (KeyCode.DownArrow)) 
+		{
+			down_button_pressed = true;
+		}
+		if (Input.GetKeyDown (KeyCode.UpArrow)) 
+		{
+			up_button_pressed = true;
+		}
+		if (Input.GetKeyUp (KeyCode.DownArrow)) 
+		{
+			down_button_pressed = false;
+		}
+		if (Input.GetKeyUp (KeyCode.UpArrow)) 
+		{
+			up_button_pressed = false;
+		}
+		if (showingtext == true) {
+				//gm.LoadShowTxt ("");
+		}
+//=======
+//>>>>>>> 929b065128a9d1910de33f8662a04e02ed582015
 	}
 
 	bool ExecuteAction(ArrayList actionList, int indexAction) {

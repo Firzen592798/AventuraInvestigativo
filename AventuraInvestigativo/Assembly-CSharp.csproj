@@ -56,7 +56,7 @@
      <Compile Include="Assets\Resources\scripts\PlayerController.cs" />
      <Compile Include="Assets\Resources\scripts\ShowText.cs" />
      <Compile Include="Assets\Resources\scripts\StaticObjectScript.cs" />
-     <Compile Include="Assets\Resources\scripts\TapeteController.cs" />
+     <Compile Include="Assets\Resources\scripts\Teclas.cs" />
      <Compile Include="Assets\Resources\scripts\TestExamine.cs" />
      <Compile Include="Assets\Resources\scripts\TextExamine2.cs" />
      <Compile Include="Assets\Resources\scripts\TextPlaceholder.cs" />
