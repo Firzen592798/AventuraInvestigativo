@@ -68,7 +68,6 @@ public class NPCController2 : MonoBehaviour {
 		Vector3 pos = transform.position;
 		pos.z = pos.y + GetComponent<BoxCollider2D>().center.y;
 		transform.position = pos;
-		
 	}
 	
 	void OnCollisionEnter2D(Collision2D c) {
@@ -192,18 +191,27 @@ public class NPCController2 : MonoBehaviour {
 		if (showingtext == true) {
 						gm.LoadShowTxt ("");
 		}
-		if(onregion == true)
-		{
-			bool executou = acaoAtual.Update();
-			if(executou){
-				proximaAcao++;
-				if(proximaAcao == sequenciaAcoes.Count){
-					proximaAcao = 0;
-					sequenciaAcoes = dicionario.getAcoesPersonagem(nome, gerEstados.getEstado(nome));
-				}
-				acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
-				executou = false;
+		if(acaoAtual.GetType() == typeof(MostrarDialogos) || acaoAtual.GetType() == typeof(MostrarEscolhas)){
+			if(onregion == true)
+			{
+				tratarAcao();
 			}
+		}else{
+			tratarAcao();
+		}
+	}
+
+	private void tratarAcao(){
+		bool executou = acaoAtual.Update();
+		if(executou){
+			proximaAcao++;
+			if(proximaAcao >= sequenciaAcoes.Count){
+				proximaAcao = 0;
+				sequenciaAcoes = dicionario.getAcoesPersonagem(nome, gerEstados.getEstado(nome));
+				//Debug.Log ("Count "+sequenciaAcoes.Count);
+			}
+			acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
+			executou = false;
 		}
 	}
 

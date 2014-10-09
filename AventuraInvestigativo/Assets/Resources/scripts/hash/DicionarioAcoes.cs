@@ -17,27 +17,30 @@ public class DicionarioAcoes {
 		Acao a1 = new  MostrarDialogos(dialogos);
 		ArrayList escolhas = new ArrayList ();
 		escolhas.Add (new Escolha ("Explodir", 1));
-		escolhas.Add (new Escolha ("Detonar", 0));
+		escolhas.Add (new Escolha ("Detonar", 2));
 		escolhas.Add (new Escolha ("Ganhar", 0));
 		Acao a2 = new MostrarEscolhas(new DialogLine("Dark Megaman", "O que voce deseja?", ""), escolhas);
-	
 		ArrayList acoesDarkMegamanEstadoZero = new ArrayList();
 		acoesDarkMegamanEstadoZero.Add (a1);
 		acoesDarkMegamanEstadoZero.Add (a2);
-
-
 		acoesHashtable.Add("Dark Megaman-0", acoesDarkMegamanEstadoZero);
+
 		DialogLine dd1 = new DialogLine ("Dark Megaman", "Mudando o estado", "");
 		DialogLine dd2 = new DialogLine ("Dark Megaman", "Testando o novo dialogo", "");
 		ArrayList dialogos2 = new ArrayList();
 		dialogos2.Add (dd1);
 		dialogos2.Add (dd2);
 		Acao aa1 = new  MostrarDialogos(dialogos2);
-		//Acao aa2 = new MostrarDialogos (dd2);
 		ArrayList acoesDarkMegamanEstadoUm = new ArrayList();
-		acoesDarkMegamanEstadoUm.Add (aa1);
-		//acoesDarkMegamanEstadoUm.Add (aa2);
+		acoesDarkMegamanEstadoUm.Add (aa1);;
 		acoesHashtable.Add("Dark Megaman-1", acoesDarkMegamanEstadoUm);
+
+		Acao a3 = new MoverPersonagem();
+		ArrayList acoesDarkMegamanEstadoDois = new ArrayList();
+		acoesDarkMegamanEstadoDois.Add (a3);
+		acoesHashtable.Add("Dark Megaman-2", acoesDarkMegamanEstadoDois);
+
+
 	}
 	
 	public ArrayList getAcoesPersonagem(string personagem, int estado){
