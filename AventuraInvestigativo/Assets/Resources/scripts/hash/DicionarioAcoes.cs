@@ -96,11 +96,11 @@ public class DicionarioAcoes {
 		//*******  Acoes OnInit do estado 2  ********
 		//**********************************************
 
-		Acao acaoMover = new MoverPersonagem();
-		ArrayList acoesDarkMegamanEstadoDois = new ArrayList();
+		//Acao acaoMover = new MoverPersonagem();
+		//ArrayList acoesDarkMegamanEstadoDois = new ArrayList();
 		//acoesDarkMegamanEstadoDois.Add (acaoMover);
-		DarkMegamanState2.OnInitActions.Add(acaoMover);
-		acoesHashtable.Add("Dark Megaman-2", DarkMegamanState2);
+		//DarkMegamanState2.OnInitActions.Add(acaoMover);
+		//acoesHashtable.Add("Dark Megaman-2", DarkMegamanState2);
 
 		//============================
 		//% Estado 0 de Tapete
@@ -169,10 +169,12 @@ public class DicionarioAcoes {
 }
 
 public class state {
+	public ArrayList SettingActions;
 	public ArrayList OnInitActions;
 	public ArrayList OnExamineAction;
 
 	public state () {
+		SettingActions = new ArrayList();
 		OnInitActions = new ArrayList();
 		OnExamineAction = new ArrayList();
 	}

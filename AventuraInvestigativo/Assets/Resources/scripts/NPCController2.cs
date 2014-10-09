@@ -30,6 +30,7 @@ public class NPCController2 : MonoBehaviour {
 
 	private GerenciadorEstados gerEstados;
 	private DicionarioAcoes dicionario;
+	private ArrayList SettingActions;
 	private ArrayList OnInitActions;
 	private ArrayList OnExamineActions;
 	//private Acao acaoAtual;
@@ -76,11 +77,16 @@ public class NPCController2 : MonoBehaviour {
 
 	void LoadState(int numState) {
 		state ActionsOfState = dicionario.getStatePersonagem(this.nome, numState);
+		SettingActions = ActionsOfState.SettingActions;
 		OnInitActions = ActionsOfState.OnInitActions;
 		OnExamineActions = ActionsOfState.OnExamineAction;
 		proximaAcaoExam = 0;
 		proximaAcaoInit = 0;
 		actualstate = numState;
+
+		for (int i = 0; i < SettingActions.Count; i++) {
+			ExecuteAction(SettingActions, i);
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D c) {
@@ -241,6 +247,7 @@ public class NPCController2 : MonoBehaviour {
 		Vector3 pos = transform.position;
 		pos.z = pos.y;
 		transform.position = pos;
+//<<<<<<< HEAD
 
 		if (Input.GetKeyDown (Teclas.Confirma)) 
 		{
@@ -269,6 +276,8 @@ public class NPCController2 : MonoBehaviour {
 		if (showingtext == true) {
 				//gm.LoadShowTxt ("");
 		}
+//=======
+//>>>>>>> 929b065128a9d1910de33f8662a04e02ed582015
 	}
 
 	bool ExecuteAction(ArrayList actionList, int indexAction) {
