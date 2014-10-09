@@ -24,11 +24,17 @@ public class DicionarioAcoes {
 		dialogos.Add (d4);
 		Acao a1 = new MostrarDialogos(dialogos);
 		ArrayList escolhas = new ArrayList ();
-		escolhas.Add (new Escolha ("Explodir", 1));
-		escolhas.Add (new Escolha ("Detonar", 0));
-		escolhas.Add (new Escolha ("Ganhar", 0));
+		escolhas.Add (new Escolha ("Mudar o estado", 1));
+		escolhas.Add (new Escolha ("Sai pra la", 2));
+		escolhas.Add (new Escolha ("Fazer nada", 0));
 		Acao a2 = new MostrarEscolhas(new DialogLine("Dark Megaman", "O que voce deseja?", ""), escolhas);
-		
+
+	//	ArrayList acoesDarkMegamanEstadoZero = new ArrayList();
+	//	acoesDarkMegamanEstadoZero.Add (a1);
+	//	acoesDarkMegamanEstadoZero.Add (a2);
+	//	acoesHashtable.Add("Dark Megaman-0", acoesDarkMegamanEstadoZero);
+
+
 		DarkMegamanState0.OnExamineAction.Add(a1);
 		DarkMegamanState0.OnExamineAction.Add(a2);
 
@@ -63,19 +69,42 @@ public class DicionarioAcoes {
 		//**********************************************
 		//*******  Acoes OnExamine do estado 1  ********
 		//**********************************************
-		DialogLine dd1 = new DialogLine ("Dark Megaman", "Mudando o estado", "");
-		DialogLine dd2 = new DialogLine ("Dark Megaman", "Testando o novo dialogo", "");
-		ArrayList dialogos2 = new ArrayList();
-		dialogos2.Add (dd1);
-		dialogos2.Add (dd2);
-		Acao aa1 = new  MostrarDialogos(dialogos2);
-		
-		DarkMegamanState1.OnExamineAction.Add(aa1);
 
-		// fim estado 1 do Dark Megaman
+		DialogLine d1e1 = new DialogLine ("Dark Megaman", "Mudando o estado", "");
+		DialogLine d2e1 = new DialogLine ("Dark Megaman", "Testando o novo dialogo", "");
+		ArrayList dialogos2 = new ArrayList();
+		dialogos2.Add (d1e1);
+		dialogos2.Add (d2e1);
+		Acao a1e1 = new  MostrarDialogos(dialogos2);
+		DarkMegamanState1.OnExamineAction.Add(a1e1);
 		acoesHashtable.Add("Dark Megaman-1", DarkMegamanState1);
 
+		// fim estado 1 do Dark Megaman
 		//####################################################################################################
+		
+		//============================
+		//% Estado 2 de Dark Megaman %
+		//============================
+		state DarkMegamanState2 = new state();
+		
+		//**********************************************
+		//*******  Acoes OnExamine do estado 2  ********
+		//**********************************************
+
+
+		//**********************************************
+		//*******  Acoes OnInit do estado 2  ********
+		//**********************************************
+
+		Acao acaoMover = new MoverPersonagem();
+		ArrayList acoesDarkMegamanEstadoDois = new ArrayList();
+		//acoesDarkMegamanEstadoDois.Add (acaoMover);
+		DarkMegamanState2.OnInitActions.Add(acaoMover);
+		acoesHashtable.Add("Dark Megaman-2", DarkMegamanState2);
+
+
+
+
 	}
 	
 	public state getStatePersonagem(string personagem, int estado){

@@ -72,7 +72,6 @@ public class NPCController2 : MonoBehaviour {
 		Vector3 pos = transform.position;
 		pos.z = pos.y;
 		transform.position = pos;
-		
 	}
 
 	void LoadState(int numState) {
@@ -230,8 +229,36 @@ public class NPCController2 : MonoBehaviour {
 		Vector3 pos = transform.position;
 		pos.z = pos.y;
 		transform.position = pos;
+
+		if (Input.GetKeyDown (KeyCode.Z)) 
+		{
+			dialog_button_pressed = true;
+		}
+		if (Input.GetKeyUp (KeyCode.Z)) 
+		{
+			dialog_button_pressed = false;
+		}
+		if (Input.GetKeyDown (KeyCode.DownArrow)) 
+		{
+			down_button_pressed = true;
+		}
+		if (Input.GetKeyDown (KeyCode.UpArrow)) 
+		{
+			up_button_pressed = true;
+		}
+		if (Input.GetKeyUp (KeyCode.DownArrow)) 
+		{
+			down_button_pressed = false;
+		}
+		if (Input.GetKeyUp (KeyCode.UpArrow)) 
+		{
+			up_button_pressed = false;
+		}
+		if (showingtext == true) {
+				//gm.LoadShowTxt ("");
+		}
 	}
-	
+
 	bool ExecuteAction(ArrayList actionList, int indexAction) {
 		if (indexAction >= actionList.Count) {
 			return false;
