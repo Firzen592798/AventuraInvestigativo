@@ -101,7 +101,7 @@ public class GameController : MonoBehaviour {
 				Item item = itemsPegos[i];
 				int x = i % 3;
 				int y = i / 3;
-				
+				Debug.Log ("Item "+item.getNome());
 				//GUI.DrawTexture(new Rect(60, 30 * (i + 1), 20, 20), item.getSprite().texture);
 				if(GUI.Button(new Rect(30 + ((tamButtom + 5) * x), 11 * dimensionHeight + 5 + ((tamButtom + 5) * y), tamButtom, tamButtom), item.getSprite().texture, ItemStyle)){
 					selectedItem = item;
@@ -162,7 +162,7 @@ public class GameController : MonoBehaviour {
 	}	
 
 	public void InstancePlayer() {
-		player = Instantiate(Resources.Load("prefab/player", typeof(GameObject))) as GameObject;
+		player = Instantiate(Resources.Load("prefab/Jane", typeof(GameObject))) as GameObject;
 	}
 
 	public void InstanceDialogBox()

@@ -16,6 +16,9 @@ public class Inventorio{
 		items.Add ("Pocao", new Pocao ("Pocao", "mapa da mansao", true, null));
 		items.Add ("Estrela", new Espada ("Estrela", "Solta magia", false, null));
 		items.Add ("Escudo", new Pocao ("Escudo", "Protege", false, null));
+
+		items.Add ("Chave", new Chave ("Chave", "Uma misteriosa chave que abre alguma porta da mansao", false, null));
+
 	}
 
 	public Item[] getItems(){

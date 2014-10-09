@@ -94,6 +94,18 @@ public class NPCController2 : MonoBehaviour {
 		gm.hideppbutton ();
 		onregion = false;
 	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		moveSpeed = 0f;
+		gm.showppbutton ();
+		onregion = true;
+	}
+	
+	void OnTriggerExit2D(Collider2D other) {
+		moveSpeed = moveSpeed2;
+		gm.hideppbutton ();
+		onregion = false;
+	}
 	
 	void move2Waypoint() {
 		

@@ -6,6 +6,6 @@ public class Espada : Item{
 
 	}
 	public override void usar(){
-		Debug.Log ("Usando espada");
+
 	}
 }
