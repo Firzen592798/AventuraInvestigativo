@@ -102,15 +102,70 @@ public class DicionarioAcoes {
 		//DarkMegamanState2.OnInitActions.Add(acaoMover);
 		//acoesHashtable.Add("Dark Megaman-2", DarkMegamanState2);
 
+		//============================
+		//% Estado 0 de Tapete
+		//============================
+		state TapeteState0 = new state();
+		
+		//**********************************************
+		//*******  Acoes OnExamine do estado 0 do tapete
+		//**********************************************
+		
+		DialogLine tapete1 = new DialogLine ("Tapete", "Voce achou uma chave secreta", "");
+		DialogLine tapete2 = new DialogLine ("Dark Megaman", "A chave foi adicionada no seu inventorio", "");
+		ArrayList dialogosTapete = new ArrayList();
+		dialogosTapete.Add (tapete1);
+		dialogosTapete.Add (tapete2);
+		Acao mostrarDialogoTapete = new  MostrarDialogos(dialogosTapete);
+		TapeteState0.OnExamineAction.Add(mostrarDialogoTapete);
+		TapeteState0.OnExamineAction.Add(new AdicionarItem("Chave", "sprites/chave", false));
+		TapeteState0.OnExamineAction.Add(new MudarEstado("Tapete", 1));
+		acoesHashtable.Add("Tapete-0", TapeteState0);
 
+		//============================
+		//% Estado 1 do Tapete
+		//============================
 
+		state TapeteState1 = new state();
+
+		//**********************************************
+		//*******  Acoes OnExamine do estado 1 do tapete
+		//**********************************************
+		
+		DialogLine tapetevazio = new DialogLine ("Tapete", "Nao ha nada aqui", "");
+		ArrayList dialogosTapeteVazio = new ArrayList();
+		dialogosTapeteVazio.Add (tapetevazio);
+
+		Acao mostrarDialogoTapeteVazio = new  MostrarDialogos(dialogosTapeteVazio);
+		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
+		acoesHashtable.Add("Tapete-1", TapeteState1);
+	
+		
+		//============================
+		//% Estado 0 do Papel
+		//============================
+		
+		state PapelState0 = new state();
+		
+		//**********************************************
+		//*******  Acoes OnExamine do estado 0 do papel
+		//**********************************************
+		
+		DialogLine papelDialog = new DialogLine ("Papel", "Voce achou um papel!", "");
+		ArrayList dialogosPapel = new ArrayList();
+		dialogosPapel.Add (papelDialog);
+		Acao mostrarDialogoPapel = new  MostrarDialogos(dialogosPapel);
+		PapelState0.OnExamineAction.Add(mostrarDialogoPapel);
+		PapelState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/papel", true));
+		acoesHashtable.Add("Papel-0", PapelState0);
+		//TapeteState0.OnExamineAction.Add(new MudarEstado("Tapete", 1));
+		//acoesHashtable.Add("Tapete-0", TapeteState0);
 
 	}
 	
 	public state getStatePersonagem(string personagem, int estado){
 		return (state)acoesHashtable[personagem + "-" + estado];
 	}
-	
 }
 
 public class state {

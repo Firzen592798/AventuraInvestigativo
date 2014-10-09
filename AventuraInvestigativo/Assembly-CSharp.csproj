@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -56,20 +56,26 @@
      <Compile Include="Assets\Resources\scripts\PlayerController.cs" />
      <Compile Include="Assets\Resources\scripts\ShowText.cs" />
      <Compile Include="Assets\Resources\scripts\StaticObjectScript.cs" />
+     <Compile Include="Assets\Resources\scripts\TapeteController.cs" />
      <Compile Include="Assets\Resources\scripts\TestExamine.cs" />
      <Compile Include="Assets\Resources\scripts\TextExamine2.cs" />
      <Compile Include="Assets\Resources\scripts\TextPlaceholder.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\Acao.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\AdicionarItem.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\FinalizarAcao.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarDialogos.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarEscolhas.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MoverPersonagem.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\MudarEstado.cs" />
      <Compile Include="Assets\Resources\scripts\hash\DicionarioAcoes.cs" />
      <Compile Include="Assets\Resources\scripts\hash\GerenciadorEstados.cs" />
+     <Compile Include="Assets\Resources\scripts\items\Chave.cs" />
      <Compile Include="Assets\Resources\scripts\items\Escudo.cs" />
      <Compile Include="Assets\Resources\scripts\items\Espada.cs" />
      <Compile Include="Assets\Resources\scripts\items\Estrela.cs" />
      <Compile Include="Assets\Resources\scripts\items\Inventorio.cs" />
      <Compile Include="Assets\Resources\scripts\items\Item.cs" />
+     <Compile Include="Assets\Resources\scripts\items\Papel.cs" />
      <Compile Include="Assets\Resources\scripts\items\PickUpItem.cs" />
      <Compile Include="Assets\Resources\scripts\items\Pocao.cs" />
      <Compile Include="Assets\Resources\scripts\model\DialogLine.cs" />
