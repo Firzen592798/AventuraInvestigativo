@@ -4,6 +4,7 @@ public abstract class Acao{
 	protected GameObject g;
 	public string nome;
 	private bool teclaPressionada = false;
+
 	public abstract bool Update ();
 	public string getNome(){
 		return nome;
@@ -12,7 +13,7 @@ public abstract class Acao{
 		this.nome = nome;
 	}
 	public Acao(){
-			
+
 	}
 
 	public Acao(string nome){

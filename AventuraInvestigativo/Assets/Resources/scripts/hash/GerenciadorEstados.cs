@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 public class GerenciadorEstados {
+
 	private static GerenciadorEstados instance;
 	Hashtable hash;
 	public static GerenciadorEstados getInstance(){
@@ -9,17 +10,19 @@ public class GerenciadorEstados {
 		}
 		return instance;
 	}
-	string[][] estadosPersonagens;
-	private GerenciadorEstados(){
+
+	private GerenciadorEstados() {
 		hash = new Hashtable();
 		hash.Add ("Dark Megaman", 0);
 	}
 
 	public void alterarEstado(string personagem, int novoEstado){
-		hash [personagem] = novoEstado;
+		if (hash.ContainsKey(personagem)) {
+			hash[personagem] = novoEstado;
+		}
 	}
 
-	public int getEstado(string personagem){
+	public int getEstado(string personagem) {
 		return (int)hash[personagem];
 	}
 }

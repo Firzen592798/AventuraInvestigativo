@@ -21,7 +21,8 @@ public class NPCController2 : MonoBehaviour {
 	private float dirY;
 	
 	bool onregion;
-	int proximaAcao = 0;
+	int proximaAcaoInit = 0;
+	int proximaAcaoExam = 0;
 	bool dialog_button_pressed;
 	bool up_button_pressed;
 	bool down_button_pressed;
@@ -29,21 +30,24 @@ public class NPCController2 : MonoBehaviour {
 
 	private GerenciadorEstados gerEstados;
 	private DicionarioAcoes dicionario;
-	private ArrayList sequenciaAcoes;
-	private Acao acaoAtual;
+	private ArrayList OnInitActions;
+	private ArrayList OnExamineActions;
+	//private Acao acaoAtual;
+
 	//Estado[] statemachine;
 	int actualstate;
 	bool proximaAcaoReady = false;
+
 	// Use this for initialization
 	void Start () { 
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
-		gerEstados =  GerenciadorEstados.getInstance();
-		actualstate = gerEstados.getEstado (nome);
+		//actualstate = gerEstados.getEstado (nome);
+		actualstate = gm.getState(this.nome);
 		dicionario = new DicionarioAcoes ();
-		sequenciaAcoes = dicionario.getAcoesPersonagem (this.nome, actualstate);
-		proximaAcao = 0;
-		acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
+		LoadState(actualstate);
+		//sequenciaAcoes = dicionario.getAcoesPersonagem (this.nome, actualstate);
+		//acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
 		// Fim codigo dialogo teste
 		ani = this.GetComponent<Animator> ();
 		if (ani != null) {
@@ -66,11 +70,20 @@ public class NPCController2 : MonoBehaviour {
 		currentIndex = 0;
 		
 		Vector3 pos = transform.position;
-		pos.z = pos.y + GetComponent<BoxCollider2D>().center.y;
+		pos.z = pos.y;
 		transform.position = pos;
 		
 	}
-	
+
+	void LoadState(int numState) {
+		state ActionsOfState = dicionario.getStatePersonagem(this.nome, numState);
+		OnInitActions = ActionsOfState.OnInitActions;
+		OnExamineActions = ActionsOfState.OnExamineAction;
+		proximaAcaoExam = 0;
+		proximaAcaoInit = 0;
+		actualstate = numState;
+	}
+
 	void OnCollisionEnter2D(Collision2D c) {
 		moveSpeed = 0f;
 		gm.showppbutton ();
@@ -151,6 +164,59 @@ public class NPCController2 : MonoBehaviour {
 	void Update () {
 		//transform.position = new Vector3(transform.position.x + velx*0.01f, transform.position.y);
 		//executarAcao ();
+
+		int test_state = gm.getState(this.nome);
+		if (actualstate != test_state) {
+			Debug.Log("mudou para o estado: "+test_state);
+			LoadState(test_state);
+		}
+		else {
+			if (proximaAcaoInit < OnInitActions.Count) {
+				if (ExecuteAction(OnInitActions, proximaAcaoInit)) {
+					proximaAcaoInit++;
+				}
+			}
+			else {
+				dialog_button_pressed = false;
+				up_button_pressed = false;
+				down_button_pressed = false;
+				if (Input.GetKeyDown (KeyCode.Z)) {
+					dialog_button_pressed = true;
+				}
+				if (Input.GetKeyUp (KeyCode.Z)) {
+					dialog_button_pressed = false;
+				}
+				if (Input.GetKeyDown (KeyCode.DownArrow)) {
+					down_button_pressed = true;
+				}
+				if (Input.GetKeyDown (KeyCode.UpArrow)) {
+					up_button_pressed = true;
+				}
+				if (Input.GetKeyUp (KeyCode.DownArrow)) {
+					down_button_pressed = false;
+				}
+				if (Input.GetKeyUp (KeyCode.UpArrow)) {
+					up_button_pressed = false;
+				}
+				if (!showingtext) {
+					if (onregion && dialog_button_pressed) {
+						showingtext = true;
+					}
+				}
+				else {
+					if (ExecuteAction(OnExamineActions, proximaAcaoExam)) {
+						proximaAcaoExam++;
+					}
+					if (proximaAcaoExam >= OnExamineActions.Count) {
+						showingtext = false;
+						proximaAcaoExam = 0;
+					}
+				}
+			}
+		}
+	}
+	
+	void FixedUpdate() {
 		if (waypoints.Length > 0) {
 			move2Waypoint ();
 			if (Vector3.Distance (currentWaypoint.transform.position, transform.position) < minDistance) {
@@ -162,73 +228,25 @@ public class NPCController2 : MonoBehaviour {
 			}
 		}
 		Vector3 pos = transform.position;
-		pos.z = pos.y + GetComponent<BoxCollider2D>().center.y;
-		transform.position = pos;
-
-		if (Input.GetKeyDown (KeyCode.Z)) 
-		{
-			dialog_button_pressed = true;
-		}
-		if (Input.GetKeyUp (KeyCode.Z)) 
-		{
-			dialog_button_pressed = false;
-		}
-		if (Input.GetKeyDown (KeyCode.DownArrow)) 
-		{
-			down_button_pressed = true;
-		}
-		if (Input.GetKeyDown (KeyCode.UpArrow)) 
-		{
-			up_button_pressed = true;
-		}
-		if (Input.GetKeyUp (KeyCode.DownArrow)) 
-		{
-			down_button_pressed = false;
-		}
-		if (Input.GetKeyUp (KeyCode.UpArrow)) 
-		{
-			up_button_pressed = false;
-		}
-		if (showingtext == true) {
-						gm.LoadShowTxt ("");
-		}
-		if(onregion == true)
-		{
-			bool executou = acaoAtual.Update();
-			if(executou){
-				proximaAcao++;
-				if(proximaAcao == sequenciaAcoes.Count){
-					proximaAcao = 0;
-					sequenciaAcoes = dicionario.getAcoesPersonagem(nome, gerEstados.getEstado(nome));
-				}
-				acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
-				executou = false;
-			}
-		}
-	}
-
-	/*public void executarAcao(){
-		if(proximaAcaoReady){
-			gm.lockplayer();
-			Acao a = (Acao)sequenciaAcoes [proximaAcao];
-			a.executar ();
-			proximaAcao++;
-			if (proximaAcao == sequenciaAcoes.Count){
-				proximaAcao = 0;
-				gm.unlockplayer();
-			}
-			proximaAcaoReady = false;
-			dialog_button_pressed = false;
-		}
-	}*/		
-		void OnLevelWasLoaded(int thisLevel) {
-		Vector3 pos = transform.position;
-		pos.z = pos.y + GetComponent<BoxCollider2D>().center.y;
+		pos.z = pos.y;
 		transform.position = pos;
 	}
 	
-	public int getState()
-	{
+	bool ExecuteAction(ArrayList actionList, int indexAction) {
+		if (indexAction >= actionList.Count) {
+			return false;
+		}
+		Acao acaoAtual = (Acao) actionList[indexAction];
+		return acaoAtual.Update();
+	}
+			
+	void OnLevelWasLoaded(int thisLevel) {
+		Vector3 pos = transform.position;
+		pos.z = pos.y;
+		transform.position = pos;
+	}
+	
+	public int getState() {
 		return actualstate;
 	}
 }

@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 		float vely = 0f;
 		bool hor = false;
 		bool ver = false;
-		if (playlock == false)
+		if (!playlock)
 		{
 			if (Input.GetKey(KeyCode.RightArrow)) {
 				velx = 1f;
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 		rigidbody2D.velocity = new Vector2 ( velx*maxspeedX, vely*maxspeedY );
 
 		Vector3 pos = transform.position;
-		pos.z = pos.y + GetComponent<BoxCollider2D>().center.y;
+		pos.z = pos.y;
 		transform.position = pos;
 	}
 
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour {
 		Vector2 ColliderCenter = GetComponent<BoxCollider2D>().center;
 		Vector3 pos = transform.position;
 		pos = GameObject.Find(actual_spawn).transform.position;
-		pos.z = pos.y + ColliderCenter.y;
+		pos.z = pos.y;
 		transform.position = pos;
 	}
 

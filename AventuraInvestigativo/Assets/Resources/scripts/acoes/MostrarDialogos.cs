@@ -18,10 +18,17 @@ public class MostrarDialogos : Acao{
 	}
 
 	public override bool Update(){
-		if (Input.GetKeyDown (KeyCode.Z)) {
-			gm.lockplayer();
+		gm.lockplayer();
+		if (falaAtual == 0) {
+			string texto = ((DialogLine)dialogos[falaAtual]).getTexto();
+			gm.showdialogbox();
+			gm.LoadShowTxt(texto);
+			falaAtual++;
+		}
+		else if (Input.GetKeyDown (KeyCode.Z)) {
+			//gm.lockplayer();
 			if(falaAtual == dialogos.Count){
-				Debug.Log("Terminou");
+				//Debug.Log("Terminou");
 				falaAtual = 0;
 				gm.hidedialogbox();
 				gm.unlockplayer();
@@ -30,7 +37,7 @@ public class MostrarDialogos : Acao{
 			string texto = ((DialogLine)dialogos[falaAtual]).getTexto();
 			gm.showdialogbox();
 			gm.LoadShowTxt(texto);
-			Debug.Log (texto);
+			//Debug.Log (texto);
 
 			falaAtual++;
 		}
