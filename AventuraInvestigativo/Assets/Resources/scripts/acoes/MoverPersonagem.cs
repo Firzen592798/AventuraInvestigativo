@@ -3,9 +3,16 @@ using System.Collections;
 public class MoverPersonagem : Acao{
 	private NPCController2 npcController;
 	private GameObject go;
-	public MoverPersonagem(){
+	private string npc;
+	private Vector3 position;
+	private bool wait;
+	
+	public MoverPersonagem(string personagem, Vector3 point, bool waitToGoPlace){
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
+		npc = personagem;
+		point = position;
+		wait = waitToGoPlace;
 	}
 
 	public override bool Update(){

@@ -30,6 +30,7 @@ public class NPCController2 : MonoBehaviour {
 
 	private GerenciadorEstados gerEstados;
 	private DicionarioAcoes dicionario;
+	private ArrayList SettingActions;
 	private ArrayList OnInitActions;
 	private ArrayList OnExamineActions;
 	//private Acao acaoAtual;
@@ -76,11 +77,16 @@ public class NPCController2 : MonoBehaviour {
 
 	void LoadState(int numState) {
 		state ActionsOfState = dicionario.getStatePersonagem(this.nome, numState);
+		SettingActions = ActionsOfState.SettingActions;
 		OnInitActions = ActionsOfState.OnInitActions;
 		OnExamineActions = ActionsOfState.OnExamineAction;
 		proximaAcaoExam = 0;
 		proximaAcaoInit = 0;
 		actualstate = numState;
+
+		for (int i = 0; i < SettingActions.Count; i++) {
+			ExecuteAction(SettingActions, i);
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D c) {
@@ -229,34 +235,6 @@ public class NPCController2 : MonoBehaviour {
 		Vector3 pos = transform.position;
 		pos.z = pos.y;
 		transform.position = pos;
-
-		if (Input.GetKeyDown (KeyCode.Z)) 
-		{
-			dialog_button_pressed = true;
-		}
-		if (Input.GetKeyUp (KeyCode.Z)) 
-		{
-			dialog_button_pressed = false;
-		}
-		if (Input.GetKeyDown (KeyCode.DownArrow)) 
-		{
-			down_button_pressed = true;
-		}
-		if (Input.GetKeyDown (KeyCode.UpArrow)) 
-		{
-			up_button_pressed = true;
-		}
-		if (Input.GetKeyUp (KeyCode.DownArrow)) 
-		{
-			down_button_pressed = false;
-		}
-		if (Input.GetKeyUp (KeyCode.UpArrow)) 
-		{
-			up_button_pressed = false;
-		}
-		if (showingtext == true) {
-				//gm.LoadShowTxt ("");
-		}
 	}
 
 	bool ExecuteAction(ArrayList actionList, int indexAction) {
