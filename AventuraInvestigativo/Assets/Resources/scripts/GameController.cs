@@ -162,7 +162,7 @@ public class GameController : MonoBehaviour {
 	}	
 
 	public void InstancePlayer() {
-		player = Instantiate(Resources.Load("prefab/player", typeof(GameObject))) as GameObject;
+		player = Instantiate(Resources.Load("prefab/Jane", typeof(GameObject))) as GameObject;
 	}
 
 	public void InstanceDialogBox()
