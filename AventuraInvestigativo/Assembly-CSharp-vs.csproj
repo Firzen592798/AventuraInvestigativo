@@ -75,6 +75,7 @@
      <Compile Include="Assets\Resources\scripts\items\Estrela.cs" />
      <Compile Include="Assets\Resources\scripts\items\Inventorio.cs" />
      <Compile Include="Assets\Resources\scripts\items\Item.cs" />
+     <Compile Include="Assets\Resources\scripts\items\Papel.cs" />
      <Compile Include="Assets\Resources\scripts\items\PickUpItem.cs" />
      <Compile Include="Assets\Resources\scripts\items\Pocao.cs" />
      <Compile Include="Assets\Resources\scripts\model\DialogLine.cs" />

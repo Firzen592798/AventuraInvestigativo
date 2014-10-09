@@ -118,7 +118,7 @@ public class DicionarioAcoes {
 		dialogosTapete.Add (tapete2);
 		Acao mostrarDialogoTapete = new  MostrarDialogos(dialogosTapete);
 		TapeteState0.OnExamineAction.Add(mostrarDialogoTapete);
-		TapeteState0.OnExamineAction.Add(new AdicionarItem("Chave", "sprites/chave"));
+		TapeteState0.OnExamineAction.Add(new AdicionarItem("Chave", "sprites/chave", false));
 		TapeteState0.OnExamineAction.Add(new MudarEstado("Tapete", 1));
 		acoesHashtable.Add("Tapete-0", TapeteState0);
 
@@ -139,6 +139,28 @@ public class DicionarioAcoes {
 		Acao mostrarDialogoTapeteVazio = new  MostrarDialogos(dialogosTapeteVazio);
 		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
 		acoesHashtable.Add("Tapete-1", TapeteState1);
+	
+		
+		//============================
+		//% Estado 0 do Papel
+		//============================
+		
+		state PapelState0 = new state();
+		
+		//**********************************************
+		//*******  Acoes OnExamine do estado 0 do papel
+		//**********************************************
+		
+		DialogLine papelDialog = new DialogLine ("Papel", "Voce achou um papel!", "");
+		ArrayList dialogosPapel = new ArrayList();
+		dialogosPapel.Add (papelDialog);
+		Acao mostrarDialogoPapel = new  MostrarDialogos(dialogosPapel);
+		PapelState0.OnExamineAction.Add(mostrarDialogoPapel);
+		PapelState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/papel", true));
+		acoesHashtable.Add("Papel-0", PapelState0);
+		//TapeteState0.OnExamineAction.Add(new MudarEstado("Tapete", 1));
+		//acoesHashtable.Add("Tapete-0", TapeteState0);
+
 	}
 	
 	public state getStatePersonagem(string personagem, int estado){

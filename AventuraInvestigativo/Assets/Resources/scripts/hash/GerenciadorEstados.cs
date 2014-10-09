@@ -15,6 +15,7 @@ public class GerenciadorEstados {
 		hash = new Hashtable();
 		hash.Add ("Dark Megaman", 0);
 		hash.Add ("Tapete", 0);
+		hash.Add ("Papel", 0);
 	}
 
 	public void alterarEstado(string personagem, int novoEstado){
