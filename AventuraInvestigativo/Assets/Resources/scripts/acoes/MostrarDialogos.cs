@@ -25,7 +25,7 @@ public class MostrarDialogos : Acao{
 			gm.LoadShowTxt(texto);
 			falaAtual++;
 		}
-		else if (Input.GetKeyDown (KeyCode.Z)) {
+		else if (Input.GetKeyDown (Teclas.Confirma)) {
 			//gm.lockplayer();
 			if(falaAtual == dialogos.Count){
 				//Debug.Log("Terminou");

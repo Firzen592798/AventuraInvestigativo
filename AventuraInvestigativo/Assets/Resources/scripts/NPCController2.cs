@@ -191,10 +191,10 @@ public class NPCController2 : MonoBehaviour {
 				dialog_button_pressed = false;
 				up_button_pressed = false;
 				down_button_pressed = false;
-				if (Input.GetKeyDown (KeyCode.Z)) {
+				if (Input.GetKeyDown (Teclas.Confirma)) {
 					dialog_button_pressed = true;
 				}
-				if (Input.GetKeyUp (KeyCode.Z)) {
+				if (Input.GetKeyUp (Teclas.Confirma)) {
 					dialog_button_pressed = false;
 				}
 				if (Input.GetKeyDown (KeyCode.DownArrow)) {
@@ -242,11 +242,11 @@ public class NPCController2 : MonoBehaviour {
 		pos.z = pos.y;
 		transform.position = pos;
 
-		if (Input.GetKeyDown (KeyCode.Z)) 
+		if (Input.GetKeyDown (Teclas.Confirma)) 
 		{
 			dialog_button_pressed = true;
 		}
-		if (Input.GetKeyUp (KeyCode.Z)) 
+		if (Input.GetKeyUp (Teclas.Confirma)) 
 		{
 			dialog_button_pressed = false;
 		}

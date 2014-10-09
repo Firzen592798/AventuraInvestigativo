@@ -64,11 +64,11 @@ public class TestExamine2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		if (Input.GetKeyDown (KeyCode.Z)) 
+		if (Input.GetKeyDown (Teclas.Confirma)) 
 		{
 			dialog_button_pressed = true;
 		}
-		if (Input.GetKeyUp (KeyCode.Z)) 
+		if (Input.GetKeyUp (Teclas.Confirma)) 
 		{
 			dialog_button_pressed = false;
 		}
