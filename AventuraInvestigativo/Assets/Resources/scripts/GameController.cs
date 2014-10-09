@@ -29,6 +29,8 @@ public class GameController : MonoBehaviour {
 	private Item selectedItem;
 	private Inventorio inventorio;
 
+	private GerenciadorEstados gerEstados;
+
 	// Use this for initialization
 	void Start () {
 		showMenu = false;
@@ -42,6 +44,7 @@ public class GameController : MonoBehaviour {
 		{
 			eventlist[i] = false;
 		}
+		gerEstados = GerenciadorEstados.getInstance();
 	}
 
 	// Update is called once per frame
@@ -140,6 +143,14 @@ public class GameController : MonoBehaviour {
 	void ResumeGame(){
 		showMenu = false;
 		Time.timeScale = 1.0f;
+	}
+
+	public int getState(string personagem) {
+		return gerEstados.getEstado(personagem);
+	}
+
+	public void changeState(string personagem, int state) {
+		gerEstados.alterarEstado(personagem, state);
 	}
 
 	public void PegarItem(string item, Sprite sprite){

@@ -16,7 +16,7 @@ public class MoverPersonagem : Acao{
 		Vector3 pos = npcController.transform.position;
 		pos.x = pos.x + 1;
 		npcController.transform.position = pos;
-		GerenciadorEstados.getInstance ().alterarEstado ("Dark Megaman", 0);
+		GerenciadorEstados.getInstance ().alterarEstado ("Dark Megaman", 1);
 		return true;
 	}
 	
