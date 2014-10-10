@@ -35,20 +35,21 @@ public class GameController : MonoBehaviour {
 	string dialog_text;//variavel que guarda o texto a ser exibido no dialogo
 	string[] choices_text;//variavel que guarda os textos das escolhas
 	Sprite[] face_images;//variavel que guarda as imagens sendo exibidas (0 = face esquerda, 1 = face direita, 2 = imagem de item ao centro)
+	string[] face_names;//variavel que guarda o nome das imagens sendo exibidas
 
 	public GUISkin game_skin;//GUISkin com todos os estilos de gui
 
-	//variaveis que guardam tamanhos dos componentes dos menus *Mudar o static*
+	//variaveis que guardam tamanhos dos componentes dos menus 
 		//variaveis gerais (tamanho da janela de menu e da area dos botoes dos outros menus)
 		// - A janela de menu cobre 1/3 da tela alinhado a direita
 		// - A area dos botoes cobre apenas 10% da area do menu
-	static float menu_width = Screen.width / 3;
-	static float menu_height = Screen.height;
-	static float btnarea_width = menu_width;
-	static float btnarea_height = menu_height / 10;
-	static float lbutton_width = btnarea_width / 2;
-	static float lbutton_height = btnarea_height /2;
-	static float lbutton_fontsize = lbutton_height / 2f;
+	float menu_width;
+	float menu_height;
+	float btnarea_width;
+	float btnarea_height;
+	float lbutton_width;
+	float lbutton_height;
+	float lbutton_fontsize;
 		//variaveis do menu de itens (interface do inventorio)
 		// - Area superior onde fica a imagem e nome do item cobre 40% da area do menu
 		// 	-> Area da imagem fica em 80% da area superior, area do nome nos 20% restantes
@@ -56,40 +57,43 @@ public class GameController : MonoBehaviour {
 		// - Area inferior onde fica a lista de itens cobre 30% da area do menu
 		//  -> O grid da area inferior exibe em formato de matriz 4x4, total de 16 itens
 		//  -> As areas laterais do grid comportam as setas de mudanca de pagina
-	static float uparea_width = menu_width;
-	static float uparea_height = 4*menu_height/10;
-	static float upimg_height = 8 * uparea_height / 10;
-	static float upimg_width = upimg_height;
-	static float midarea_width = menu_width;
-	static float midarea_height = 2 * menu_height / 10;
-	static float lowarea_width = menu_width;
-	static float lowarea_height = 3 * menu_height / 10;
-	static float grid_height = 9 * lowarea_height / 10;
-	static float grid_width = grid_height;
-	static float slot_width = grid_width / 4;
-	static float slot_height = grid_height / 4;
+	float uparea_width;
+	float uparea_height;
+	float upimg_height;
+	float upimg_width;
+	float midarea_width;
+	float midarea_height;
+	float lowarea_width;
+	float lowarea_height;
+	float grid_height;
+	float grid_width;
+	float slot_width;
+	float slot_height;
 		//variaveis da caixa de dialogo
 		// - Area da caixa de dialogo cobre 1/5 da tela, alinhado para baixo
 		// - Area da caixa de texto cobre 80% da altura e 85% da largura da caixa de dialogo, centralizada
-	static float dialogbox_width = Screen.width;
-	static float dialogbox_height = Screen.height / 4;
-	static float textarea_width = 9f * dialogbox_width / 10;
-	static float textarea_height = 7f * dialogbox_height / 10;
-	static float dialog_fontsize = textarea_height*0.25f;
+	float dialogbox_width;
+	float dialogbox_height;
+	float textarea_width;
+	float textarea_height;
+	float dialog_fontsize;
 		//variaveis do botao de interacao
-	static float intbutton_width = Screen.width / 4;
-	static float intbutton_height = intbutton_width / 3;
+	float intbutton_width;
+	float intbutton_height;
 		//variaveis da caixa de escolhas
-	static float choicebox_width = 3*Screen.width / 5;
-	static float choicebox_height = choicebox_width / 5;
-	static float choicetext_width = 9 * choicebox_width / 10;
-	static float choicetext_height = 9 * choicebox_height/10;
+	float choicebox_width;
+	float choicebox_height;
+	float choicetext_width;
+	float choicetext_height;
 		//variaveis da caixa da face dos personagens
-	static float facearea_width = dialogbox_width / 3;
-	static float facearea_height = facearea_width;
-
-	static float startbtn_width = Screen.width/3;
-	static float startbtn_height = startbtn_width / 6;
+	float facearea_width;
+	float facearea_height;
+	float faceplate_width;
+	float faceplate_height;
+	float faceplate_fontsize;
+		//variaveis dos botoes do menu principal
+	float startbtn_width;
+	float startbtn_height;
 
 	// Use this for initialization
 	void Start () {
@@ -114,6 +118,7 @@ public class GameController : MonoBehaviour {
 		item_grid = new Item[4,4,3];
 		page = 0;
 		face_images = new Sprite[3];
+		face_names = new string[2];
 		cam_move = false;
 		leftmouse_pressed = false;
 	}
@@ -121,6 +126,50 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
       	//testes do victor
+			//Resize
+		menu_width = Screen.width / 3;
+		menu_height = Screen.height;
+		btnarea_width = menu_width;
+		btnarea_height = menu_height / 10;
+		lbutton_width = btnarea_width / 2;
+		lbutton_height = btnarea_height /2;
+		lbutton_fontsize = lbutton_height / 2f;
+		//variaveis do menu de itens (interface do inventorio)
+		uparea_width = menu_width;
+		uparea_height = 4*menu_height/10;
+		upimg_height = 8 * uparea_height / 10;
+		upimg_width = upimg_height;
+		midarea_width = menu_width;
+		midarea_height = 2 * menu_height / 10;
+		lowarea_width = menu_width;
+		lowarea_height = 3 * menu_height / 10;
+		grid_height = 9 * lowarea_height / 10;
+		grid_width = grid_height;
+		slot_width = grid_width / 4;
+		slot_height = grid_height / 4;
+		//variaveis da caixa de dialogo
+		dialogbox_width = Screen.width;
+		dialogbox_height = Screen.height / 4;
+		textarea_width = 9f * dialogbox_width / 10;
+		textarea_height = 7f * dialogbox_height / 10;
+		dialog_fontsize = textarea_height*0.25f;
+		//variaveis do botao de interacao
+		intbutton_width = Screen.width / 4;
+		intbutton_height = intbutton_width / 3;
+		//variaveis da caixa de escolhas
+		choicebox_width = 3*Screen.width / 5;
+		choicebox_height = choicebox_width / 5;
+		choicetext_width = 9 * choicebox_width / 10;
+		choicetext_height = 9 * choicebox_height/10;
+		//variaveis da caixa da face dos personagens
+		facearea_width = 3*dialogbox_width / 7;
+		facearea_height = facearea_width;
+		faceplate_width = 3 * facearea_width / 4;
+		faceplate_height = faceplate_width / 6;
+		faceplate_fontsize = 7 * faceplate_height / 10;
+		//variaveis dos botoes do menu principal
+		startbtn_width = Screen.width/3;
+		startbtn_height = startbtn_width / 6;
 			//Camera
 		if (cam_move == true) 
 		{
@@ -221,18 +270,28 @@ public class GameController : MonoBehaviour {
 				//Desenhar cada imagem de face
 				if (face_images[0] != null)//esquerda
 				{
-					GUI.Box(new Rect(0,0,facearea_width,facearea_height),face_images[0].texture,"FaceimgBackground");
+					GUIStyle styl0 = GUI.skin.GetStyle("FaceimgBackground");
+					styl0.normal.background = face_images[0].texture;
+					GUIStyle plate0 = GUI.skin.GetStyle("DialogBoxBackground");
+					plate0.fontSize = Mathf.RoundToInt(faceplate_fontsize);
+					GUI.Box(new Rect(0,0,facearea_width,facearea_height),"",styl0);
+					GUI.Box(new Rect((facearea_width-faceplate_width)/2,facearea_height-faceplate_height,faceplate_width,faceplate_height),face_names[0],plate0);
 				}
 				if (face_images[1] != null)//direita
 				{
-					GUI.Box(new Rect(dialogbox_width-facearea_width,0,facearea_width,facearea_height),face_images[1].texture,"FaceimgBackground");
+					GUIStyle styl1 = GUI.skin.GetStyle("FaceimgBackground");
+					styl1.normal.background = face_images[1].texture;
+					GUIStyle plate1 = GUI.skin.GetStyle("DialogBoxBackground");
+					plate1.fontSize = Mathf.RoundToInt(faceplate_fontsize);
+					GUI.Box(new Rect(dialogbox_width-facearea_width,0,facearea_width,facearea_height),"",styl1);
+					GUI.Box(new Rect(dialogbox_width-facearea_width+(facearea_width-faceplate_width)/2,facearea_height-faceplate_height,faceplate_width,faceplate_height),face_names[1],plate1);
 				}
 				if (face_images[2] != null)//centro
 				{
-					GUIStyle styl = GUI.skin.GetStyle("FaceimgBackground");
-					styl.normal.background = face_images[2].texture;
+					GUIStyle styl2 = GUI.skin.GetStyle("FaceimgBackground");
+					styl2.normal.background = face_images[2].texture;
 					GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"","MenuBackground");
-					GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"",styl);
+					GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"",styl2);
 				}
 				
 				GUI.EndGroup();
@@ -512,14 +571,16 @@ public class GameController : MonoBehaviour {
 
 	public void showface(int pos, int personagem, int faceindex)
 	{
-		Sprite face_sprite = face_sets [face_divider [personagem]+faceindex];
+		Sprite face_sprite = face_sets [face_divider [personagem]+faceindex];//corrigir
 		face_images [pos] = face_sprite;
+		face_names [pos] = char_names [personagem];
 		show_face_GUI = true;
 	}
 
 	public void hideface(int pos)
 	{
 		face_images [pos] = null;
+		face_names [pos] = "";
 		show_face_GUI = false;
 	}
 
