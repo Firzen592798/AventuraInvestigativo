@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 public class DicionarioAcoes {
 
@@ -15,24 +15,24 @@ public class DicionarioAcoes {
 		Acao move = new MoverPersonagem("Eduardo", Vector3.zero, true);
 
 		ArrayList dEduardo_s0 = new ArrayList ();
-		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Oi, Sinto que vou me arrepender em te-la convidado a passar este fim-de-semana na Mansão Christie. Você parece um tanto chateada", 1, 0));
+		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Oi, Sinto que vou me arrepender em te-la convidado a passar este fim-de-semana na Mansão Christie. Você parece um tanto chateada.", 1, 1));
 		dEduardo_s0.Add(new DialogLine ("Jane", "Não se incomode comigo, Hastings. Você sabe que meu temperamento não é dos mais sociáveis.", 0, 0));
-		/*dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Sim, sim... espero que se divirta, contudo.", ""));
-		dEduardo_s0.Add(new DialogLine ("Jane", "O que me incomoda mais é essa sensação de isolamento... não que seja de todo ruim passar um fim-de-semana mais isolado... mas ouça essa chuva...", ""));
-		dEduardo_s0.Add(new DialogLine ("Jane", " mesmo que qualquer um de nós precisasse ir lá fora por uma emergência sequer, não poderíamos de tão forte que cai a tempestade... ", ""));
-		dEduardo_s0.Add(new DialogLine ("Jane", "estar tão longe de tudo e a este nível de encarceramento desperta meus sentimentos mais alertas.", ""));
-		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Haha, não é necessário estar alerta na mansão Christie. É perfeitamente seguro... se não há como sair, não como entrar, ou seja: nenhum mal virá de fora.", ""));
-		dEduardo_s0.Add(new DialogLine ("Jane", "Não me entenda mal, Hastings... não tenho medo de que algo entre aqui... me sinto terrivelmente desconfortável estando preso com essas pessoas...", ""));
-		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Os Christie? Eles são totalmente inofensivos pessoalmente... você deveria temê-los se fosse um empregado da empresa deles... estes sim sofrem em suas mãos...", ""));
-		dEduardo_s0.Add(new DialogLine ("Jane", "Nunca se sabe Hastings... acredito que é melhor ficarmos com olhos e ouvidos preparados... estou sentindo que a noite vai ser longa..", ""));
-		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Sendo assim, vou tomar outra taça deste delicioso espumante enquanto a celebração não inicia de fato... Com licença, senhorita.", ""));
-		dEduardo_s0.Add(new DialogLine ("Jane", "Ora, largue as formalidades Capitão...", ""));
-		dEduardo_s0.Add(new DialogLine ("Capitao Eduardo Hastings", "Apenas uma cordialidade senhorita Terry... e para ser mais cordial vou te dar uma recomendação, aceitas?", ""));
-		dEduardo_s0.Add(new DialogLine ("Jane", "Diga, ora.", ""));
-		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Se você possui qualquer interesse em se sentir mais segura esta noite, recomendo que procure conhecer melhor os que estarão presentes nesta cerimônia...", ""));
-		dEduardo_s0.Add(new DialogLine ("Jane", "E como eu supostamente deveria fazer isto, Capitão?", ""));
-		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Creio que um rápido reconhecimento do saguão deve bastar... Depois me encontre e diga o que você encontrou. Estarei próximo ao bar.", ""));
-		*/
+		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Sim, sim... espero que se divirta, contudo.", 1,1));
+		dEduardo_s0.Add(new DialogLine ("Jane", "O que me incomoda mais é essa sensação de isolamento... não que seja de todo ruim passar um fim-de-semana mais isolado... mas ouça essa chuva...", 0,0));
+		dEduardo_s0.Add(new DialogLine ("Jane", " mesmo que qualquer um de nós precisasse ir lá fora por uma emergência sequer, não poderíamos de tão forte que cai a tempestade... ", 0,0));
+		dEduardo_s0.Add(new DialogLine ("Jane", "estar tão longe de tudo e a este nível de encarceramento desperta meus sentimentos mais alertas.", 0,0));
+		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Haha, não é necessário estar alerta na mansão Christie. É perfeitamente seguro... se não há como sair, não como entrar, ou seja: nenhum mal virá de fora.", 1,1));
+		dEduardo_s0.Add(new DialogLine ("Jane", "Não me entenda mal, Hastings... não tenho medo de que algo entre aqui... me sinto terrivelmente desconfortável estando preso com essas pessoas...", 0,0));
+		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Os Christie? Eles são totalmente inofensivos pessoalmente... você deveria temê-los se fosse um empregado da empresa deles... estes sim sofrem em suas mãos...", 1,1));
+		dEduardo_s0.Add(new DialogLine ("Jane", "Nunca se sabe Hastings... acredito que é melhor ficarmos com olhos e ouvidos preparados... estou sentindo que a noite vai ser longa..", 0,0));
+		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Sendo assim, vou tomar outra taça deste delicioso espumante enquanto a celebração não inicia de fato... Com licença, senhorita.", 1,1));
+		dEduardo_s0.Add(new DialogLine ("Jane", "Ora, largue as formalidades Capitão...", 0,0));
+		dEduardo_s0.Add(new DialogLine ("Capitao Eduardo Hastings", "Apenas uma cordialidade senhorita Terry... e para ser mais cordial vou te dar uma recomendação, aceitas?", 1,1));
+		dEduardo_s0.Add(new DialogLine ("Jane", "Diga, ora.", 0,0));
+		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Se você possui qualquer interesse em se sentir mais segura esta noite, recomendo que procure conhecer melhor os que estarão presentes nesta cerimônia...", 1,1));
+		dEduardo_s0.Add(new DialogLine ("Jane", "E como eu supostamente deveria fazer isto, Capitão?", 0,0));
+		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Creio que um rápido reconhecimento do saguão deve bastar... Depois me encontre e diga o que você encontrou. Estarei próximo ao bar.", 1,1));
+
 
 		Acao eduardo_s0_a0 = new MostrarDialogos(dEduardo_s0);
 
