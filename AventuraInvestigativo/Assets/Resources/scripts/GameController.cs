@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour {
 	static float choicetext_width = 9 * choicebox_width / 10;
 	static float choicetext_height = 9 * choicebox_height/10;
 		//variaveis da caixa da face dos personagens
-	static float facearea_width = dialogbox_width / 5;
+	static float facearea_width = dialogbox_width / 3;
 	static float facearea_height = facearea_width;
 
 	static float startbtn_width = Screen.width/3;
@@ -226,7 +226,10 @@ public class GameController : MonoBehaviour {
 				}
 				if (face_images[2] != null)//centro
 				{
-					GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),face_images[2].texture,"MenuBackground");
+					GUIStyle styl = GUI.skin.GetStyle("FaceimgBackground");
+					styl.normal.background = face_images[2].texture;
+					GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"","MenuBackground");
+					GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"",styl);
 				}
 				
 				GUI.EndGroup();
