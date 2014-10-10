@@ -10,12 +10,6 @@ public class Inventorio{
 		itemsPegos = new Item[size];
 		this.size = size;
 		items = new Hashtable ();
-		//Sprite spriteEspada = Resources.Load<Sprite>("Assets/Resources/prefab/
-		items.Add ("Espada", new Espada ("Espada", "corta alguem", false, null));
-		//Sprite spritePocao = Resources.Load<Sprite> ("Assets/Resources/prefab/Pocao");
-		items.Add ("Pocao", new Pocao ("Pocao", "mapa da mansao", true, null));
-		items.Add ("Estrela", new Espada ("Estrela", "Solta magia", false, null));
-		items.Add ("Escudo", new Pocao ("Escudo", "Protege", false, null));
 		items.Add ("Papel", new Papel ("Papel", "Um papel encontrado na sala da mansao", false, null));
 
 		items.Add ("Chave", new Chave ("Chave", "Uma misteriosa chave que abre alguma porta da mansao", false, null));

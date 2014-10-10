@@ -71,14 +71,10 @@
      <Compile Include="Assets\Resources\scripts\hash\DicionarioAcoes.cs" />
      <Compile Include="Assets\Resources\scripts\hash\GerenciadorEstados.cs" />
      <Compile Include="Assets\Resources\scripts\items\Chave.cs" />
-     <Compile Include="Assets\Resources\scripts\items\Escudo.cs" />
-     <Compile Include="Assets\Resources\scripts\items\Espada.cs" />
-     <Compile Include="Assets\Resources\scripts\items\Estrela.cs" />
      <Compile Include="Assets\Resources\scripts\items\Inventorio.cs" />
      <Compile Include="Assets\Resources\scripts\items\Item.cs" />
      <Compile Include="Assets\Resources\scripts\items\Papel.cs" />
      <Compile Include="Assets\Resources\scripts\items\PickUpItem.cs" />
-     <Compile Include="Assets\Resources\scripts\items\Pocao.cs" />
      <Compile Include="Assets\Resources\scripts\model\DialogLine.cs" />
      <Compile Include="Assets\Resources\scripts\model\Escolha.cs" />
      <Compile Include="Assets\Resources\scripts\showchoice.cs" />
