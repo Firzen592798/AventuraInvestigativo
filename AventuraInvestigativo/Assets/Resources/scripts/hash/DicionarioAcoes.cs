@@ -30,13 +30,20 @@ public class DicionarioAcoes {
 		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Se você possui qualquer interesse em se sentir mais segura esta noite, recomendo que procure conhecer melhor os que estarão presentes nesta cerimônia...", ""));
 		dEduardo_s0.Add(new DialogLine ("Jane", "E como eu supostamente deveria fazer isto, Capitão?", ""));
 		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Creio que um rápido reconhecimento do saguão deve bastar... Depois me encontre e diga o que você encontrou. Estarei próximo ao bar.", ""));
-
 		Acao eduardo_s0_a0 = new MostrarDialogos(dEduardo_s0);
-
+		ArrayList dEduardo_s0_e = new ArrayList ();
+		dEduardo_s0_e.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", ""));
+		dEduardo_s0_e.Add(new DialogLine ("Jane", "Nada...", ""));
+		Acao eduardo_s0_a0_e = new MostrarDialogos (dEduardo_s0_e);
 		EduardoState0.OnInitActions.Add(eduardo_s0_a0);
-		EduardoState0.OnExamineAction.Add(eduardo_s0_a0);
+		EduardoState0.OnExamineAction.Add(eduardo_s0_a0_e);
 
 		acoesHashtable.Add ("Eduardo-0", EduardoState0);
+
+		//============================
+		//% Estado 1 de Eduardo
+		//============================
+		state EduardoState1 = new state();
 
 
 
