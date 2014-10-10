@@ -8,10 +8,12 @@ public class DicionarioAcoes {
 		//% Estado 0 de Dark Megaman %
 		//============================
 		state EduardoState0 = new state();
-		
+
 		//**********************************************
-		//*******  Acoes OnExamine do estado 0  ********
+		//*******  Acoes OnInit do estado 0  ***********
 		//**********************************************
+		Acao move = new MoverPersonagem("Eduardo", Vector3.zero, true);
+
 		ArrayList dEduardo_s0 = new ArrayList ();
 		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Oi, Sinto que vou me arrepender em te-la convidado a passar este fim-de-semana na Mansão Christie. Você parece um tanto chateada", 1, 0));
 		dEduardo_s0.Add(new DialogLine ("Jane", "Não se incomode comigo, Hastings. Você sabe que meu temperamento não é dos mais sociáveis.", 0, 0));
@@ -30,7 +32,16 @@ public class DicionarioAcoes {
 		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Se você possui qualquer interesse em se sentir mais segura esta noite, recomendo que procure conhecer melhor os que estarão presentes nesta cerimônia...", ""));
 		dEduardo_s0.Add(new DialogLine ("Jane", "E como eu supostamente deveria fazer isto, Capitão?", ""));
 		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Creio que um rápido reconhecimento do saguão deve bastar... Depois me encontre e diga o que você encontrou. Estarei próximo ao bar.", ""));
-		*/Acao eduardo_s0_a0 = new MostrarDialogos(dEduardo_s0);
+		*/
+
+		Acao eduardo_s0_a0 = new MostrarDialogos(dEduardo_s0);
+
+		EduardoState0.OnInitActions.Add(move);
+		EduardoState0.OnInitActions.Add(eduardo_s0_a0);
+
+		//**********************************************
+		//*******  Acoes OnExamine do estado 0  ********
+		//**********************************************
 		ArrayList dEduardo_s0_e = new ArrayList ();
 		dEduardo_s0_e.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
 		dEduardo_s0_e.Add(new DialogLine ("Jane", "Não... não estou com sorte", 0, 0));
@@ -38,7 +49,6 @@ public class DicionarioAcoes {
 
 
 		Acao eduardo_s0_a0_e = new MostrarDialogos (dEduardo_s0_e);
-		EduardoState0.OnInitActions.Add(eduardo_s0_a0);
 		EduardoState0.OnExamineAction.Add(eduardo_s0_a0_e);
 
 		acoesHashtable.Add ("Eduardo-0", EduardoState0);
@@ -47,6 +57,10 @@ public class DicionarioAcoes {
 		//% Estado 1 de Eduardo
 		//============================
 		state EduardoState1 = new state();
+
+		//**********************************************
+		//*******  Acoes OnExamine do estado 1  ********
+		//**********************************************
 		ArrayList dEduardo_s1 = new ArrayList ();
 		dEduardo_s1.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
 		dEduardo_s1.Add(new DialogLine ("Jane", "Sim, esta chave estava embaixo do tapete num canto escuro do saguão.", 0,0));

@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour {
 	private Item selectedItem;
 	private Inventorio inventorio;
 
+	private Hashtable NPC_dict;
+
 	private GerenciadorEstados gerEstados;
         
         //testes do victor
@@ -99,6 +101,9 @@ public class GameController : MonoBehaviour {
 		{
 			eventlist[i] = false;
 		}
+
+		NPC_dict = new Hashtable();
+
 		gerEstados = GerenciadorEstados.getInstance();
                 
         //testes do victor
@@ -473,6 +478,14 @@ public class GameController : MonoBehaviour {
 			InstancePlayer();
 			persona = (PlayerController) player.GetComponent(typeof(PlayerController));
 		}
+		NPC_dict.Clear();
+		foreach(GameObject go in GameObject.FindGameObjectsWithTag("NPC")) {
+			NPC_dict.Add( go.GetComponent<NPCController2>().nome, go );
+		}
+	}
+
+	public GameObject getNPC(string personagem) {
+		return (GameObject)NPC_dict[personagem];
 	}
 
 	public void showppbutton()

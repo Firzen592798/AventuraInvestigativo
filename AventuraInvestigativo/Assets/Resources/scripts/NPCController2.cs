@@ -8,7 +8,9 @@ public class NPCController2 : MonoBehaviour {
 	public Animator ani;
 	public int indexnum;
 	public string nome;
-	private Transform currentWaypoint;
+
+	//private Vector3 currentWaypoint;
+	private ArrayList storedWaypoints;
 	private int currentIndex;
 	private float minDistance = 0.1f;
 	private float moveSpeed = 3f;
@@ -62,11 +64,10 @@ public class NPCController2 : MonoBehaviour {
 			position.z = position.y;
 			waypoints[i].gameObject.transform.position = position;
 		}
+
+		storedWaypoints = new ArrayList();
 		if (waypoints.Length > 0) {
-			currentWaypoint = waypoints[0];
-		}
-		else {
-			currentWaypoint = null;
+			storedWaypoints.Add(waypoints[0].gameObject.transform.position);
 		}
 		currentIndex = 0;
 		
@@ -113,9 +114,9 @@ public class NPCController2 : MonoBehaviour {
 		onregion = false;
 	}
 	
-	void move2Waypoint() {
+	void move2Waypoint(Vector3 destiny) {
 		
-		Vector3 direction = currentWaypoint.gameObject.transform.position - transform.position;
+		Vector3 direction = destiny - transform.position;
 		Vector3 moveVector = direction.normalized * moveSpeed * Time.deltaTime;
 		transform.position = transform.position + moveVector;
 		
@@ -234,50 +235,39 @@ public class NPCController2 : MonoBehaviour {
 	}
 	
 	void FixedUpdate() {
-		if (waypoints.Length > 0) {
-			move2Waypoint ();
-			if (Vector3.Distance (currentWaypoint.transform.position, transform.position) < minDistance) {
-				currentIndex = currentIndex+1;
-				if (currentIndex > waypoints.Length-1) {
-					currentIndex = 0;
+		if (storedWaypoints.Count > 0) {
+			Vector3 currentWaypoint = (Vector3)storedWaypoints[0];
+			move2Waypoint(currentWaypoint);
+			if (Vector3.Distance (currentWaypoint, transform.position) < minDistance) {
+				storedWaypoints.RemoveAt(0);
+				if ((storedWaypoints.Count <= 0) && (waypoints.Length > 0)) {
+					currentIndex = currentIndex+1;
+					if (currentIndex > waypoints.Length-1) {
+						currentIndex = 0;
+					}
+					storedWaypoints.Add(waypoints[currentIndex]);
 				}
-				currentWaypoint = waypoints[currentIndex];
 			}
 		}
+		else {
+			if (ani != null) {
+				ani.SetFloat("speedX", 0f);
+				ani.SetFloat("speedY", 0f);
+				ani.SetBool("running", false);
+			}
+		}
+		
 		Vector3 pos = transform.position;
 		pos.z = pos.y;
 		transform.position = pos;
-//<<<<<<< HEAD
-
-		if (Input.GetKeyDown (Teclas.Confirma)) 
-		{
-			dialog_button_pressed = true;
-		}
-		if (Input.GetKeyUp (Teclas.Confirma)) 
-		{
-			dialog_button_pressed = false;
-		}
-		if (Input.GetKeyDown (KeyCode.DownArrow)) 
-		{
-			down_button_pressed = true;
-		}
-		if (Input.GetKeyDown (KeyCode.UpArrow)) 
-		{
-			up_button_pressed = true;
-		}
-		if (Input.GetKeyUp (KeyCode.DownArrow)) 
-		{
-			down_button_pressed = false;
-		}
-		if (Input.GetKeyUp (KeyCode.UpArrow)) 
-		{
-			up_button_pressed = false;
-		}
-		if (showingtext == true) {
-				//gm.LoadShowTxt ("");
-		}
-//=======
-//>>>>>>> 929b065128a9d1910de33f8662a04e02ed582015
+	}
+	
+	public bool hasStoredWayPoint(Vector3 point) {
+		return storedWaypoints.Contains(point);
+	}
+	
+	public void addWayPoint(Vector3 point) {
+		storedWaypoints.Add(point);
 	}
 
 	bool ExecuteAction(ArrayList actionList, int indexAction) {

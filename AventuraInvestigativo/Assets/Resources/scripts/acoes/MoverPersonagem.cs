@@ -1,32 +1,47 @@
 using UnityEngine;
 using System.Collections;
 public class MoverPersonagem : Acao{
-	private NPCController2 npcController;
-	private GameObject go;
-	private string npc;
-	private Vector3 position;
+	private NPCController2 NPC_Controller;
+	private string npcNome;
+	private GameObject npc;
+	private Vector3 destiny_position;
 	private bool wait;
+	private bool inPlace;
+	private bool isWalking;
 	
-	public MoverPersonagem(string personagem, Vector3 point, bool waitToGoPlace){
+	public MoverPersonagem(string personagem, Vector3 point, bool waitToArrive){
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
-		npc = personagem;
-		point = position;
-		wait = waitToGoPlace;
+		npcNome = personagem;
+		point = destiny_position;
+		wait = waitToArrive;
+		inPlace = false;
+		isWalking = false;
 	}
-
-	public override bool Update(){
-		if (go == null) {
-			go = GameObject.FindGameObjectWithTag ("DarkMegaman");
-			npcController = (NPCController2)go.GetComponent (typeof(NPCController2));
-		}
-		Vector3 pos = npcController.transform.position;
-		pos.x = pos.x + 1;
-		npcController.transform.Translate (Vector3.right * 0.1f * Time.deltaTime);
 	
-		//GerenciadorEstados.getInstance ().alterarEstado ("Dark Megaman", 1);
-
-		return false;
+	public override bool Update(){
+		if (!isWalking) {
+			Debug.Log("akiiiiiiiiiiiiiiiiiiiiiiiiiii");
+			npc = gm.getNPC(npcNome);
+			NPC_Controller = (NPCController2) npc.GetComponent(typeof(NPCController2));
+			NPC_Controller.addWayPoint(destiny_position);
+			isWalking = true;
+		}
+		if (wait) {
+			gm.lockplayer();
+			if (NPC_Controller.hasStoredWayPoint(destiny_position)) {
+				Debug.Log("ainda nao terminou");
+				return false;
+			}
+			else {
+				Debug.Log("terminou");
+				gm.unlockplayer();
+				return true;
+			}
+		}
+		else {
+			return true;
+		}
 	}
 	
 	
