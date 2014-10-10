@@ -171,7 +171,7 @@ public class GameController : MonoBehaviour {
 			if (show_intbutton_GUI == true) 
 			{
 				//Definir area do botao de interacao
-				GUI.BeginGroup(new Rect(Screen.width-intbutton_width,Screen.height-intbutton_height,intbutton_width,intbutton_height));
+				GUI.BeginGroup(new Rect(Screen.width-intbutton_width,0,intbutton_width,intbutton_height));
 				
 				//Desenhar botao de interacao
 				GUIStyle intbtnstyle = GUI.skin.GetStyle("ButtonBackground");
@@ -234,12 +234,8 @@ public class GameController : MonoBehaviour {
 				GUI.BeginGroup(new Rect(Screen.width-dialogbox_width,Screen.height-dialogbox_height,dialogbox_width,dialogbox_height));
 				
 				//Desenhar a caixa de dialogo
-				bool diaboxclick = GUI.Button(new Rect(0,0,dialogbox_width,dialogbox_height),"","DialogboxBackground");
-				if (diaboxclick)
-				{
-					//Ao clicar na caixa de texto com mouse - passar texto
-				}
-				
+				GUI.Box(new Rect(0,0,dialogbox_width,dialogbox_height),"","DialogboxBackground");
+								
 				//Fazer a area delimitante da caixa de texto
 				GUI.BeginGroup(new Rect((dialogbox_width - textarea_width)/2,(dialogbox_height-textarea_height)/2,textarea_width,textarea_height));
 				
