@@ -5,23 +5,6 @@ public class DicionarioAcoes {
 	private Hashtable acoesHashtable = new Hashtable();
 	public DicionarioAcoes() {
 
-
-		//============================
-		//% Estado 0 de Eduardo      %
-		//============================
-		state EduardoState0 = new state();
-
-		//**********************************************
-		//*******  Acoes OnInit do estado 0  ***********
-		//**********************************************
-		Acao a = new MoverPersonagem("Eduardo", new Vector3(0f,0f,0f), true);
-		EduardoState0.OnInitActions.Add(a);
-
-		// fim acoes de Eduardo
-		acoesHashtable.Add("Eduardo-0", EduardoState0);
-
-		//###############################################################################################
-
 		//============================
 		//% Estado 0 de Dark Megaman %
 		//============================
