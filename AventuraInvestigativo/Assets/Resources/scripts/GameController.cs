@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour {
 	public Camera cam;
 
 	bool cam_move;
+	public bool leftmouse_pressed;
 	bool on_mainmenu; // variavel que controla se o jogador esta no menu principal
 	bool menu_button_press;// variavel que controla se o botao de menu foi apertado
 	bool show_menu_GUI;// variavel que controla se a gui do menu deve ser exibida
@@ -71,10 +72,10 @@ public class GameController : MonoBehaviour {
 		// - Area da caixa de dialogo cobre 1/5 da tela, alinhado para baixo
 		// - Area da caixa de texto cobre 80% da altura e 85% da largura da caixa de dialogo, centralizada
 	static float dialogbox_width = Screen.width;
-	static float dialogbox_height = Screen.height / 5;
-	static float textarea_width = 8.5f * dialogbox_width / 10;
+	static float dialogbox_height = Screen.height / 4;
+	static float textarea_width = 9f * dialogbox_width / 10;
 	static float textarea_height = 7f * dialogbox_height / 10;
-	static float dialog_fontsize = textarea_height/2.5f;
+	static float dialog_fontsize = textarea_height*0.25f;
 		//variaveis do botao de interacao
 	static float intbutton_width = Screen.width / 4;
 	static float intbutton_height = intbutton_width / 3;
@@ -114,6 +115,7 @@ public class GameController : MonoBehaviour {
 		page = 0;
 		face_images = new Sprite[3];
 		cam_move = false;
+		leftmouse_pressed = false;
 	}
 
 	// Update is called once per frame
@@ -181,10 +183,11 @@ public class GameController : MonoBehaviour {
 				//Desenhar botao de interacao
 				GUIStyle intbtnstyle = GUI.skin.GetStyle("ButtonBackground");
 				intbtnstyle.fontSize = Mathf.RoundToInt(dialog_fontsize);
-				bool intbtn = GUI.Button(new Rect(0,0,intbutton_width,intbutton_height),"Examine",intbtnstyle);
+				bool intbtn = GUI.Button(new Rect(0,0,intbutton_width,intbutton_height),"Examinar",intbtnstyle);
 				if (intbtn)
 				{
 					//colocar acao do botao - iniciar dialogo
+					leftmouse_pressed = true;
 				}
 				
 				GUI.EndGroup();
@@ -199,7 +202,7 @@ public class GameController : MonoBehaviour {
 				//Desenhar botao de acesso
 				GUIStyle intbtnstyle = GUI.skin.GetStyle("ButtonBackground");
 				intbtnstyle.fontSize = Mathf.RoundToInt(dialog_fontsize);
-				bool intbtn = GUI.Button(new Rect(0,0,intbutton_width,intbutton_height),"Inventory",intbtnstyle);
+				bool intbtn = GUI.Button(new Rect(0,0,intbutton_width,intbutton_height),"Inventório",intbtnstyle);
 				if (intbtn)
 				{
 					show_menu_GUI = true;
@@ -407,12 +410,12 @@ public class GameController : MonoBehaviour {
 				//Desenhar area dos botoes dos menus(botoes)
 				GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
 				lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
-				GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Profiles",lbutton);
+				GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Perfis",lbutton);
 				GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Backlog",lbutton);
-				GUI.Button(new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Annotations",lbutton);
+				GUI.Button(new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Anotações",lbutton);
 
 				//Botao de fechar menu
-				bool closebutton = GUI.Button(new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Close",lbutton);
+				bool closebutton = GUI.Button(new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Fechar",lbutton);
 				if (closebutton)
 				{
 					show_menu_GUI = false;

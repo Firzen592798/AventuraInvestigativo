@@ -198,8 +198,9 @@ public class NPCController2 : MonoBehaviour {
 				dialog_button_pressed = false;
 				up_button_pressed = false;
 				down_button_pressed = false;
-				if (Input.GetKeyDown (Teclas.Confirma)) {
+				if ((Input.GetKeyDown (Teclas.Confirma)) || (gm.leftmouse_pressed == true)) {
 					dialog_button_pressed = true;
+					gm.leftmouse_pressed = false;
 				}
 				if (Input.GetKeyUp (Teclas.Confirma)) {
 					dialog_button_pressed = false;
