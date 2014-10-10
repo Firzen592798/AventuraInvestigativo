@@ -64,11 +64,11 @@ public class TestExamine2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		if (Input.GetKeyDown (KeyCode.Z)) 
+		if (Input.GetKeyDown (Teclas.Confirma)) 
 		{
 			dialog_button_pressed = true;
 		}
-		if (Input.GetKeyUp (KeyCode.Z)) 
+		if (Input.GetKeyUp (Teclas.Confirma)) 
 		{
 			dialog_button_pressed = false;
 		}
@@ -122,7 +122,7 @@ public class TestExamine2 : MonoBehaviour {
 				if ( choiceindex > 0)
 				{
 					choiceindex = choiceindex - 1;
-					gm.highlightchoice(choiceindex);
+//					gm.highlightchoice(choiceindex);
 					up_button_pressed = false;
 				}
 			}
@@ -131,7 +131,7 @@ public class TestExamine2 : MonoBehaviour {
 				if (choiceindex < choices.Length-1)
 				{
 					choiceindex = choiceindex + 1;
-					gm.highlightchoice(choiceindex);
+//					gm.highlightchoice(choiceindex);
 					down_button_pressed = false;
 				}
 			}

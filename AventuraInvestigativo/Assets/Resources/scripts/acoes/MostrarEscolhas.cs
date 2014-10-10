@@ -23,10 +23,10 @@ public class MostrarEscolhas : Acao{
 	}
 	
 	public override bool Update(){
-		if (Input.GetKeyDown (KeyCode.Z)) {
+		if (Input.GetKeyDown (Teclas.Confirma)) {
 			dialog_button_pressed = true;
 		}
-		if (Input.GetKeyUp (KeyCode.Z)) {
+		if (Input.GetKeyUp (Teclas.Confirma)) {
 			dialog_button_pressed = false;
 		}
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
@@ -56,14 +56,14 @@ public class MostrarEscolhas : Acao{
 			if (up_button_pressed) {
 				if ( choiceindex > 0) {
 					choiceindex = choiceindex - 1;
-					gm.highlightchoice(choiceindex);
+//					gm.highlightchoice(choiceindex);
 					up_button_pressed = false;
 				}
 			}
 			if (down_button_pressed) {
 				if (choiceindex < escolhas.Count-1) {
 					choiceindex = choiceindex + 1;
-					gm.highlightchoice(choiceindex);
+//					gm.highlightchoice(choiceindex);
 					down_button_pressed = false;
 				}
 			}

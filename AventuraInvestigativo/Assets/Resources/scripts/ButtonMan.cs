@@ -62,8 +62,8 @@ public class ButtonMan : MonoBehaviour {
 		txt.color += new Color (1.0f, -1.0f, -1.0f, 0.0f);
 
 		if (Input.GetMouseButton(0)) { //left-click
-			MusicManager mm = (MusicManager) g.GetComponent(typeof(MusicManager));
-			mm.playnew(1);
+			//MusicManager mm = (MusicManager) g.GetComponent(typeof(MusicManager));
+			//mm.playnew(1);
 			gm.TransiteScene("Cena1", "initial_spot");
 		}
 	}
