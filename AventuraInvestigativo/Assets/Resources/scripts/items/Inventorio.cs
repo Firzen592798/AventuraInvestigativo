@@ -40,6 +40,15 @@ public class Inventorio{
 		}
 	}
 
+	public bool TemItem(string item){
+		if(itemIndex > 0)
+		for (int i = 0; i < itemIndex; i++) {
+			if(itemsPegos[i].getNome().Equals(item)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void removerItem(string item){
 		if(itemIndex > 0)

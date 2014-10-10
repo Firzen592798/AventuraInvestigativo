@@ -480,6 +480,14 @@ public class GameController : MonoBehaviour {
 		gerEstados.alterarEstado(personagem, state);
 	}
 
+	public bool TemItem(string item){
+		return inventorio.TemItem (item);
+		
+		/*Debug.Log ("Pegou " + item);
+		itemsPegos [itemIndex] = (Item)items [item];
+		itemIndex++;*/
+	}	
+
 	public void PegarItem(string item, Sprite sprite){
 		inventorio.addItem (item, sprite);
 		
