@@ -26,7 +26,7 @@ public class GerenciadorEstados {
 	}
 
 	public int getEstado(string personagem) {
-		Debug.Log ("Estado de " + personagem + " = " + (int)hash [personagem]);
+		//Debug.Log ("Estado de " + personagem + " = " + (int)hash [personagem]);
 		return (int)hash[personagem];
 	}
 }
