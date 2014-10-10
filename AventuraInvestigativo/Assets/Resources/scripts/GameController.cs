@@ -3,36 +3,18 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 	public GameObject player;
-	GameObject popupbutton;
-	GameObject dialogbox;
-	GameObject dialogtext;
-	GameObject choicebox;
-	GameObject[] choicetext;
-	GameObject faceL;
-	GameObject faceR;
 	PlayerController persona;
 	bool[]  eventlist;
 
-	//teste
-	//public Sprite[] faces0;
-	//public Sprite[] faces1;
-
-	float posL = -4f;
-	float posR = 4f;
-
-	public GUIStyle ItemStyle;
-	public GUIStyle TextStyle;
-	public GUIStyle SetaRight;
-	public GUIStyle SetaLeft;
-	private bool showItems;
-	private bool showMenu;
 	private Item selectedItem;
 	private Inventorio inventorio;
 
 	private GerenciadorEstados gerEstados;
         
         //testes do victor
+	public Camera cam;
 
+	bool cam_move;
 	bool on_mainmenu; // variavel que controla se o jogador esta no menu principal
 	bool menu_button_press;// variavel que controla se o botao de menu foi apertado
 	bool show_menu_GUI;// variavel que controla se a gui do menu deve ser exibida
@@ -108,8 +90,6 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		showMenu = false;
-		showItems = false;
 		selectedItem = null;
 		inventorio = new Inventorio(5);
 		player = null;
@@ -128,13 +108,19 @@ public class GameController : MonoBehaviour {
 		item_grid = new Item[4,4,3];
 		page = 0;
 		face_images = new Sprite[3];
+		cam_move = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
       	//testes do victor
+			//Camera
+		if (cam_move == true) 
+		{
+			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y,cam.transform.position.z);
+		}
 			//Inputs
-                if (Input.GetKeyDown (KeyCode.C)) 
+        if (Input.GetKeyDown (KeyCode.C)) 
 		{
 			menu_button_press = true;
 		}
@@ -170,6 +156,7 @@ public class GameController : MonoBehaviour {
 		}
         on_mainmenu = false;
 		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad (this.cam);
 		Application.LoadLevel(NextScene);
 	}
 
@@ -453,24 +440,6 @@ public class GameController : MonoBehaviour {
 		
 	}
 
-	void ShowItemDescription(){
-		
-	}
-	
-	void ShowItems(){
-		showItems = true;
-		showMenu = false;
-	}
-	
-	void CloseItems(){
-		showItems = false;
-		showMenu = true;
-	}
-	
-	void ResumeGame(){
-		showMenu = false;
-		Time.timeScale = 1.0f;
-	}
 
 	public int getState(string personagem) {
 		return gerEstados.getEstado(personagem);
@@ -482,59 +451,29 @@ public class GameController : MonoBehaviour {
 
 	public void PegarItem(string item, Sprite sprite){
 		inventorio.addItem (item, sprite);
-		
-		/*Debug.Log ("Pegou " + item);
-		itemsPegos [itemIndex] = (Item)items [item];
-		itemIndex++;*/
 	}	
 
 	public void InstancePlayer() {
 		player = Instantiate(Resources.Load("prefab/Jane", typeof(GameObject))) as GameObject;
+		cam.orthographicSize = 4;
+		cam_move = true;
 	}
 
-	public void InstanceDialogBox()
-	{
-		dialogbox = Instantiate (Resources.Load ("prefab/DialogBox", typeof(GameObject))) as GameObject;
-		dialogbox.SetActive (false);
-		dialogtext = Instantiate (Resources.Load ("prefab/DialogText", typeof(GameObject))) as GameObject;
-		dialogtext.SetActive (false);
-		popupbutton = Instantiate (Resources.Load ("prefab/popupbutton", typeof(GameObject))) as GameObject;
-		popupbutton.SetActive (false);
-		choicebox = Instantiate (Resources.Load ("prefab/choicebox", typeof(GameObject))) as GameObject;
-		choicebox.SetActive (false);
-		//assumir que tera no maximo 5 escolhas
-		choicetext = new GameObject[5];
-		for (int i = 0; i<choicetext.Length; i++) 
-		{
-			choicetext[i] = Instantiate(Resources.Load ("prefab/ChoiceText", typeof(GameObject))) as GameObject;
-			choicetext[i].SetActive(false);
-		}
-		faceL = Instantiate (Resources.Load ("prefab/Faceplacer", typeof(GameObject))) as GameObject;
-		faceL.transform.position = new Vector3 (posL,faceL.transform.position.y, faceL.transform.position.z);
-		faceL.SetActive (false);
-		faceR = Instantiate (Resources.Load ("prefab/Faceplacer", typeof(GameObject))) as GameObject;
-		faceR.transform.position = new Vector3 (posR,faceR.transform.position.y, faceR.transform.position.z);
-		faceR.SetActive (false);
-	}
 
 	void OnLevelWasLoaded(int thisLevel) {
 		if (player == null) {
 			InstancePlayer();
 			persona = (PlayerController) player.GetComponent(typeof(PlayerController));
 		}
-		InstanceDialogBox ();
 	}
 
 	public void showppbutton()
 	{
-		//popupbutton.SetActive (true);
 		show_intbutton_GUI = true;
 	}
 
 	public void showdialogbox()
 	{
-		//dialogbox.SetActive (true);
-		//dialogtext.SetActive (true);
 		show_dialogbox_GUI = true;
 	}
         
@@ -550,29 +489,6 @@ public class GameController : MonoBehaviour {
 
 	public void showface(int pos, int personagem, int faceindex)
 	{
-		//if (pos == 0) 
-		//{
-			//faceL.SetActive (true);
-			//if (personagem == 0)
-			//{
-				//faceL.GetComponent<SpriteRenderer> ().sprite = faces0 [faceindex];
-			//}
-			//else
-			//{
-				//faceL.GetComponent<SpriteRenderer> ().sprite = faces1 [faceindex];
-			//}
-		//} else 
-		//{
-			//faceR.SetActive (true);
-			//if (personagem == 0)
-			//{
-				//faceR.GetComponent<SpriteRenderer> ().sprite = faces0 [faceindex];
-			//}
-			//else
-			//{
-				//faceR.GetComponent<SpriteRenderer> ().sprite = faces1 [faceindex];
-			//}
-		//}
 		Sprite face_sprite = face_sets [face_divider [personagem]+faceindex];
 		face_images [pos] = face_sprite;
 		show_face_GUI = true;
@@ -580,93 +496,38 @@ public class GameController : MonoBehaviour {
 
 	public void hideface(int pos)
 	{
-		//if (pos == 0) 
-		//{
-		//	faceL.SetActive (false);
-		//} else 
-		//{
-		//	faceR.SetActive (false);
-		//}
 		face_images [pos] = null;
 		show_face_GUI = false;
 	}
 
 	public void showchoicebox(string[] choices)
 	{
-		//choicebox.SetActive (true);
-		//float nchoices = choices.Length;
-		//choicebox.transform.localScale = new Vector3 (transform.localScale.x, 1+(nchoices*0.5f), transform.localScale.z);
-		//float boxsizeY = choicebox.renderer.bounds.max.y;
-
-		//for (int i = 0; i<nchoices; i++) 
-		//{
-		//	choicetext[i].SetActive(true);
-		//	TextMesh txt = choicetext[i].GetComponent<TextMesh>();
-		//	txt.text = choices[i];
-		//	float pos = boxsizeY;
-		//	if (i == 0)
-		//	{
-		//		pos = pos - 0.4f;
-		//		highlightchoice(i);
-		//	}
-		//	else
-		//	{
-		//		pos = choicetext[i-1].renderer.bounds.min.y;
-		//		pos = pos - 0.2f;
-		//	}
-		//	choicetext[i].transform.position = new Vector3(choicebox.transform.position.x,pos,choicebox.transform.position.z);
-		//}
 		choices_text = choices;
 		show_choicebox_GUI = true;
 	}
 
-	public void highlightchoice(int choice)
-	{
-		for (int i = 0; i<choicetext.Length; i++) 
-		{
-			if (i != choice)
-			{
-				choicetext [i].GetComponent<TextMesh> ().color = Color.white;
-			}else
-			{
-				choicetext [i].GetComponent<TextMesh> ().color = Color.red;
-			}
-		}
-	}
-
 	public void hidechoicebox()
 	{
-		//choicebox.SetActive (false);
-		//for (int i = 0; i<choicetext.Length; i++) 
-		//{
-		//	choicetext[i].SetActive(false);
-		//}
 		show_choicebox_GUI = false;
 	}
 
 	public void hideppbutton()
 	{
-		//popupbutton.SetActive (false);
 		show_intbutton_GUI = false;
 	}
 
 	public void hidedialogbox()
 	{
-		//dialogbox.SetActive (false);
-		//dialogtext.SetActive (false);
 		show_dialogbox_GUI = false;
 	}
 
 	public void LoadShowTxt(string s)
 	{
-		//TextMesh txt = dialogtext.GetComponent<TextMesh> ();
-		//txt.text = s;
 		dialog_text = s;
 	}
 
 	public void lockplayer()
 	{
-
 		persona.lockplayer ();
 	}
 	
