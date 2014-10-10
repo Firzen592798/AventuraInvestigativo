@@ -56,14 +56,14 @@ public class MostrarEscolhas : Acao{
 			if (up_button_pressed) {
 				if ( choiceindex > 0) {
 					choiceindex = choiceindex - 1;
-					gm.highlightchoice(choiceindex);
+//					gm.highlightchoice(choiceindex);
 					up_button_pressed = false;
 				}
 			}
 			if (down_button_pressed) {
 				if (choiceindex < escolhas.Count-1) {
 					choiceindex = choiceindex + 1;
-					gm.highlightchoice(choiceindex);
+//					gm.highlightchoice(choiceindex);
 					down_button_pressed = false;
 				}
 			}

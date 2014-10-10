@@ -121,7 +121,7 @@ public class TestExamine : MonoBehaviour {
 				if ( choiceindex > 0)
 				{
 					choiceindex = choiceindex - 1;
-					gm.highlightchoice(choiceindex);
+					//gm.highlightchoice(choiceindex);
 					up_button_pressed = false;
 				}
 			}
@@ -130,7 +130,7 @@ public class TestExamine : MonoBehaviour {
 				if (choiceindex < choices.Length-1)
 				{
 					choiceindex = choiceindex + 1;
-					gm.highlightchoice(choiceindex);
+					//gm.highlightchoice(choiceindex);
 					down_button_pressed = false;
 				}
 			}
