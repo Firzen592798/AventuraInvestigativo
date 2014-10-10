@@ -20,9 +20,12 @@ public class MostrarDialogos : Acao{
 	public override bool Update(){
 		gm.lockplayer();
 		if (falaAtual == 0) {
-			string texto = ((DialogLine)dialogos[falaAtual]).getTexto();
+			DialogLine dl = ((DialogLine)dialogos[falaAtual]);
+			string texto = dl.getTexto();
 			gm.showdialogbox();
 			gm.LoadShowTxt(texto);
+			if(dl.getSprite() != -1)
+				gm.showface(dl.getPos(), dl.getSprite(), 0);
 			falaAtual++;
 		}
 		else if (Input.GetKeyDown (Teclas.Confirma)) {
@@ -30,11 +33,18 @@ public class MostrarDialogos : Acao{
 			if(falaAtual == dialogos.Count){
 				//Debug.Log("Terminou");
 				falaAtual = 0;
+				gm.hideface(0);
 				gm.hidedialogbox();
 				gm.unlockplayer();
 				return true;
 			}
-			string texto = ((DialogLine)dialogos[falaAtual]).getTexto();
+			DialogLine dl = ((DialogLine)dialogos[falaAtual]);
+			string texto = dl.getTexto();
+
+			if(dl.getSprite() != -1)
+			{	gm.hideface(1 - dl.getSprite ());
+				gm.showface(dl.getPos(), dl.getSprite(), 0);
+			}
 			gm.showdialogbox();
 			gm.LoadShowTxt(texto);
 			//Debug.Log (texto);

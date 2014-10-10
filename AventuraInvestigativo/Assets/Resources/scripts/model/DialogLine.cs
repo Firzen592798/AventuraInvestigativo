@@ -2,23 +2,38 @@ using UnityEngine;
 public class DialogLine {
 	string texto;
 	string personagem;
-	string imagempath;
+	int sprite;
+	int pos;
 	public DialogLine(){
 		
 	}
 
-	public DialogLine(string personagem, string texto, string imagempath){
+	public DialogLine(string personagem, string texto, int imagempath){
 		this.personagem = personagem;
 		this.texto = texto;
-		this.imagempath = imagempath;
+		this.sprite = imagempath;
+		//this.imagempath = Intimagempath;
 	}
+
+	public DialogLine(string personagem, string texto, int imagempath, int pos){
+		this.personagem = personagem;
+		this.texto = texto;
+		this.sprite = imagempath;
+		this.pos = pos;
+		//this.imagempath = Intimagempath;
+	}
+
+	public int getPos(){
+		return pos;
+	}
+
 	public string getTexto(){
 		return texto;
 	}
 	public string getPersonagem(){
 		return personagem;
 	}
-	public string getImagempath(){
-		return imagempath;
+	public int getSprite(){
+		return sprite;
 	}
 }

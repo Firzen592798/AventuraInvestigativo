@@ -13,8 +13,8 @@ public class DicionarioAcoes {
 		//*******  Acoes OnExamine do estado 0  ********
 		//**********************************************
 		ArrayList dEduardo_s0 = new ArrayList ();
-		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Oi", "Sinto que vou me arrepender em te-la convidado a passar este fim-de-semana na Mansão Christie. Você parece um tanto chateada"));
-		dEduardo_s0.Add(new DialogLine ("Jane", "Testando o dialogo", "Não se incomode comigo, Hastings. Você sabe que meu temperamento não é dos mais sociáveis."));
+		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Oi, Sinto que vou me arrepender em te-la convidado a passar este fim-de-semana na Mansão Christie. Você parece um tanto chateada", 1, 0));
+		dEduardo_s0.Add(new DialogLine ("Jane", "Não se incomode comigo, Hastings. Você sabe que meu temperamento não é dos mais sociáveis.", 0, 0));
 		/*dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Sim, sim... espero que se divirta, contudo.", ""));
 		dEduardo_s0.Add(new DialogLine ("Jane", "O que me incomoda mais é essa sensação de isolamento... não que seja de todo ruim passar um fim-de-semana mais isolado... mas ouça essa chuva...", ""));
 		dEduardo_s0.Add(new DialogLine ("Jane", " mesmo que qualquer um de nós precisasse ir lá fora por uma emergência sequer, não poderíamos de tão forte que cai a tempestade... ", ""));
@@ -32,9 +32,9 @@ public class DicionarioAcoes {
 		dEduardo_s0.Add(new DialogLine ("Capitão Eduardo Hastings", "Creio que um rápido reconhecimento do saguão deve bastar... Depois me encontre e diga o que você encontrou. Estarei próximo ao bar.", ""));
 		*/Acao eduardo_s0_a0 = new MostrarDialogos(dEduardo_s0);
 		ArrayList dEduardo_s0_e = new ArrayList ();
-		dEduardo_s0_e.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", ""));
-		dEduardo_s0_e.Add(new DialogLine ("Jane", "Não... não estou com sorte", ""));
-		dEduardo_s0_e.Add(new DialogLine ("Capitao Eduardo Hastings", "Ora... não a conheci desistindo assim tão fácil. Continue... estou certo de que encontrará algo intrigante.", ""));
+		dEduardo_s0_e.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
+		dEduardo_s0_e.Add(new DialogLine ("Jane", "Não... não estou com sorte", 0, 0));
+		dEduardo_s0_e.Add(new DialogLine ("Capitao Eduardo Hastings", "Ora... não a conheci desistindo assim tão fácil. Continue... estou certo de que encontrará algo intrigante.", 1, 1));
 
 
 		Acao eduardo_s0_a0_e = new MostrarDialogos (dEduardo_s0_e);
@@ -48,10 +48,10 @@ public class DicionarioAcoes {
 		//============================
 		state EduardoState1 = new state();
 		ArrayList dEduardo_s1 = new ArrayList ();
-		dEduardo_s1.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", ""));
-		dEduardo_s1.Add(new DialogLine ("Jane", "Sim, esta chave estava embaixo do tapete num canto escuro do saguão.", ""));
-		dEduardo_s1.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum, parece ser uma chave GORJA, daquelas que abrem qualquer porta de fechadura simples...", ""));
-		dEduardo_s1.Add(new DialogLine ("Capitão Eduardo Hastings", "pode ser muito útil, esta casa é bem velha e talvez você encontre uma porta ou outra que possa  ser aberta com esta chave.", ""));
+		dEduardo_s1.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
+		dEduardo_s1.Add(new DialogLine ("Jane", "Sim, esta chave estava embaixo do tapete num canto escuro do saguão.", 0,0));
+		dEduardo_s1.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum, parece ser uma chave GORJA, daquelas que abrem qualquer porta de fechadura simples...", 1, 1));
+		dEduardo_s1.Add(new DialogLine ("Capitão Eduardo Hastings", "pode ser muito útil, esta casa é bem velha e talvez você encontre uma porta ou outra que possa  ser aberta com esta chave.", 1, 1));
 		Acao eduardo_s1_a0_e = new MostrarDialogos (dEduardo_s1);
 		EduardoState1.OnExamineAction.Add (eduardo_s1_a0_e);
 		acoesHashtable.Add ("Eduardo-1", EduardoState1);
@@ -61,10 +61,10 @@ public class DicionarioAcoes {
 		//============================
 		state EduardoState2 = new state();
 		ArrayList dEduardo_s2 = new ArrayList ();
-		dEduardo_s2.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", ""));
-		dEduardo_s2.Add(new DialogLine ("Jane", "Sim, veja: encontrei este pedaço de papel com algumas palavras riscadas.", ""));
-		dEduardo_s2.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum... curioso... o nome parece ter sido escrito à caneta... ", ""));
-		dEduardo_s2.Add(new DialogLine ("Capitão Eduardo Hastings", "mas os rabiscos rudes que foram feitos por cima foram feitos à lápis... nada que uma borracha não resolva, acredito.", ""));
+		dEduardo_s2.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
+		dEduardo_s2.Add(new DialogLine ("Jane", "Sim, veja: encontrei este pedaço de papel com algumas palavras riscadas.", 0, 0));
+		dEduardo_s2.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum... curioso... o nome parece ter sido escrito à caneta... ", 1, 1));
+		dEduardo_s2.Add(new DialogLine ("Capitão Eduardo Hastings", "mas os rabiscos rudes que foram feitos por cima foram feitos à lápis... nada que uma borracha não resolva, acredito.", 1, 1));
 		Acao eduardo_s2_a0_e = new MostrarDialogos (dEduardo_s2);
 		EduardoState2.OnExamineAction.Add (eduardo_s2_a0_e);
 		acoesHashtable.Add ("Eduardo-2", EduardoState2);
@@ -74,17 +74,17 @@ public class DicionarioAcoes {
 		//============================
 		state EduardoState3 = new state();
 		ArrayList dEduardo_s3 = new ArrayList ();
-		dEduardo_s3.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", ""));
-		dEduardo_s3.Add(new DialogLine ("Jane", "Não imaginei que minha busca fosse ser tão fortuita, veja o que encontrei.", ""));
-		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum, você parece estar com sorte...", ""));
-		dEduardo_s3.Add(new DialogLine ("Jane", "Esta chave estava embaixo do tapete num canto escuro do saguão.", ""));
+		dEduardo_s3.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1,1));
+		dEduardo_s3.Add(new DialogLine ("Jane", "Não imaginei que minha busca fosse ser tão fortuita, veja o que encontrei.", 0, 0));
+		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum, você parece estar com sorte...", 1, 1));
+		dEduardo_s3.Add(new DialogLine ("Jane", "Esta chave estava embaixo do tapete num canto escuro do saguão.", 0, 0));
 
-		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum, parece ser uma chave GORJA, daquelas que abrem qualquer porta de fechadura simples...", ""));
-		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", " pode ser muito útil, esta casa é bem velha e talvez você encontre uma porta ou outra que possa ser aberta com esta chave...", ""));
-		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "o que mais você encontrou?", ""));
-		dEduardo_s3.Add(new DialogLine ("Jane", "Também encontrei este pedaço de papel com algumas palavras riscadas.", ""));
-		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum... curioso... o nome parece ter sido escrito à caneta... mas os rabiscos rudes ", ""));
-		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "que foram feitos por cima foram feitos à lápis... nada que uma borracha não resolva, acredito.", ""));
+		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum, parece ser uma chave GORJA, daquelas que abrem qualquer porta de fechadura simples...", 1, 1));
+		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", " pode ser muito útil, esta casa é bem velha e talvez você encontre uma porta ou outra que possa ser aberta com esta chave...", 1, 1));
+		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "o que mais você encontrou?", 1, 1));
+		dEduardo_s3.Add(new DialogLine ("Jane", "Também encontrei este pedaço de papel com algumas palavras riscadas.", 0, 0));
+		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "Hum... curioso... o nome parece ter sido escrito à caneta... mas os rabiscos rudes ", 1, 1));
+		dEduardo_s3.Add(new DialogLine ("Capitão Eduardo Hastings", "que foram feitos por cima foram feitos à lápis... nada que uma borracha não resolva, acredito.", 1 ,1));
 
 
 		Acao eduardo_s3_a0_e = new MostrarDialogos (dEduardo_s3);
@@ -93,7 +93,7 @@ public class DicionarioAcoes {
 
 
 
-
+		/*
 		//============================
 		//% Estado 0 de Dark Megaman %
 		//============================
@@ -190,7 +190,7 @@ public class DicionarioAcoes {
 		//acoesDarkMegamanEstadoDois.Add (acaoMover);
 		//DarkMegamanState2.OnInitActions.Add(acaoMover);
 		//acoesHashtable.Add("Dark Megaman-2", DarkMegamanState2);
-
+*/
 		//============================
 		//% Estado 0 de Tapete
 		//============================
@@ -200,8 +200,8 @@ public class DicionarioAcoes {
 		//*******  Acoes OnExamine do estado 0 do tapete
 		//**********************************************
 		
-		DialogLine tapete1 = new DialogLine ("Tapete", "Voce achou uma chave secreta", "");
-		DialogLine tapete2 = new DialogLine ("Dark Megaman", "A chave foi adicionada no seu inventorio", "");
+		DialogLine tapete1 = new DialogLine ("Tapete", "Voce achou uma chave secreta", -1);
+		DialogLine tapete2 = new DialogLine ("Dark Megaman", "A chave foi adicionada no seu inventorio", -1);
 		ArrayList dialogosTapete = new ArrayList();
 		dialogosTapete.Add (tapete1);
 		dialogosTapete.Add (tapete2);
@@ -222,7 +222,7 @@ public class DicionarioAcoes {
 		//*******  Acoes OnExamine do estado 1 do tapete
 		//**********************************************
 		
-		DialogLine tapetevazio = new DialogLine ("Tapete", "Nao ha nada aqui", "");
+		DialogLine tapetevazio = new DialogLine ("Tapete", "Nao ha nada aqui", -1);
 		ArrayList dialogosTapeteVazio = new ArrayList();
 		dialogosTapeteVazio.Add (tapetevazio);
 
@@ -241,7 +241,7 @@ public class DicionarioAcoes {
 		//*******  Acoes OnExamine do estado 0 do papel
 		//**********************************************
 		
-		DialogLine papelDialog = new DialogLine ("Papel", "Voce achou um papel!", "");
+		DialogLine papelDialog = new DialogLine ("Papel", "Voce achou um papel!", -1);
 		ArrayList dialogosPapel = new ArrayList();
 		dialogosPapel.Add (papelDialog);
 		Acao mostrarDialogoPapel = new  MostrarDialogos(dialogosPapel);

@@ -430,8 +430,8 @@ public class GameController : MonoBehaviour {
 			bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"","StartBtnBackground");
 			if (intbtn)
 			{
-				TransiteScene("Cena1", "initial_spot");
 				on_mainmenu = false;
+				TransiteScene("Cena1", "initial_spot");
 			}
 			
 			GUI.EndGroup();
