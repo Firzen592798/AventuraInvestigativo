@@ -18,9 +18,14 @@ public class GameController : MonoBehaviour {
 
 	bool cam_move;
 	public bool leftmouse_pressed;
+	public bool rightmouse_pressed;
 	bool on_mainmenu; // variavel que controla se o jogador esta no menu principal
-	bool menu_button_press;// variavel que controla se o botao de menu foi apertado
+	//bool menu_button_press;// variavel que controla se o botao de menu foi apertado
 	bool show_menu_GUI;// variavel que controla se a gui do menu deve ser exibida
+	bool show_inventory_GUI;
+	bool show_profiles_GUI;
+	bool show_backlog_GUI;
+	bool show_notes_GUI;
 	bool show_dialogbox_GUI;// variavel que controla se a gui da caixa de dialogo deve ser exibida
 	bool show_intbutton_GUI;// variavel que controla se a gui do botao de interacao deve ser exibida
 	bool show_choicebox_GUI;// variavel que controla se a gui da caixa de escolha deve ser exibida
@@ -31,6 +36,7 @@ public class GameController : MonoBehaviour {
 	public Sprite[] face_sets;//Array com faces de cada personagem
 	public string[] char_names;//Nomes de cada personagem
 	public int[] face_divider;//indices do inicio do faceset de cada personagem
+	public Sprite[] menu_icons;//balao de fala,inventorio,perfis,backlog,anotacoes
 
 	string dialog_text;//variavel que guarda o texto a ser exibido no dialogo
 	string[] choices_text;//variavel que guarda os textos das escolhas
@@ -42,7 +48,7 @@ public class GameController : MonoBehaviour {
 	float Hdef; //variavel que guarda a altura padrao da tela
 	float Wdef; //variavel que guarda a largura padrao da tela
 
-	//variaveis que guardam tamanhos dos componentes dos menus 
+	//variaveis que guardam tamanhos dos componentes da GUI
 		//variaveis gerais (tamanho da janela de menu e da area dos botoes dos outros menus)
 		// - A janela de menu cobre 1/3 da tela alinhado a direita
 		// - A area dos botoes cobre apenas 10% da area do menu
@@ -83,6 +89,9 @@ public class GameController : MonoBehaviour {
 		//variaveis do botao de interacao
 	float intbutton_width;
 	float intbutton_height;
+		//variaveis do menu de acesso rapido
+	float menugrid_width;
+	float menugrid_height;
 		//variaveis da caixa de escolhas
 	float choicebox_width;
 	float choicebox_height;
@@ -116,19 +125,22 @@ public class GameController : MonoBehaviour {
                 
         //testes do victor
 		on_mainmenu = true;
-		menu_button_press = false;
+		//menu_button_press = false;
 		show_menu_GUI = false;
+		show_inventory_GUI = false;
 		item_grid = new Item[4,4,3];
 		page = 0;
 		face_images = new Sprite[3];
 		face_names = new string[2];
 		cam_move = false;
 		leftmouse_pressed = false;
+		rightmouse_pressed = false;
 
 		Hdef = Screen.height;
 		Wdef = Screen.width;
 
 		//Resize
+		//variaveis gerais dos menus
 		menu_width = Wdef / 3;
 		menu_height = Hdef;
 		btnarea_width = menu_width;
@@ -156,8 +168,11 @@ public class GameController : MonoBehaviour {
 		textarea_height = 7f * dialogbox_height / 10;
 		dialog_fontsize = textarea_height*0.25f;
 		//variaveis do botao de interacao
-		intbutton_width = Wdef / 4;
-		intbutton_height = intbutton_width / 3;
+		intbutton_width = Wdef / 12;
+		intbutton_height = intbutton_width;
+		//variaveis do menu de acesso rapido
+		menugrid_width = intbutton_width * 3;
+		menugrid_height = menugrid_width;
 		//variaveis da caixa de escolhas
 		choicebox_width = 3*Wdef / 5;
 		choicebox_height = choicebox_width / 5;
@@ -184,31 +199,54 @@ public class GameController : MonoBehaviour {
 			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y,cam.transform.position.z);
 		}
 			//Inputs
-        if (Input.GetKeyDown (KeyCode.C)) 
-		{
-			menu_button_press = true;
-		}
-		if (Input.GetKeyUp (KeyCode.C)) 
-		{
-			menu_button_press = false;
-		}
+        //if (Input.GetKeyDown (KeyCode.C)) 
+		//{
+		//	menu_button_press = true;
+		//}
+		//if (Input.GetKeyUp (KeyCode.C)) 
+		//{
+		//	menu_button_press = false;
+		//}
 			//Variaveis de controle
-		if (menu_button_press) 
+		//if (menu_button_press) 
+		//{
+		//	if (!on_mainmenu)
+		//	{
+		//		if ((!show_menu_GUI)&&(!show_inventory_GUI))
+		//		{
+		//			show_menu_GUI = true;
+		//			persona.lockplayer();
+		//		}else
+		//		{	
+		//			show_menu_GUI = false;
+		//			show_inventory_GUI = false;
+		//			persona.unlockplayer();
+		//		}
+		//		menu_button_press = false;
+		//	}
+		//}
+		if (Input.GetMouseButtonDown (1)) 
 		{
-			if (!on_mainmenu)
+			rightmouse_pressed = true;
+		}
+		if (Input.GetMouseButtonUp (1)) 
+		{
+			rightmouse_pressed = false;
+		}
+		if (rightmouse_pressed) 
+		{
+			if (!show_menu_GUI)
 			{
-				if (!show_menu_GUI)
+				if (!show_inventory_GUI)
 				{
 					show_menu_GUI = true;
-					persona.lockplayer();
-				}else
-				{
-					show_menu_GUI = false;
-					persona.unlockplayer();
 				}
-				menu_button_press = false;
+			}else
+			{
+				show_menu_GUI = false;
 			}
-		} 
+			rightmouse_pressed = false;
+		}
 	}
 
 	public void TransiteScene(string NextScene, string SpawnPoint) {
@@ -236,285 +274,45 @@ public class GameController : MonoBehaviour {
 		if (!on_mainmenu) 
 		{//Mostrando os componentes de GUI
 			
-			//Botao de inicio de jogo
+			//Botao de interacao
 			if (show_intbutton_GUI) 
 			{
-				//Definir area do botao de interacao
-				GUI.BeginGroup(new Rect(Wdef-intbutton_width,0,intbutton_width,intbutton_height));
-				
-				//Desenhar botao de interacao
-				GUIStyle intbtnstyle = GUI.skin.GetStyle("ButtonBackground");
-				intbtnstyle.fontSize = Mathf.RoundToInt(dialog_fontsize);
-				bool intbtn = GUI.Button(new Rect(0,0,intbutton_width,intbutton_height),"Examinar",intbtnstyle);
-				if (intbtn)
-				{
-					//colocar acao do botao - iniciar dialogo
-					leftmouse_pressed = true;
-				}
-				
-				GUI.EndGroup();
+				showExamineGUI();
 			}
 
 			//Botao de acesso ao menu (inventario)
-			if (!show_menu_GUI)
+			if ((show_menu_GUI)&&(!show_inventory_GUI))
 			{
-				//Definir area do botao de acesso
-				GUI.BeginGroup(new Rect(0,0,intbutton_width,intbutton_height));
-				
-				//Desenhar botao de acesso
-				GUIStyle intbtnstyle = GUI.skin.GetStyle("ButtonBackground");
-				intbtnstyle.fontSize = Mathf.RoundToInt(dialog_fontsize);
-				bool intbtn = GUI.Button(new Rect(0,0,intbutton_width,intbutton_height),"Inventório",intbtnstyle);
-				if (intbtn)
-				{
-					show_menu_GUI = true;
-					persona.lockplayer();
-				}
-				
-				GUI.EndGroup();
+				showQuickmenuGUI();
 			}
 			
 			//Faces dos personagens e mostrar itens
 			if (show_face_GUI) 
 			{
-				//Definir a area das faces
-				GUI.BeginGroup(new Rect(Wdef-dialogbox_width,Hdef-dialogbox_height-facearea_height,dialogbox_width,facearea_height));
-				
-				//Desenhar cada imagem de face
-				if (face_images[0] != null)//esquerda
-				{
-					GUIStyle styl0 = GUI.skin.GetStyle("FaceimgBackground");
-					styl0.normal.background = face_images[0].texture;
-					GUIStyle plate0 = GUI.skin.GetStyle("DialogBoxBackground");
-					plate0.fontSize = Mathf.RoundToInt(faceplate_fontsize);
-					GUI.Box(new Rect(0,0,facearea_width,facearea_height),"",styl0);
-					GUI.Box(new Rect((facearea_width-faceplate_width)/2,facearea_height-faceplate_height,faceplate_width,faceplate_height),face_names[0],plate0);
-				}
-				if (face_images[1] != null)//direita
-				{
-					GUIStyle styl1 = GUI.skin.GetStyle("FaceimgBackground");
-					styl1.normal.background = face_images[1].texture;
-					GUIStyle plate1 = GUI.skin.GetStyle("DialogBoxBackground");
-					plate1.fontSize = Mathf.RoundToInt(faceplate_fontsize);
-					GUI.Box(new Rect(dialogbox_width-facearea_width,0,facearea_width,facearea_height),"",styl1);
-					GUI.Box(new Rect(dialogbox_width-facearea_width+(facearea_width-faceplate_width)/2,facearea_height-faceplate_height,faceplate_width,faceplate_height),face_names[1],plate1);
-				}
-				if (face_images[2] != null)//centro
-				{
-					GUIStyle styl2 = GUI.skin.GetStyle("FaceimgBackground");
-					styl2.normal.background = face_images[2].texture;
-					GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"","MenuBackground");
-					GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"",styl2);
-				}
-				
-				GUI.EndGroup();
+				showFacesGUI();
 			}
 			
 			//Caixa de dialogo
 			if (show_dialogbox_GUI) 
 			{
-				//Fazer a area delimitante da caixa de dialogo
-				GUI.BeginGroup(new Rect(Wdef-dialogbox_width,Hdef-dialogbox_height,dialogbox_width,dialogbox_height));
-				
-				//Desenhar a caixa de dialogo
-				GUI.Box(new Rect(0,0,dialogbox_width,dialogbox_height),"","DialogboxBackground");
-								
-				//Fazer a area delimitante da caixa de texto
-				GUI.BeginGroup(new Rect((dialogbox_width - textarea_width)/2,(dialogbox_height-textarea_height)/2,textarea_width,textarea_height));
-				
-				//Desenhar o texto da caixa de texto
-				GUIStyle text_gui = GUI.skin.GetStyle("DialogtextBackground");
-				text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
-				GUI.Box(new Rect(0,0,textarea_width,textarea_height),dialog_text,text_gui);
-				
-				GUI.EndGroup();
-				
-				GUI.EndGroup();
+				showDialogGUI();
 			}
 			
 			//Caixa de escolha
 			if (show_choicebox_GUI) 
 			{
-				//Definir area da caixa de escolha
-				int nchoices = choices_text.Length;
-				GUI.BeginGroup(new Rect((Wdef-choicebox_width)/2,(Hdef-(nchoices*choicebox_height))/2,choicebox_width,nchoices*choicebox_height));
-				
-				//Desenhar caixa de escolha
-				//GUI.Box(new Rect(0,0,choicebox_width,nchoices*choicebox_height),"","MenuBackground");
-				
-				//Desenhar botoes de escolha
-				bool[] choicebuttons = new bool[nchoices];
-				GUIStyle text_gui = GUI.skin.GetStyle("ButtonBackground");
-				text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
-				for (int i = 0;i<nchoices;i++)
-				{
-					choicebuttons[i] = GUI.Button(new Rect((choicebox_width-choicetext_width)/2,((choicebox_height-choicetext_height)/2)+(i*choicetext_height),choicetext_width,choicetext_height),choices_text[i],text_gui);
-					if (choicebuttons[i])
-					{
-						//colocar acao da escolha
-					}
-				}
-				
-				GUI.EndGroup();
+				showChoiceGUI();
 			}
 			
 			//Menu inventorio
-			if (show_menu_GUI)
+			if (show_inventory_GUI)
 			{
-				Item[] itemsPegos = inventorio.getItems();
-				int itemCount = inventorio.count ();
-				
-				//organizar itens no grid do inventorio
-				int H = 0;
-				for (int k = 0;k<3;k++)
-				{
-					for (int i = 0; i<4;i++)
-					{
-						for (int j = 0; j<4;j++)
-						{
-							if (H<itemCount)
-							{
-								item_grid[i,j,k] = itemsPegos[H];
-								H++;
-							}						 
-						}
-					}
-				}
-				
-				//Fazer a area delimitante do menu
-				GUI.BeginGroup(new Rect(Wdef-menu_width,Hdef-menu_height,menu_width,menu_height));
-				
-				//Desenhar o background do menu
-				GUI.Box(new Rect(0,0,menu_width,menu_height),"","MenuBackground");
-				
-				//Definir area superior
-				GUI.BeginGroup(new Rect(0,0,uparea_width,uparea_height));
-				
-				//Desenhar area superior (imagem do item e titulo do mesmo)
-				if (selectedItem != null)
-				{
-					GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),selectedItem.getNome(),"TextBackground");
-					GUIStyle bigimg = new GUIStyle();
-					bigimg.normal.background = selectedItem.getSprite().texture;
-					GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),"",bigimg);
-				} else
-				{
-					GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),"","TextBackground");
-					GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),"","Menubackground");
-				}
-				GUI.EndGroup();
-				
-				//Definir area central
-				GUI.BeginGroup(new Rect(0,menu_height-lowarea_height-btnarea_height-midarea_height,midarea_width,midarea_height));
-				
-				//Desenhar a area central (Descricao de item)
-				if (selectedItem != null)
-				{
-					GUI.Box(new Rect(0,0,midarea_width,midarea_height),selectedItem.getDescricao(),"TextBackground");
-				} else
-				{
-					GUI.Box(new Rect(0,0,midarea_width,midarea_height),"","TextBackground");
-				}
-				GUI.EndGroup();
-				
-				//Definir area inferior
-				GUI.BeginGroup(new Rect(0,menu_height-lowarea_height-btnarea_height,lowarea_width,lowarea_height));
-				
-				//Desenhar areas laterais inferiores (setas de mudanca de pagina)
-				bool leftarrow = GUI.Button(new Rect(0.02f*lowarea_width,2*lowarea_height/5,slot_width,slot_height),"","ArrowLBackground");
-				if (leftarrow)
-				{
-					if (page > 0)
-					{
-						page = page - 1;
-					}else
-					{
-						page = 2;
-					}
-					
-				}
-				bool rightarrow = GUI.Button(new Rect(0.98f*lowarea_width-slot_width,2*lowarea_height/5,slot_width,slot_height),"","ArrowRBackground");
-				if (rightarrow)
-				{
-					if (page < 2)
-					{
-						page = page + 1;
-					}else
-					{
-						page = 0;
-					}
-				}
-				
-				//Definir area central inferior(itens do inventario)
-				GUI.BeginGroup(new Rect((lowarea_width-grid_width)/2,(lowarea_height-grid_height)/2,grid_width,grid_height));
-				
-				//Desenhar area central inferior(item slots)
-				bool[,] itemshow= new bool[4,4];
-				for (int i = 0;i< 4;i++)
-				{
-					float posX = i*slot_width;
-					for (int j=0; j<4; j++)
-					{
-						float posY = j*slot_height;
-						if (item_grid[j,i,page] != null)
-						{
-							GUIStyle litimg = new GUIStyle();
-							litimg.normal.background = item_grid[j,i,page].getSprite().texture;
-							itemshow[j,i] = GUI.Button (new Rect(posX,posY,slot_width,slot_height),"","SlotBackground");
-							GUI.Box (new Rect(posX,posY,slot_width,slot_height),"",litimg);
-							if (itemshow[j,i])
-							{
-								selectedItem = item_grid[j,i,page];
-							}
-						}else
-						{
-							GUI.Box (new Rect(posX,posY,slot_width,slot_height),"","SlotBackground");
-						}
-					}
-				}
-				GUI.EndGroup();
-				
-				GUI.EndGroup();
-				
-				//Definir area dos botoes dos menus
-				GUI.BeginGroup(new Rect(0,menu_height-btnarea_height,btnarea_width,btnarea_height));
-				
-				//Desenhar area dos botoes dos menus(botoes)
-				GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
-				lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
-				GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Perfis",lbutton);
-				GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Backlog",lbutton);
-				GUI.Button(new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Anotações",lbutton);
-
-				//Botao de fechar menu
-				bool closebutton = GUI.Button(new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Fechar",lbutton);
-				if (closebutton)
-				{
-					show_menu_GUI = false;
-					persona.unlockplayer();
-				}
-
-				GUI.EndGroup();
-				
-				
-				GUI.EndGroup();
+				showInventoryGUI();
 			}
 		}else
 		{
 			//Menu principal
-			//Definir area dos botoes
-			GUI.BeginGroup(new Rect((Wdef-startbtn_width)/2,3*Hdef/5,startbtn_width,startbtn_height));
-			
-			//Desenhar botao de iniciar jogo
-			bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"","StartBtnBackground");
-			if (intbtn)
-			{
-				on_mainmenu = false;
-				TransiteScene("Cena1", "initial_spot");
-			}
-			
-			GUI.EndGroup();
-
+			showMainMenuGUI();
 		}
 
 		GUI.matrix = oldMatrix;
@@ -635,5 +433,315 @@ public class GameController : MonoBehaviour {
 	public void unlockplayer()
 	{
 		persona.unlockplayer ();
+	}
+
+	public void showExamineGUI()
+	{
+		//Definir area do botao de interacao
+		float h = player.GetComponent<SpriteRenderer> ().bounds.extents.y * 2;
+		Vector3 p1 = cam.WorldToScreenPoint (new Vector3 (0, h, 0));
+		Vector3 p2 = cam.WorldToScreenPoint (new Vector3 (0, 0, 0));
+		float char_height = (p1 - p2).y;
+		GUI.BeginGroup(new Rect((Wdef-intbutton_width)/2,Hdef/2-intbutton_height-char_height,intbutton_width,intbutton_height));
+		//Desenhar botao de interacao
+		GUIStyle intbtnstyle = new GUIStyle ();
+		intbtnstyle.normal.background = menu_icons [0].texture;
+		bool intbtn = GUI.Button(new Rect(0,0,intbutton_width,intbutton_height),"",intbtnstyle);
+		if (intbtn)
+		{
+			//colocar acao do botao - iniciar dialogo
+			leftmouse_pressed = true;
+		}
+		
+		GUI.EndGroup();
+	}
+
+	public void showQuickmenuGUI()
+	{
+		//Definir area dos botoes de acesso
+		GUI.BeginGroup(new Rect((Wdef-menugrid_width)/2,(Hdef-menugrid_height)/2,menugrid_width,menugrid_height));
+		
+		//Desenhar botoes de acesso
+		//Esquerda - inventorio
+		GUIStyle inventory_style = new GUIStyle();
+		inventory_style.normal.background = menu_icons[1].texture;
+		bool invbtn = GUI.Button(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"","SlotBackground");
+		GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
+		if (invbtn)
+		{
+			show_menu_GUI = false;
+			show_inventory_GUI = true;
+			persona.lockplayer();
+		}
+		//Direita - Perfis
+		//GUIStyle inventory_style = new GUIStyle();
+		//inventory_style.normal.background = menu_icons[1].texture;
+		bool perfbtn = GUI.Button(new Rect(menugrid_width-intbutton_width,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"","SlotBackground");
+		//GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
+		if (perfbtn)
+		{
+			show_menu_GUI = true;
+			persona.lockplayer();
+		}
+		//Baixo - backlog
+		//GUIStyle inventory_style = new GUIStyle();
+		//inventory_style.normal.background = menu_icons[1].texture;
+		bool bklbtn = GUI.Button(new Rect((menugrid_width-intbutton_width)/2,menugrid_height-intbutton_height,intbutton_width,intbutton_height),"","SlotBackground");
+		//GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
+		if (bklbtn)
+		{
+			show_menu_GUI = true;
+			persona.lockplayer();
+		}
+		//Cima - anotacoes
+		//GUIStyle inventory_style = new GUIStyle();
+		//inventory_style.normal.background = menu_icons[1].texture;
+		bool anotbtn = GUI.Button(new Rect((menugrid_width-intbutton_width)/2,0,intbutton_width,intbutton_height),"","SlotBackground");
+		//GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
+		if (anotbtn)
+		{
+			show_menu_GUI = true;
+			persona.lockplayer();
+		}		
+		GUI.EndGroup();
+	}
+
+	public void showInventoryGUI()
+	{
+		Item[] itemsPegos = inventorio.getItems();
+		int itemCount = inventorio.count ();
+		
+		//organizar itens no grid do inventorio
+		int H = 0;
+		for (int k = 0;k<3;k++)
+		{
+			for (int i = 0; i<4;i++)
+			{
+				for (int j = 0; j<4;j++)
+				{
+					if (H<itemCount)
+					{
+						item_grid[i,j,k] = itemsPegos[H];
+						H++;
+					}						 
+				}
+			}
+		}
+		
+		//Fazer a area delimitante do menu
+		GUI.BeginGroup(new Rect(Wdef-menu_width,Hdef-menu_height,menu_width,menu_height));
+		
+		//Desenhar o background do menu
+		GUI.Box(new Rect(0,0,menu_width,menu_height),"","MenuBackground");
+		
+		//Definir area superior
+		GUI.BeginGroup(new Rect(0,0,uparea_width,uparea_height));
+		
+		//Desenhar area superior (imagem do item e titulo do mesmo)
+		if (selectedItem != null)
+		{
+			GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),selectedItem.getNome(),"TextBackground");
+			GUIStyle bigimg = new GUIStyle();
+			bigimg.normal.background = selectedItem.getSprite().texture;
+			GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),"",bigimg);
+		} else
+		{
+			GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),"","TextBackground");
+			GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),"","Menubackground");
+		}
+		GUI.EndGroup();
+		
+		//Definir area central
+		GUI.BeginGroup(new Rect(0,menu_height-lowarea_height-btnarea_height-midarea_height,midarea_width,midarea_height));
+		
+		//Desenhar a area central (Descricao de item)
+		if (selectedItem != null)
+		{
+			GUI.Box(new Rect(0,0,midarea_width,midarea_height),selectedItem.getDescricao(),"TextBackground");
+		} else
+		{
+			GUI.Box(new Rect(0,0,midarea_width,midarea_height),"","TextBackground");
+		}
+		GUI.EndGroup();
+		
+		//Definir area inferior
+		GUI.BeginGroup(new Rect(0,menu_height-lowarea_height-btnarea_height,lowarea_width,lowarea_height));
+		
+		//Desenhar areas laterais inferiores (setas de mudanca de pagina)
+		bool leftarrow = GUI.Button(new Rect(0.02f*lowarea_width,2*lowarea_height/5,slot_width,slot_height),"","ArrowLBackground");
+		if (leftarrow)
+		{
+			if (page > 0)
+			{
+				page = page - 1;
+			}else
+			{
+				page = 2;
+			}
+			
+		}
+		bool rightarrow = GUI.Button(new Rect(0.98f*lowarea_width-slot_width,2*lowarea_height/5,slot_width,slot_height),"","ArrowRBackground");
+		if (rightarrow)
+		{
+			if (page < 2)
+			{
+				page = page + 1;
+			}else
+			{
+				page = 0;
+			}
+		}
+		
+		//Definir area central inferior(itens do inventario)
+		GUI.BeginGroup(new Rect((lowarea_width-grid_width)/2,(lowarea_height-grid_height)/2,grid_width,grid_height));
+		
+		//Desenhar area central inferior(item slots)
+		bool[,] itemshow= new bool[4,4];
+		for (int i = 0;i< 4;i++)
+		{
+			float posX = i*slot_width;
+			for (int j=0; j<4; j++)
+			{
+				float posY = j*slot_height;
+				if (item_grid[j,i,page] != null)
+				{
+					GUIStyle litimg = new GUIStyle();
+					litimg.normal.background = item_grid[j,i,page].getSprite().texture;
+					itemshow[j,i] = GUI.Button (new Rect(posX,posY,slot_width,slot_height),"","SlotBackground");
+					GUI.Box (new Rect(posX,posY,slot_width,slot_height),"",litimg);
+					if (itemshow[j,i])
+					{
+						selectedItem = item_grid[j,i,page];
+					}
+				}else
+				{
+					GUI.Box (new Rect(posX,posY,slot_width,slot_height),"","SlotBackground");
+				}
+			}
+		}
+		GUI.EndGroup();
+		
+		GUI.EndGroup();
+		
+		//Definir area dos botoes dos menus
+		GUI.BeginGroup(new Rect(0,menu_height-btnarea_height,btnarea_width,btnarea_height));
+		
+		//Desenhar area dos botoes dos menus(botoes)
+		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
+		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
+		GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Perfis",lbutton);
+		GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Backlog",lbutton);
+		GUI.Button(new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Anotações",lbutton);
+		
+		//Botao de fechar menu
+		bool closebutton = GUI.Button(new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Fechar",lbutton);
+		if (closebutton)
+		{
+			show_menu_GUI = false;
+			show_inventory_GUI = false;
+			persona.unlockplayer();
+		}
+		
+		GUI.EndGroup();		
+		
+		GUI.EndGroup();
+	}
+
+	public void showFacesGUI()
+	{
+		//Definir a area das faces
+		GUI.BeginGroup(new Rect(Wdef-dialogbox_width,Hdef-dialogbox_height-facearea_height,dialogbox_width,facearea_height));
+		
+		//Desenhar cada imagem de face
+		if (face_images[0] != null)//esquerda
+		{
+			GUIStyle styl0 = GUI.skin.GetStyle("FaceimgBackground");
+			styl0.normal.background = face_images[0].texture;
+			GUIStyle plate0 = GUI.skin.GetStyle("TextBackground");
+			plate0.fontSize = Mathf.RoundToInt(faceplate_fontsize);
+			GUI.Box(new Rect(0,0,facearea_width,facearea_height),"",styl0);
+			GUI.Box(new Rect((facearea_width-faceplate_width)/2,facearea_height-faceplate_height,faceplate_width,faceplate_height),face_names[0],plate0);
+		}
+		if (face_images[1] != null)//direita
+		{
+			GUIStyle styl1 = GUI.skin.GetStyle("FaceimgBackground");
+			styl1.normal.background = face_images[1].texture;
+			GUIStyle plate1 = GUI.skin.GetStyle("TextBackground");
+			plate1.fontSize = Mathf.RoundToInt(faceplate_fontsize);
+			GUI.Box(new Rect(dialogbox_width-facearea_width,0,facearea_width,facearea_height),"",styl1);
+			GUI.Box(new Rect(dialogbox_width-facearea_width+(facearea_width-faceplate_width)/2,facearea_height-faceplate_height,faceplate_width,faceplate_height),face_names[1],plate1);
+		}
+		if (face_images[2] != null)//centro
+		{
+			GUIStyle styl2 = GUI.skin.GetStyle("FaceimgBackground");
+			styl2.normal.background = face_images[2].texture;
+			GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"","MenuBackground");
+			GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"",styl2);
+		}
+		
+		GUI.EndGroup();
+	}
+
+	public void showDialogGUI()
+	{
+		//Fazer a area delimitante da caixa de dialogo
+		GUI.BeginGroup(new Rect(Wdef-dialogbox_width,Hdef-dialogbox_height,dialogbox_width,dialogbox_height));
+		
+		//Desenhar a caixa de dialogo
+		GUI.Box(new Rect(0,0,dialogbox_width,dialogbox_height),"","DialogboxBackground");
+		
+		//Fazer a area delimitante da caixa de texto
+		GUI.BeginGroup(new Rect((dialogbox_width - textarea_width)/2,(dialogbox_height-textarea_height)/2,textarea_width,textarea_height));
+		
+		//Desenhar o texto da caixa de texto
+		GUIStyle text_gui = GUI.skin.GetStyle("DialogtextBackground");
+		text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
+		GUI.Box(new Rect(0,0,textarea_width,textarea_height),dialog_text,text_gui);
+		
+		GUI.EndGroup();
+		
+		GUI.EndGroup();
+	}
+
+	public void showChoiceGUI()
+	{
+		//Definir area da caixa de escolha
+		int nchoices = choices_text.Length;
+		GUI.BeginGroup(new Rect((Wdef-choicebox_width)/2,(Hdef-(nchoices*choicebox_height))/2,choicebox_width,nchoices*choicebox_height));
+		
+		//Desenhar caixa de escolha
+		//GUI.Box(new Rect(0,0,choicebox_width,nchoices*choicebox_height),"","MenuBackground");
+		
+		//Desenhar botoes de escolha
+		bool[] choicebuttons = new bool[nchoices];
+		GUIStyle text_gui = GUI.skin.GetStyle("ButtonBackground");
+		text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
+		for (int i = 0;i<nchoices;i++)
+		{
+			choicebuttons[i] = GUI.Button(new Rect((choicebox_width-choicetext_width)/2,((choicebox_height-choicetext_height)/2)+(i*choicetext_height),choicetext_width,choicetext_height),choices_text[i],text_gui);
+			if (choicebuttons[i])
+			{
+				//colocar acao da escolha
+			}
+		}
+		
+		GUI.EndGroup();
+	}
+
+	public void showMainMenuGUI()
+	{
+		//Definir area dos botoes
+		GUI.BeginGroup(new Rect((Wdef-startbtn_width)/2,3*Hdef/5,startbtn_width,startbtn_height));
+		
+		//Desenhar botao de iniciar jogo
+		bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"","StartBtnBackground");
+		if (intbtn)
+		{
+			on_mainmenu = false;
+			TransiteScene("Cena1", "initial_spot");
+		}
+		
+		GUI.EndGroup();
+
 	}
 }
