@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -57,12 +57,8 @@
      <Compile Include="Assets\Resources\scripts\ShowText.cs" />
      <Compile Include="Assets\Resources\scripts\StaticObjectScript.cs" />
      <Compile Include="Assets\Resources\scripts\Teclas.cs" />
-     <Compile Include="Assets\Resources\scripts\TestExamine.cs" />
-     <Compile Include="Assets\Resources\scripts\TextExamine2.cs" />
-     <Compile Include="Assets\Resources\scripts\TextPlaceholder.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\Acao.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\AdicionarItem.cs" />
-     <Compile Include="Assets\Resources\scripts\acoes\FinalizarAcao.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarDialogos.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarEscolhas.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MoverPersonagem.cs" />
@@ -77,7 +73,6 @@
      <Compile Include="Assets\Resources\scripts\items\PickUpItem.cs" />
      <Compile Include="Assets\Resources\scripts\model\DialogLine.cs" />
      <Compile Include="Assets\Resources\scripts\model\Escolha.cs" />
-     <Compile Include="Assets\Resources\scripts\showchoice.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

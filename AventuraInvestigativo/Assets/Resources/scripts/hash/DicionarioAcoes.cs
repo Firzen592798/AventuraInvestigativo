@@ -7,7 +7,7 @@ public class DicionarioAcoes {
 		//============================
 		//% Estado 0 de Dark Megaman %
 		//============================
-		state EduardoState0 = new state();
+		state EduardoState0 = new state(0);
 
 		//**********************************************
 		//*******  Acoes OnInit do estado 0  ***********
@@ -51,12 +51,13 @@ public class DicionarioAcoes {
 		Acao eduardo_s0_a0_e = new MostrarDialogos (dEduardo_s0_e);
 		EduardoState0.OnExamineAction.Add(eduardo_s0_a0_e);
 
-		acoesHashtable.Add ("Eduardo-0", EduardoState0);
+		AddStateTo("Eduardo", EduardoState0);
+		//acoesHashtable.Add ("Eduardo-0", EduardoState0);
 
 		//============================
 		//% Estado 1 de Eduardo
 		//============================
-		state EduardoState1 = new state();
+		state EduardoState1 = new state(1);
 
 		//**********************************************
 		//*******  Acoes OnExamine do estado 1  ********
@@ -68,12 +69,14 @@ public class DicionarioAcoes {
 		dEduardo_s1.Add(new DialogLine ("Capitão Eduardo Hastings", "pode ser muito útil, esta casa é bem velha e talvez você encontre uma porta ou outra que possa  ser aberta com esta chave.", 1, 1));
 		Acao eduardo_s1_a0_e = new MostrarDialogos (dEduardo_s1);
 		EduardoState1.OnExamineAction.Add (eduardo_s1_a0_e);
-		acoesHashtable.Add ("Eduardo-1", EduardoState1);
+
+		AddStateTo("Eduardo", EduardoState1);
+		//acoesHashtable.Add ("Eduardo-1", EduardoState1);
 
 		//============================
 		//% Estado 2 de Eduardo
 		//============================
-		state EduardoState2 = new state();
+		state EduardoState2 = new state(2);
 		ArrayList dEduardo_s2 = new ArrayList ();
 		dEduardo_s2.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
 		dEduardo_s2.Add(new DialogLine ("Jane", "Sim, veja: encontrei este pedaço de papel com algumas palavras riscadas.", 0, 0));
@@ -81,12 +84,14 @@ public class DicionarioAcoes {
 		dEduardo_s2.Add(new DialogLine ("Capitão Eduardo Hastings", "mas os rabiscos rudes que foram feitos por cima foram feitos à lápis... nada que uma borracha não resolva, acredito.", 1, 1));
 		Acao eduardo_s2_a0_e = new MostrarDialogos (dEduardo_s2);
 		EduardoState2.OnExamineAction.Add (eduardo_s2_a0_e);
-		acoesHashtable.Add ("Eduardo-2", EduardoState2);
+
+		AddStateTo("Eduardo", EduardoState2);
+		//acoesHashtable.Add ("Eduardo-2", EduardoState2);
 
 		//============================
 		//% Estado 3 de Eduardo
 		//============================
-		state EduardoState3 = new state();
+		state EduardoState3 = new state(3);
 		ArrayList dEduardo_s3 = new ArrayList ();
 		dEduardo_s3.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1,1));
 		dEduardo_s3.Add(new DialogLine ("Jane", "Não imaginei que minha busca fosse ser tão fortuita, veja o que encontrei.", 0, 0));
@@ -103,119 +108,22 @@ public class DicionarioAcoes {
 
 		Acao eduardo_s3_a0_e = new MostrarDialogos (dEduardo_s3);
 		EduardoState3.OnExamineAction.Add (eduardo_s3_a0_e);
-		acoesHashtable.Add ("Eduardo-3", EduardoState3);
+
+		AddStateTo("Eduardo", EduardoState3);
+		//acoesHashtable.Add ("Eduardo-3", EduardoState3);
 
 
-
-		/*
-		//============================
-		//% Estado 0 de Dark Megaman %
-		//============================
-		state DarkMegamanState0 = new state();
-
-		//**********************************************
-		//*******  Acoes OnExamine do estado 0  ********
-		//**********************************************
-		DialogLine d1 = new DialogLine ("Dark Megaman", "Oi", "");
-		DialogLine d2 = new DialogLine ("Dark Megaman", "Testando o dialogo", "");
-		DialogLine d3 = new DialogLine ("Dark Megaman", "Victor Hugo", "");
-		DialogLine d4 = new DialogLine ("Dark Megaman", "Gin", "");
-		ArrayList dialogos = new ArrayList ();
-		dialogos.Add (d1);
-		dialogos.Add (d2);
-		dialogos.Add (d3);
-		dialogos.Add (d4);
-		Acao a1 = new MostrarDialogos(dialogos);
-		ArrayList escolhas = new ArrayList ();
-		escolhas.Add (new Escolha ("Mudar o estado", 1));
-		escolhas.Add (new Escolha ("Sai pra la", 2));
-		escolhas.Add (new Escolha ("Fazer nada", 0));
-		Acao a2 = new MostrarEscolhas(new DialogLine("Dark Megaman", "O que voce deseja?", ""), escolhas);
-
-	//	ArrayList acoesDarkMegamanEstadoZero = new ArrayList();
-	//	acoesDarkMegamanEstadoZero.Add (a1);
-	//	acoesDarkMegamanEstadoZero.Add (a2);
-	//	acoesHashtable.Add("Dark Megaman-0", acoesDarkMegamanEstadoZero);
-
-
-		DarkMegamanState0.OnExamineAction.Add(a1);
-		DarkMegamanState0.OnExamineAction.Add(a2);
-
-		//**********************************************
-		//********  Acoes OnInit do estado 0  **********
-		//**********************************************
-		DialogLine d5 = new DialogLine("Dark Megaman", "E ae! Esse eh um dialogo gerado assim que\nvc entrou nesse quarto!", "");
-		DialogLine d6 = new DialogLine("Dark Megaman", "Aproveite esse teste inutil", "");
-		DialogLine d7 = new DialogLine("Dark Megaman", "HUAHUAHUAHUAHUA", "");
-		DialogLine d8 = new DialogLine("Dark Megaman", "GOTY!", "");
-
-		ArrayList dialogos1 = new ArrayList();
-		dialogos1.Clear();
-		dialogos1.Add(d5);
-		dialogos1.Add(d6);
-		dialogos1.Add(d7);
-		dialogos1.Add(d8);
-		Acao a3 = new MostrarDialogos(dialogos1);
-
-		DarkMegamanState0.OnInitActions.Add(a3);
-
-		// fim estado 0 do Dark Megaman
-		acoesHashtable.Add("Dark Megaman-0", DarkMegamanState0);
-
-		//####################################################################################################
-
-		//============================
-		//% Estado 1 de Dark Megaman %
-		//============================
-		state DarkMegamanState1 = new state();
-
-		//**********************************************
-		//*******  Acoes OnExamine do estado 1  ********
-		//**********************************************
-
-		DialogLine d1e1 = new DialogLine ("Dark Megaman", "Mudando o estado", "");
-		DialogLine d2e1 = new DialogLine ("Dark Megaman", "Testando o novo dialogo", "");
-		ArrayList dialogos2 = new ArrayList();
-		dialogos2.Add (d1e1);
-		dialogos2.Add (d2e1);
-		Acao a1e1 = new  MostrarDialogos(dialogos2);
-		DarkMegamanState1.OnExamineAction.Add(a1e1);
-		acoesHashtable.Add("Dark Megaman-1", DarkMegamanState1);
-
-		// fim estado 1 do Dark Megaman
-		//####################################################################################################
-		
-		//============================
-		//% Estado 2 de Dark Megaman %
-		//============================
-		state DarkMegamanState2 = new state();
-		
-		//**********************************************
-		//*******  Acoes OnExamine do estado 2  ********
-		//**********************************************
-
-
-		//**********************************************
-		//*******  Acoes OnInit do estado 2  ********
-		//**********************************************
-
-		//Acao acaoMover = new MoverPersonagem();
-		//ArrayList acoesDarkMegamanEstadoDois = new ArrayList();
-		//acoesDarkMegamanEstadoDois.Add (acaoMover);
-		//DarkMegamanState2.OnInitActions.Add(acaoMover);
-		//acoesHashtable.Add("Dark Megaman-2", DarkMegamanState2);
-*/
 		//============================
 		//% Estado 0 de Tapete
 		//============================
-		state TapeteState0 = new state();
+		state TapeteState0 = new state(0);
 		
 		//**********************************************
 		//*******  Acoes OnExamine do estado 0 do tapete
 		//**********************************************
 		
 		DialogLine tapete1 = new DialogLine ("Tapete", "Voce achou uma chave secreta", -1);
-		DialogLine tapete2 = new DialogLine ("Dark Megaman", "A chave foi adicionada no seu inventorio", -1);
+		DialogLine tapete2 = new DialogLine ("Tapete", "A chave foi adicionada no seu inventorio", -1);
 		ArrayList dialogosTapete = new ArrayList();
 		dialogosTapete.Add (tapete1);
 		dialogosTapete.Add (tapete2);
@@ -224,13 +132,15 @@ public class DicionarioAcoes {
 		TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
 		TapeteState0.OnExamineAction.Add(new AdicionarItem("Chave", "sprites/chave", false));
 		TapeteState0.OnExamineAction.Add(new MudarEstado("Tapete", 1));
-		acoesHashtable.Add("Tapete-0", TapeteState0);
+
+		AddStateTo("Tapete", TapeteState0);
+		//acoesHashtable.Add("Tapete-0", TapeteState0);
 
 		//============================
 		//% Estado 1 do Tapete
 		//============================
 
-		state TapeteState1 = new state();
+		state TapeteState1 = new state(1);
 
 		//**********************************************
 		//*******  Acoes OnExamine do estado 1 do tapete
@@ -242,14 +152,16 @@ public class DicionarioAcoes {
 
 		Acao mostrarDialogoTapeteVazio = new  MostrarDialogos(dialogosTapeteVazio);
 		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
-		acoesHashtable.Add("Tapete-1", TapeteState1);
+
+		AddStateTo("Tapete", TapeteState1);
+		//acoesHashtable.Add("Tapete-1", TapeteState1);
 	
 		
 		//============================
 		//% Estado 0 do Papel
 		//============================
 		
-		state PapelState0 = new state();
+		state PapelState0 = new state(0);
 		
 		//**********************************************
 		//*******  Acoes OnExamine do estado 0 do papel
@@ -264,23 +176,28 @@ public class DicionarioAcoes {
 		PapelState0.OnExamineAction.Add(mostrarDialogoPapel);
 		PapelState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/papel", true));
 
-		acoesHashtable.Add("Papel-0", PapelState0);
-		//TapeteState0.OnExamineAction.Add(new MudarEstado("Tapete", 1));
-		//acoesHashtable.Add("Tapete-0", TapeteState0);
+		AddStateTo("Papel", PapelState0);
+		//acoesHashtable.Add("Papel-0", PapelState0);
 
 	}
 	
 	public state getStatePersonagem(string personagem, int estado){
 		return (state)acoesHashtable[personagem + "-" + estado];
 	}
+
+	void AddStateTo(string personagem, state estado) {
+		acoesHashtable.Add(personagem+"-"+estado.id, estado);
+	}
 }
 
 public class state {
+	public int id;
 	public ArrayList SettingActions;
 	public ArrayList OnInitActions;
 	public ArrayList OnExamineAction;
 
-	public state () {
+	public state (int state_num) {
+		id = state_num;
 		SettingActions = new ArrayList();
 		OnInitActions = new ArrayList();
 		OnExamineAction = new ArrayList();

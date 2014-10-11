@@ -12,8 +12,8 @@ public class GameController : MonoBehaviour {
 	private Hashtable NPC_dict;
 
 	private GerenciadorEstados gerEstados;
-        
-        //testes do victor
+    
+    //testes do victor
 	public Camera cam;
 
 	bool cam_move;
@@ -38,6 +38,9 @@ public class GameController : MonoBehaviour {
 	string[] face_names;//variavel que guarda o nome das imagens sendo exibidas
 
 	public GUISkin game_skin;//GUISkin com todos os estilos de gui
+
+	float Hdef; //variavel que guarda a altura padrao da tela
+	float Wdef; //variavel que guarda a largura padrao da tela
 
 	//variaveis que guardam tamanhos dos componentes dos menus 
 		//variaveis gerais (tamanho da janela de menu e da area dos botoes dos outros menus)
@@ -121,14 +124,13 @@ public class GameController : MonoBehaviour {
 		face_names = new string[2];
 		cam_move = false;
 		leftmouse_pressed = false;
-	}
 
-	// Update is called once per frame
-	void Update () {
-      	//testes do victor
-			//Resize
-		menu_width = Screen.width / 3;
-		menu_height = Screen.height;
+		Hdef = Screen.height;
+		Wdef = Screen.width;
+
+		//Resize
+		menu_width = Wdef / 3;
+		menu_height = Hdef;
 		btnarea_width = menu_width;
 		btnarea_height = menu_height / 10;
 		lbutton_width = btnarea_width / 2;
@@ -148,16 +150,16 @@ public class GameController : MonoBehaviour {
 		slot_width = grid_width / 4;
 		slot_height = grid_height / 4;
 		//variaveis da caixa de dialogo
-		dialogbox_width = Screen.width;
-		dialogbox_height = Screen.height / 4;
+		dialogbox_width = Wdef;
+		dialogbox_height = Hdef / 4;
 		textarea_width = 9f * dialogbox_width / 10;
 		textarea_height = 7f * dialogbox_height / 10;
 		dialog_fontsize = textarea_height*0.25f;
 		//variaveis do botao de interacao
-		intbutton_width = Screen.width / 4;
+		intbutton_width = Wdef / 4;
 		intbutton_height = intbutton_width / 3;
 		//variaveis da caixa de escolhas
-		choicebox_width = 3*Screen.width / 5;
+		choicebox_width = 3*Wdef / 5;
 		choicebox_height = choicebox_width / 5;
 		choicetext_width = 9 * choicebox_width / 10;
 		choicetext_height = 9 * choicebox_height/10;
@@ -168,10 +170,16 @@ public class GameController : MonoBehaviour {
 		faceplate_height = faceplate_width / 6;
 		faceplate_fontsize = 7 * faceplate_height / 10;
 		//variaveis dos botoes do menu principal
-		startbtn_width = Screen.width/3;
+		startbtn_width = Wdef/3;
 		startbtn_height = startbtn_width / 6;
+
+	}
+
+	// Update is called once per frame
+	void Update () {
+      	//testes do victor
 			//Camera
-		if (cam_move == true) 
+		if (cam_move) 
 		{
 			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y,cam.transform.position.z);
 		}
@@ -185,11 +193,11 @@ public class GameController : MonoBehaviour {
 			menu_button_press = false;
 		}
 			//Variaveis de controle
-		if (menu_button_press == true) 
+		if (menu_button_press) 
 		{
-			if (on_mainmenu == false)
+			if (!on_mainmenu)
 			{
-				if (show_menu_GUI == false)
+				if (!show_menu_GUI)
 				{
 					show_menu_GUI = true;
 					persona.lockplayer();
@@ -204,13 +212,11 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void TransiteScene(string NextScene, string SpawnPoint) {
-
 		if (player != null) {
 			//persona = (PlayerController) player.GetComponent(typeof(PlayerController));
 			persona.set_spot(SpawnPoint);
 			DontDestroyOnLoad(player);
 		}
-        on_mainmenu = false;
 		DontDestroyOnLoad(this.gameObject);
 		DontDestroyOnLoad (this.cam);
 		Application.LoadLevel(NextScene);
@@ -220,14 +226,21 @@ public class GameController : MonoBehaviour {
                 
         //testes do victor
         GUI.skin = game_skin;
-		if (on_mainmenu == false) 
+
+		Matrix4x4 oldMatrix = GUI.matrix;
+		Vector3 scale = new Vector3(Screen.height/Hdef, Screen.width/Wdef, 1.0f);
+		Matrix4x4 t = Matrix4x4.TRS(new Vector3(0,0,0), Quaternion.identity, scale);
+
+		GUI.matrix = t;
+
+		if (!on_mainmenu) 
 		{//Mostrando os componentes de GUI
 			
 			//Botao de inicio de jogo
-			if (show_intbutton_GUI == true) 
+			if (show_intbutton_GUI) 
 			{
 				//Definir area do botao de interacao
-				GUI.BeginGroup(new Rect(Screen.width-intbutton_width,0,intbutton_width,intbutton_height));
+				GUI.BeginGroup(new Rect(Wdef-intbutton_width,0,intbutton_width,intbutton_height));
 				
 				//Desenhar botao de interacao
 				GUIStyle intbtnstyle = GUI.skin.GetStyle("ButtonBackground");
@@ -243,7 +256,7 @@ public class GameController : MonoBehaviour {
 			}
 
 			//Botao de acesso ao menu (inventario)
-			if (show_menu_GUI == false)
+			if (!show_menu_GUI)
 			{
 				//Definir area do botao de acesso
 				GUI.BeginGroup(new Rect(0,0,intbutton_width,intbutton_height));
@@ -262,10 +275,10 @@ public class GameController : MonoBehaviour {
 			}
 			
 			//Faces dos personagens e mostrar itens
-			if (show_face_GUI == true) 
+			if (show_face_GUI) 
 			{
 				//Definir a area das faces
-				GUI.BeginGroup(new Rect(Screen.width-dialogbox_width,Screen.height-dialogbox_height-facearea_height,dialogbox_width,facearea_height));
+				GUI.BeginGroup(new Rect(Wdef-dialogbox_width,Hdef-dialogbox_height-facearea_height,dialogbox_width,facearea_height));
 				
 				//Desenhar cada imagem de face
 				if (face_images[0] != null)//esquerda
@@ -298,10 +311,10 @@ public class GameController : MonoBehaviour {
 			}
 			
 			//Caixa de dialogo
-			if (show_dialogbox_GUI == true) 
+			if (show_dialogbox_GUI) 
 			{
 				//Fazer a area delimitante da caixa de dialogo
-				GUI.BeginGroup(new Rect(Screen.width-dialogbox_width,Screen.height-dialogbox_height,dialogbox_width,dialogbox_height));
+				GUI.BeginGroup(new Rect(Wdef-dialogbox_width,Hdef-dialogbox_height,dialogbox_width,dialogbox_height));
 				
 				//Desenhar a caixa de dialogo
 				GUI.Box(new Rect(0,0,dialogbox_width,dialogbox_height),"","DialogboxBackground");
@@ -320,11 +333,11 @@ public class GameController : MonoBehaviour {
 			}
 			
 			//Caixa de escolha
-			if (show_choicebox_GUI == true) 
+			if (show_choicebox_GUI) 
 			{
 				//Definir area da caixa de escolha
 				int nchoices = choices_text.Length;
-				GUI.BeginGroup(new Rect((Screen.width-choicebox_width)/2,(Screen.height-(nchoices*choicebox_height))/2,choicebox_width,nchoices*choicebox_height));
+				GUI.BeginGroup(new Rect((Wdef-choicebox_width)/2,(Hdef-(nchoices*choicebox_height))/2,choicebox_width,nchoices*choicebox_height));
 				
 				//Desenhar caixa de escolha
 				//GUI.Box(new Rect(0,0,choicebox_width,nchoices*choicebox_height),"","MenuBackground");
@@ -346,7 +359,7 @@ public class GameController : MonoBehaviour {
 			}
 			
 			//Menu inventorio
-			if (show_menu_GUI == true) 
+			if (show_menu_GUI)
 			{
 				Item[] itemsPegos = inventorio.getItems();
 				int itemCount = inventorio.count ();
@@ -369,7 +382,7 @@ public class GameController : MonoBehaviour {
 				}
 				
 				//Fazer a area delimitante do menu
-				GUI.BeginGroup(new Rect(Screen.width-menu_width,Screen.height-menu_height,menu_width,menu_height));
+				GUI.BeginGroup(new Rect(Wdef-menu_width,Hdef-menu_height,menu_width,menu_height));
 				
 				//Desenhar o background do menu
 				GUI.Box(new Rect(0,0,menu_width,menu_height),"","MenuBackground");
@@ -490,7 +503,7 @@ public class GameController : MonoBehaviour {
 		{
 			//Menu principal
 			//Definir area dos botoes
-			GUI.BeginGroup(new Rect((Screen.width-startbtn_width)/2,3*Screen.height/5,startbtn_width,startbtn_height));
+			GUI.BeginGroup(new Rect((Wdef-startbtn_width)/2,3*Hdef/5,startbtn_width,startbtn_height));
 			
 			//Desenhar botao de iniciar jogo
 			bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"","StartBtnBackground");
@@ -503,7 +516,9 @@ public class GameController : MonoBehaviour {
 			GUI.EndGroup();
 
 		}
-		
+
+		GUI.matrix = oldMatrix;
+
 	}
 
 
@@ -517,10 +532,6 @@ public class GameController : MonoBehaviour {
 
 	public bool TemItem(string item){
 		return inventorio.TemItem (item);
-		
-		/*Debug.Log ("Pegou " + item);
-		itemsPegos [itemIndex] = (Item)items [item];
-		itemIndex++;*/
 	}	
 
 	public void PegarItem(string item, Sprite sprite){
@@ -542,6 +553,12 @@ public class GameController : MonoBehaviour {
 		NPC_dict.Clear();
 		foreach(GameObject go in GameObject.FindGameObjectsWithTag("NPC")) {
 			NPC_dict.Add( go.GetComponent<NPCController2>().nome, go );
+		}
+		if (thisLevel == 0) {
+			on_mainmenu = true;
+		}
+		else {
+			on_mainmenu = false;
 		}
 	}
 
