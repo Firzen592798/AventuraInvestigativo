@@ -110,6 +110,9 @@ public class DicionarioAcoes {
 		Acao eduardo_s3_a0_e = new MostrarDialogos (dEduardo_s3);
 		EduardoState3.OnExamineAction.Add (eduardo_s3_a0_e);
 
+		Acao mudarEstadoPorta = new MudarEstado ("Porta", 1);
+		EduardoState3.OnExamineAction.Add (mudarEstadoPorta);
+
 		AddStateTo("Eduardo", EduardoState3);
 		//acoesHashtable.Add ("Eduardo-3", EduardoState3);
 
@@ -130,7 +133,7 @@ public class DicionarioAcoes {
 		Acao mostrarDialogoTapete = new  MostrarDialogos(dialogosTapete);
 		TapeteState0.OnExamineAction.Add(mostrarDialogoTapete);
 		TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
-		TapeteState0.OnExamineAction.Add(new AdicionarItem("Chave", "sprites/chave", false));
+		TapeteState0.OnExamineAction.Add(new AdicionarItem("Chave", "sprites/Key item", false));
 		TapeteState0.OnExamineAction.Add(new MudarEstado("Tapete", 1));
 
 		AddStateTo("Tapete", TapeteState0);
@@ -168,12 +171,45 @@ public class DicionarioAcoes {
 		dialogosPapel.Add (papelDialog);
 		Acao mostrarDialogoPapel = new  MostrarDialogos(dialogosPapel);
 		PapelState0.OnExamineAction.Add(new MudarEstadoEduardo(2));
-
 		PapelState0.OnExamineAction.Add(mostrarDialogoPapel);
-		PapelState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/papel", true));
+		PapelState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/Paper item", true));
 
 		AddStateTo("Papel", PapelState0);
 		//acoesHashtable.Add("Papel-0", PapelState0);
+
+
+		//============================
+		//% Estado 0 da Porta
+		//============================
+		
+		state DoorState0 = new state(0);
+		
+		//**********************************************
+		//*******  Acoes OnExamine do estado 0 do papel
+		//**********************************************
+		
+		DialogLine dialogDoor = new DialogLine ("Porta", "Voce nao pode entrar aqui ainda, voce ainda tem coisas para fazer", -1);
+		ArrayList dialogosDoor = new ArrayList();
+		dialogosDoor.Add (dialogDoor);
+		Acao mostrarDialogoDoor = new  MostrarDialogos(dialogosDoor);
+		DoorState0.OnExamineAction.Add(mostrarDialogoDoor);
+		AddStateTo("Porta", DoorState0);
+
+		//============================
+		//% Estado 1 da Porta
+		//============================
+		
+		state DoorState1 = new state(1);
+		
+		//**********************************************
+		//*******  Acoes OnExamine do estado 0 do papel
+		//**********************************************
+
+		Acao mudarCenaPorta = new  MudarCena("Cena2", "transitor2");
+		DoorState1.OnExamineAction.Add(mudarCenaPorta);
+		AddStateTo("Porta", DoorState1);
+		//acoesHashtable.Add("Papel-0", PapelState0);
+
 
 	}
 	

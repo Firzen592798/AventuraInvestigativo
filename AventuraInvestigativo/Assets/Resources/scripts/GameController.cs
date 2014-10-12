@@ -354,7 +354,7 @@ public class GameController : MonoBehaviour {
 		}
 		NPC_dict.Clear();
 		foreach(GameObject go in GameObject.FindGameObjectsWithTag("NPC")) {
-			NPC_dict.Add( go.GetComponent<NPCController2>().nome, go );
+			NPC_dict.Add( go.GetComponent<ObjectController>().nome, go );
 		}
 		if (thisLevel == 0) {
 			on_mainmenu = true;
@@ -484,8 +484,8 @@ public class GameController : MonoBehaviour {
 		//GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
 		if (perfbtn)
 		{
-			show_menu_GUI = true;
-			persona.lockplayer();
+			//show_menu_GUI = true;
+			//persona.lockplayer();
 		}
 		//Baixo - backlog
 		//GUIStyle inventory_style = new GUIStyle();
@@ -494,8 +494,8 @@ public class GameController : MonoBehaviour {
 		//GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
 		if (bklbtn)
 		{
-			show_menu_GUI = true;
-			persona.lockplayer();
+			//show_menu_GUI = true;
+			//persona.lockplayer();
 		}
 		//Cima - anotacoes
 		//GUIStyle inventory_style = new GUIStyle();
@@ -504,8 +504,8 @@ public class GameController : MonoBehaviour {
 		//GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
 		if (anotbtn)
 		{
-			show_menu_GUI = true;
-			persona.lockplayer();
+			//show_menu_GUI = true;
+			//persona.lockplayer();
 		}		
 		GUI.EndGroup();
 	}
@@ -661,7 +661,7 @@ public class GameController : MonoBehaviour {
 		{
 			GUIStyle styl0 = GUI.skin.GetStyle("FaceimgBackground");
 			styl0.normal.background = face_images[0].texture;
-			GUIStyle plate0 = GUI.skin.GetStyle("TextBackground");
+			GUIStyle plate0 = GUI.skin.GetStyle("NameplateBackground");
 			plate0.fontSize = Mathf.RoundToInt(faceplate_fontsize);
 			GUI.Box(new Rect(0,0,facearea_width,facearea_height),"",styl0);
 			GUI.Box(new Rect((facearea_width-faceplate_width)/2,facearea_height-faceplate_height,faceplate_width,faceplate_height),face_names[0],plate0);
@@ -670,7 +670,7 @@ public class GameController : MonoBehaviour {
 		{
 			GUIStyle styl1 = GUI.skin.GetStyle("FaceimgBackground");
 			styl1.normal.background = face_images[1].texture;
-			GUIStyle plate1 = GUI.skin.GetStyle("TextBackground");
+			GUIStyle plate1 = GUI.skin.GetStyle("NameplateBackground");
 			plate1.fontSize = Mathf.RoundToInt(faceplate_fontsize);
 			GUI.Box(new Rect(dialogbox_width-facearea_width,0,facearea_width,facearea_height),"",styl1);
 			GUI.Box(new Rect(dialogbox_width-facearea_width+(facearea_width-faceplate_width)/2,facearea_height-faceplate_height,faceplate_width,faceplate_height),face_names[1],plate1);
@@ -701,8 +701,8 @@ public class GameController : MonoBehaviour {
 		GUIStyle text_gui = GUI.skin.GetStyle("DialogtextBackground");
 		text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
 		GUI.Box(new Rect(0,0,textarea_width,textarea_height),dialog_text,text_gui);
-		
-		GUI.EndGroup();
+
+		GUI.EndGroup ();
 		
 		GUI.EndGroup();
 	}
