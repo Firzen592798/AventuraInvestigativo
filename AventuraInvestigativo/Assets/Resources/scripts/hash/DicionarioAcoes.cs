@@ -130,7 +130,7 @@ public class DicionarioAcoes {
 		Acao mostrarDialogoTapete = new  MostrarDialogos(dialogosTapete);
 		TapeteState0.OnExamineAction.Add(mostrarDialogoTapete);
 		TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
-		TapeteState0.OnExamineAction.Add(new AdicionarItem("Chave", "sprites/chave", false));
+		TapeteState0.OnExamineAction.Add(new AdicionarItem("Chave", "sprites/Key item", false));
 		TapeteState0.OnExamineAction.Add(new MudarEstado("Tapete", 1));
 
 		AddStateTo("Tapete", TapeteState0);
@@ -172,9 +172,8 @@ public class DicionarioAcoes {
 		dialogosPapel.Add (papelDialog);
 		Acao mostrarDialogoPapel = new  MostrarDialogos(dialogosPapel);
 		PapelState0.OnExamineAction.Add(new MudarEstadoEduardo(2));
-
 		PapelState0.OnExamineAction.Add(mostrarDialogoPapel);
-		PapelState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/papel", true));
+		PapelState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/Paper item", true));
 
 		AddStateTo("Papel", PapelState0);
 		//acoesHashtable.Add("Papel-0", PapelState0);
