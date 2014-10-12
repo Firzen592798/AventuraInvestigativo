@@ -4,14 +4,14 @@ public class DicionarioAcoes {
 
 	private Hashtable acoesHashtable = new Hashtable();
 	public DicionarioAcoes() {
-		//============================
-		//% Estado 0 de Dark Megaman %
-		//============================
+		//********************************************
+		//*****      Eduardo - Estado 0      *********
+		//********************************************
 		state EduardoState0 = new state(0);
 
-		//**********************************************
-		//*******  Acoes OnInit do estado 0  ***********
-		//**********************************************
+		//=================================
+		//  Acoes OnInit do estado 0
+		//=================================
 		Acao move = new MoverPersonagem("Eduardo", Vector3.zero, true);
 
 		ArrayList dEduardo_s0 = new ArrayList ();
@@ -39,9 +39,9 @@ public class DicionarioAcoes {
 		EduardoState0.OnInitActions.Add(move);
 		EduardoState0.OnInitActions.Add(eduardo_s0_a0);
 
-		//**********************************************
-		//*******  Acoes OnExamine do estado 0  ********
-		//**********************************************
+		//=================================
+		//  Acoes OnExamine do estado 0
+		//=================================
 		ArrayList dEduardo_s0_e = new ArrayList ();
 		dEduardo_s0_e.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
 		dEduardo_s0_e.Add(new DialogLine ("Jane", "Não... não estou com sorte", 0, 0));
@@ -54,14 +54,15 @@ public class DicionarioAcoes {
 		AddStateTo("Eduardo", EduardoState0);
 		//acoesHashtable.Add ("Eduardo-0", EduardoState0);
 
-		//============================
-		//% Estado 1 de Eduardo
-		//============================
+
+		//********************************************
+		//*****      Eduardo - Estado 1       ********
+		//********************************************
 		state EduardoState1 = new state(1);
 
-		//**********************************************
-		//*******  Acoes OnExamine do estado 1  ********
-		//**********************************************
+		//=================================
+		//  Acoes OnExamine do estado 1
+		//=================================
 		ArrayList dEduardo_s1 = new ArrayList ();
 		dEduardo_s1.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
 		dEduardo_s1.Add(new DialogLine ("Jane", "Sim, esta chave estava embaixo do tapete num canto escuro do saguão.", 0,0));
@@ -73,9 +74,9 @@ public class DicionarioAcoes {
 		AddStateTo("Eduardo", EduardoState1);
 		//acoesHashtable.Add ("Eduardo-1", EduardoState1);
 
-		//============================
-		//% Estado 2 de Eduardo
-		//============================
+		//********************************************
+		//*****      Eduardo - Estado 2       ********
+		//********************************************
 		state EduardoState2 = new state(2);
 		ArrayList dEduardo_s2 = new ArrayList ();
 		dEduardo_s2.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
@@ -88,9 +89,9 @@ public class DicionarioAcoes {
 		AddStateTo("Eduardo", EduardoState2);
 		//acoesHashtable.Add ("Eduardo-2", EduardoState2);
 
-		//============================
-		//% Estado 3 de Eduardo
-		//============================
+		//********************************************
+		//*****      Eduardo - Estado 3      *********
+		//********************************************
 		state EduardoState3 = new state(3);
 		ArrayList dEduardo_s3 = new ArrayList ();
 		dEduardo_s3.Add(new DialogLine ("Capitao Eduardo Hastings", "E então Jane, encontrou algo?", 1,1));
@@ -113,15 +114,14 @@ public class DicionarioAcoes {
 		//acoesHashtable.Add ("Eduardo-3", EduardoState3);
 
 
-		//============================
-		//% Estado 0 de Tapete
-		//============================
+		//********************************************
+		//*****      Tapete - Estado 0       *********
+		//********************************************
 		state TapeteState0 = new state(0);
 		
-		//**********************************************
-		//*******  Acoes OnExamine do estado 0 do tapete
-		//**********************************************
-		
+		//=================================
+		//  Acoes OnExamine do estado 0
+		//=================================
 		DialogLine tapete1 = new DialogLine ("Tapete", "Voce achou uma chave secreta", -1);
 		DialogLine tapete2 = new DialogLine ("Tapete", "A chave foi adicionada no seu inventorio", -1);
 		ArrayList dialogosTapete = new ArrayList();
@@ -136,16 +136,14 @@ public class DicionarioAcoes {
 		AddStateTo("Tapete", TapeteState0);
 		//acoesHashtable.Add("Tapete-0", TapeteState0);
 
-		//============================
-		//% Estado 1 do Tapete
-		//============================
-
+		//********************************************
+		//*****      Tapete - Estado 1       *********
+		//********************************************
 		state TapeteState1 = new state(1);
 
-		//**********************************************
-		//*******  Acoes OnExamine do estado 1 do tapete
-		//**********************************************
-		
+		//=================================
+		//  Acoes OnExamine do estado 1
+		//=================================
 		DialogLine tapetevazio = new DialogLine ("Tapete", "Nao ha nada aqui", -1);
 		ArrayList dialogosTapeteVazio = new ArrayList();
 		dialogosTapeteVazio.Add (tapetevazio);
@@ -157,16 +155,14 @@ public class DicionarioAcoes {
 		//acoesHashtable.Add("Tapete-1", TapeteState1);
 	
 		
-		//============================
-		//% Estado 0 do Papel
-		//============================
-		
+		//********************************************
+		//*****      Papel - Estado 0       **********
+		//********************************************
 		state PapelState0 = new state(0);
 		
-		//**********************************************
-		//*******  Acoes OnExamine do estado 0 do papel
-		//**********************************************
-		
+		//=================================
+		//  Acoes OnExamine do estado 0
+		//=================================
 		DialogLine papelDialog = new DialogLine ("Papel", "Voce achou um papel!", -1);
 		ArrayList dialogosPapel = new ArrayList();
 		dialogosPapel.Add (papelDialog);

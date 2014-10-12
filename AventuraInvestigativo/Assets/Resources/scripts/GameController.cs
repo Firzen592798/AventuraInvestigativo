@@ -320,7 +320,11 @@ public class GameController : MonoBehaviour {
 	}
 
 
-	public int getState(string personagem) {
+	public int getStateIndex(string personagem) {
+		return gerEstados.getEstadoIndex(personagem);
+	}
+
+	public state getState(string personagem) {
 		return gerEstados.getEstado(personagem);
 	}
 
@@ -374,7 +378,7 @@ public class GameController : MonoBehaviour {
 		show_dialogbox_GUI = true;
 	}
         
-        public void showitem(Item item)
+    public void showitem(Item item)
 	{
 		face_images [2] = item.getSprite ();
 	}

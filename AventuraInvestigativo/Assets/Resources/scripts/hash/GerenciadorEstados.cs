@@ -3,6 +3,7 @@ using System.Collections;
 public class GerenciadorEstados {
 
 	private static GerenciadorEstados instance;
+	DicionarioAcoes dict;
 	Hashtable hash;
 	public static GerenciadorEstados getInstance(){
 		if (instance == null) {
@@ -12,8 +13,8 @@ public class GerenciadorEstados {
 	}
 
 	private GerenciadorEstados() {
+		dict = new DicionarioAcoes();
 		hash = new Hashtable();
-		hash.Add ("Dark Megaman", 0);
 		hash.Add ("Tapete", 0);
 		hash.Add ("Papel", 0);
 		hash.Add ("Eduardo", 0);
@@ -25,8 +26,12 @@ public class GerenciadorEstados {
 		}
 	}
 
-	public int getEstado(string personagem) {
+	public int getEstadoIndex(string personagem) {
 		//Debug.Log ("Estado de " + personagem + " = " + (int)hash [personagem]);
 		return (int)hash[personagem];
+	}
+
+	public state getEstado(string personagem) {
+		return dict.getStatePersonagem(personagem, (int)hash[personagem]);
 	}
 }

@@ -29,8 +29,7 @@ public class NPCController2 : MonoBehaviour {
 	bool up_button_pressed;
 	bool down_button_pressed;
 	bool showingtext;
-
-	private GerenciadorEstados gerEstados;
+	
 	private DicionarioAcoes dicionario;
 	private ArrayList SettingActions;
 	private ArrayList OnInitActions;
@@ -45,13 +44,8 @@ public class NPCController2 : MonoBehaviour {
 	void Start () { 
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
-		//actualstate = gerEstados.getEstado (nome);
-		actualstate = gm.getState(this.nome);
-		dicionario = new DicionarioAcoes ();
-		LoadState(actualstate);
-		//sequenciaAcoes = dicionario.getAcoesPersonagem (this.nome, actualstate);
-		//acaoAtual = (Acao)sequenciaAcoes [proximaAcao];
-		// Fim codigo dialogo teste
+		LoadState();
+
 		ani = this.GetComponent<Animator> ();
 		if (ani != null) {
 			dirX = ani.GetFloat("dirX");
@@ -76,14 +70,14 @@ public class NPCController2 : MonoBehaviour {
 		transform.position = pos;
 	}
 
-	void LoadState(int numState) {
-		state ActionsOfState = dicionario.getStatePersonagem(this.nome, numState);
+	void LoadState() {
+		state ActionsOfState = gm.getState(this.nome);
 		SettingActions = ActionsOfState.SettingActions;
 		OnInitActions = ActionsOfState.OnInitActions;
 		OnExamineActions = ActionsOfState.OnExamineAction;
 		proximaAcaoExam = 0;
 		proximaAcaoInit = 0;
-		actualstate = numState;
+		actualstate = ActionsOfState.id;
 
 		for (int i = 0; i < SettingActions.Count; i++) {
 			ExecuteAction(SettingActions, i);
@@ -183,10 +177,10 @@ public class NPCController2 : MonoBehaviour {
 		//transform.position = new Vector3(transform.position.x + velx*0.01f, transform.position.y);
 		//executarAcao ();
 
-		int test_state = gm.getState(this.nome);
+		int test_state = gm.getStateIndex(this.nome);
 		if (actualstate != test_state) {
 			Debug.Log("mudou para o estado: "+test_state);
-			LoadState(test_state);
+			LoadState();
 		}
 		else {
 			if (proximaAcaoInit < OnInitActions.Count) {
