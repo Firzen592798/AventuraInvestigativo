@@ -109,6 +109,9 @@ public class DicionarioAcoes {
 		Acao eduardo_s3_a0_e = new MostrarDialogos (dEduardo_s3);
 		EduardoState3.OnExamineAction.Add (eduardo_s3_a0_e);
 
+		Acao mudarEstadoPorta = new MudarEstado ("Porta", 1);
+		EduardoState3.OnExamineAction.Add (mudarEstadoPorta);
+
 		AddStateTo("Eduardo", EduardoState3);
 		//acoesHashtable.Add ("Eduardo-3", EduardoState3);
 
@@ -177,6 +180,40 @@ public class DicionarioAcoes {
 
 		AddStateTo("Papel", PapelState0);
 		//acoesHashtable.Add("Papel-0", PapelState0);
+
+
+		//============================
+		//% Estado 0 da Porta
+		//============================
+		
+		state DoorState0 = new state(0);
+		
+		//**********************************************
+		//*******  Acoes OnExamine do estado 0 do papel
+		//**********************************************
+		
+		DialogLine dialogDoor = new DialogLine ("Porta", "Voce nao pode entrar aqui ainda, voce ainda tem coisas para fazer", -1);
+		ArrayList dialogosDoor = new ArrayList();
+		dialogosDoor.Add (dialogDoor);
+		Acao mostrarDialogoDoor = new  MostrarDialogos(dialogosDoor);
+		DoorState0.OnExamineAction.Add(mostrarDialogoDoor);
+		AddStateTo("Porta", DoorState0);
+
+		//============================
+		//% Estado 1 da Porta
+		//============================
+		
+		state DoorState1 = new state(1);
+		
+		//**********************************************
+		//*******  Acoes OnExamine do estado 0 do papel
+		//**********************************************
+
+		Acao mudarCenaPorta = new  MudarCena("Cena2", "transitor2");
+		DoorState1.OnExamineAction.Add(mudarCenaPorta);
+		AddStateTo("Porta", DoorState1);
+		//acoesHashtable.Add("Papel-0", PapelState0);
+
 
 	}
 	

@@ -17,6 +17,7 @@ public class GerenciadorEstados {
 		hash.Add ("Tapete", 0);
 		hash.Add ("Papel", 0);
 		hash.Add ("Eduardo", 0);
+		hash.Add ("Porta", 0);
 	}
 
 	public void alterarEstado(string personagem, int novoEstado){

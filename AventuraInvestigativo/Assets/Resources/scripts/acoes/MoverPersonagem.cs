@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 public class MoverPersonagem : Acao{
-	private NPCController2 NPC_Controller;
+	private ObjectController NPC_Controller;
 	private string npcNome;
 	private GameObject npc;
 	private Vector3 destiny_position;
@@ -23,7 +23,7 @@ public class MoverPersonagem : Acao{
 		if (!isWalking) {
 			Debug.Log("akiiiiiiiiiiiiiiiiiiiiiiiiiii");
 			npc = gm.getNPC(npcNome);
-			NPC_Controller = (NPCController2) npc.GetComponent(typeof(NPCController2));
+			NPC_Controller = (ObjectController) npc.GetComponent(typeof(ObjectController));
 			NPC_Controller.addWayPoint(destiny_position);
 			isWalking = true;
 		}

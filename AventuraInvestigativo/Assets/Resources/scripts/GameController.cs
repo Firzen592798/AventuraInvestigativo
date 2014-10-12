@@ -350,7 +350,7 @@ public class GameController : MonoBehaviour {
 		}
 		NPC_dict.Clear();
 		foreach(GameObject go in GameObject.FindGameObjectsWithTag("NPC")) {
-			NPC_dict.Add( go.GetComponent<NPCController2>().nome, go );
+			NPC_dict.Add( go.GetComponent<ObjectController>().nome, go );
 		}
 		if (thisLevel == 0) {
 			on_mainmenu = true;

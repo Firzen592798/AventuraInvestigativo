@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class NPCController2 : MonoBehaviour {
+public class ObjectController : MonoBehaviour {
 	GameObject g;
 	GameController gm;
 	public Transform[] waypoints;
