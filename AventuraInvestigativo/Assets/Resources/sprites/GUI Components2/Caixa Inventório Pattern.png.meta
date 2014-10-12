@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 34e611370005cb94cb3f8e5d7310bc43
+guid: ac8c2e630f7060b46b9028083146b224
 TextureImporter:
   fileIDToRecycleName:
-    21300000: megaman7
+    21300000: "Caixa Invent\xF3rio Pattern"
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,7 +32,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
