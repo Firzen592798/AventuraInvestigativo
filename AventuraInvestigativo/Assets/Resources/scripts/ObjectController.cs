@@ -29,8 +29,7 @@ public class ObjectController : MonoBehaviour {
 	bool up_button_pressed;
 	bool down_button_pressed;
 	bool showingtext;
-	
-	private DicionarioAcoes dicionario;
+
 	private ArrayList SettingActions;
 	private ArrayList OnInitActions;
 	private ArrayList OnExamineActions;
