@@ -70,7 +70,7 @@ public class DicionarioAcoes {
 		dEduardo_s1.Add(new DialogLine ("Eduardo Hastings", "Hum, parece ser uma chave GORJA, daquelas que abrem qualquer porta de fechadura simples...", 1, 1));
 		dEduardo_s1.Add(new DialogLine ("Eduardo Hastings", "pode ser muito útil, esta casa é bem velha e talvez você encontre uma porta ou outra que possa  ser aberta com esta chave.", 1, 1));
 		Acao eduardo_s1_a0_e = new MostrarDialogos (dEduardo_s1);
-		EduardoState1.OnExamineAction.Add(new MudarEstado("Eduardo",3,"0 1 &"));
+		EduardoState1.OnExamineAction.Add(new MudarEstado("Eduardo",3,"(0 & 1)"));
 		EduardoState1.OnExamineAction.Add (eduardo_s1_a0_e);
 
 		AddStateTo("Eduardo", EduardoState1);
@@ -86,7 +86,7 @@ public class DicionarioAcoes {
 		dEduardo_s2.Add(new DialogLine ("Eduardo Hastings", "Hum... curioso... o nome parece ter sido escrito à caneta... ", 1, 1));
 		dEduardo_s2.Add(new DialogLine ("Eduardo Hastings", "mas os rabiscos rudes que foram feitos por cima foram feitos à lápis... nada que uma borracha não resolva, acredito.", 1, 1));
 		Acao eduardo_s2_a0_e = new MostrarDialogos (dEduardo_s2);
-		EduardoState2.OnExamineAction.Add(new MudarEstado("Eduardo",3,"0 1 &"));
+		EduardoState2.OnExamineAction.Add(new MudarEstado("Eduardo",3,"(0 & 1)"));
 		EduardoState2.OnExamineAction.Add (eduardo_s2_a0_e);
 
 		AddStateTo("Eduardo", EduardoState2);
@@ -138,7 +138,7 @@ public class DicionarioAcoes {
 		//TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
 		TapeteState0.OnExamineAction.Add(new AdicionarItem("Chave", "sprites/Key item", false));
 		TapeteState0.OnExamineAction.Add(new AtivarEvento(0));
-		TapeteState0.OnExamineAction.Add(new MudarEstado("Eduardo",1,"0 1 ! &"));
+		TapeteState0.OnExamineAction.Add(new MudarEstado("Eduardo",1,"(0 & !1)"));
 		TapeteState0.OnExamineAction.Add(new MudarEstado("Tapete", 1));
 
 		AddStateTo("Tapete", TapeteState0);
@@ -178,7 +178,7 @@ public class DicionarioAcoes {
 		//PapelState0.OnExamineAction.Add(new MudarEstadoEduardo(2));
 		PapelState0.OnExamineAction.Add(mostrarDialogoPapel);
 		PapelState0.OnExamineAction.Add (new AtivarEvento (1));
-		PapelState0.OnExamineAction.Add (new MudarEstado ("Eduardo", 2, "1 0 ! &"));
+		PapelState0.OnExamineAction.Add (new MudarEstado ("Eduardo", 2, "(1 & !0)"));
 		PapelState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/Paper item", true));
 
 		AddStateTo("Papel", PapelState0);
