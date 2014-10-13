@@ -25,10 +25,10 @@ public class MostrarDialogos : Acao{
 			gm.showdialogbox();
 			gm.LoadShowTxt(texto);
 			if(dl.getSprite() != -1)
-				gm.showface(dl.getPos(), dl.getSprite(), 0);
+			gm.showface(dl.getPos(), dl.getSprite(), 0);
 			falaAtual++;
 		}
-		else if ((Input.GetMouseButtonDown(0))||(Input.GetKeyDown (Teclas.Confirma))) {
+		else if (Input.GetKeyDown (Teclas.Confirma)) {
 			//gm.lockplayer();
 			if(falaAtual == dialogos.Count){
 				//Debug.Log("Terminou");
