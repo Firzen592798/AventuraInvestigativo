@@ -19,8 +19,8 @@ public class GameController : MonoBehaviour {
 	public bool rightmouse_pressed;
 	bool on_mainmenu; // variavel que controla se o jogador esta no menu principal
 	//bool menu_button_press;// variavel que controla se o botao de menu foi apertado
-	bool show_menu_GUI;// variavel que controla se a gui do menu deve ser exibida
-	bool show_inventory_GUI;
+	public bool show_menu_GUI;// variavel que controla se a gui do menu deve ser exibida
+	public bool show_inventory_GUI;
 	bool show_profiles_GUI;
 	bool show_backlog_GUI;
 	bool show_notes_GUI;
