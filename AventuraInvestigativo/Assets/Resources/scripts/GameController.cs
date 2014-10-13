@@ -4,8 +4,6 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 	public GameObject player;
 	PlayerController persona;
-	bool[]  eventlist;
-
 	private Item selectedItem;
 	private Inventorio inventorio;
 
@@ -72,6 +70,7 @@ public class GameController : MonoBehaviour {
 	float upimg_width;
 	float midarea_width;
 	float midarea_height;
+	float desc_fontsize;
 	float lowarea_width;
 	float lowarea_height;
 	float grid_height;
@@ -113,12 +112,6 @@ public class GameController : MonoBehaviour {
 		inventorio = new Inventorio(5);
 		player = null;
 		persona = null;
-		eventlist = new bool[2];
-		for (int i=0; i < eventlist.Length; i++) 
-		{
-			eventlist[i] = false;
-		}
-
 		NPC_dict = new Hashtable();
 
 		gerEstados = GerenciadorEstados.getInstance();
@@ -155,6 +148,7 @@ public class GameController : MonoBehaviour {
 		upimg_width = upimg_height;
 		midarea_width = menu_width;
 		midarea_height = 2 * menu_height / 10;
+		desc_fontsize = midarea_height / 7.5f;
 		lowarea_width = menu_width;
 		lowarea_height = 3 * menu_height / 10;
 		grid_height = 9 * lowarea_height / 10;
@@ -328,8 +322,13 @@ public class GameController : MonoBehaviour {
 		return gerEstados.getEstado(personagem);
 	}
 
-	public void changeState(string personagem, int state) {
-		gerEstados.alterarEstado(personagem, state);
+	public void changeState(string personagem, int state, string condit) {
+		gerEstados.alterarEstado(personagem, state, condit);
+	}
+
+	public void activateEvent(int ev_num)
+	{
+		gerEstados.setEventActive (ev_num);
 	}
 
 	public bool TemItem(string item){
@@ -544,14 +543,15 @@ public class GameController : MonoBehaviour {
 		//Desenhar area superior (imagem do item e titulo do mesmo)
 		if (selectedItem != null)
 		{
-			GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),selectedItem.getNome(),"TextBackground");
+			GUIStyle itemtitle = GUI.skin.GetStyle("TextBackground");
+			itemtitle.fontSize = Mathf.RoundToInt(dialog_fontsize);
+			GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),selectedItem.getNome(),itemtitle);
 			GUIStyle bigimg = new GUIStyle();
 			bigimg.normal.background = selectedItem.getSprite().texture;
 			GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),"",bigimg);
 		} else
 		{
 			GUI.Box(new Rect(0,0,uparea_width,uparea_height-upimg_height),"","TextBackground");
-			GUI.Box(new Rect((uparea_width-upimg_width)/2,uparea_height-upimg_height,upimg_width,upimg_height),"","Menubackground");
 		}
 		GUI.EndGroup();
 		
@@ -559,12 +559,14 @@ public class GameController : MonoBehaviour {
 		GUI.BeginGroup(new Rect(0,menu_height-lowarea_height-btnarea_height-midarea_height,midarea_width,midarea_height));
 		
 		//Desenhar a area central (Descricao de item)
+		GUIStyle itemdesc = GUI.skin.GetStyle("TextBackground");
+		itemdesc.fontSize = Mathf.RoundToInt(desc_fontsize);
 		if (selectedItem != null)
 		{
-			GUI.Box(new Rect(0,0,midarea_width,midarea_height),selectedItem.getDescricao(),"TextBackground");
+			GUI.Box(new Rect(0,0,midarea_width,midarea_height),selectedItem.getDescricao(),itemdesc);
 		} else
 		{
-			GUI.Box(new Rect(0,0,midarea_width,midarea_height),"","TextBackground");
+			GUI.Box(new Rect(0,0,midarea_width,midarea_height),"",itemdesc);
 		}
 		GUI.EndGroup();
 		
@@ -748,4 +750,5 @@ public class GameController : MonoBehaviour {
 		GUI.EndGroup();
 
 	}
+
 }

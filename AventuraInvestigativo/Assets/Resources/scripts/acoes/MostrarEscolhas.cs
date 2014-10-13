@@ -74,7 +74,7 @@ public class MostrarEscolhas : Acao{
 
 				int novoEstado =((Escolha)escolhas[choiceindex]).getNovoEstado();
 
-				gm.changeState(dialogLine.getPersonagem(), novoEstado);
+				//gm.changeState(dialogLine.getPersonagem(), novoEstado);
 				choiceindex = 0;
 				dialog_button_pressed = false;
 				mostrouNaTela = false;
