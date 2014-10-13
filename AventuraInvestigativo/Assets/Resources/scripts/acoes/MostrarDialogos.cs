@@ -28,7 +28,7 @@ public class MostrarDialogos : Acao{
 			gm.showface(dl.getPos(), dl.getSprite(), 0);
 			falaAtual++;
 		}
-		else if (Input.GetKeyDown (Teclas.Confirma)) {
+		else if (Input.GetKeyDown (Teclas.Confirma)&&(!gm.show_menu_GUI&&!gm.show_inventory_GUI)) {
 			//gm.lockplayer();
 			if(falaAtual == dialogos.Count){
 				//Debug.Log("Terminou");
