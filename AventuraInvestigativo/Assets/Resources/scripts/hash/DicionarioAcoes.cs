@@ -212,7 +212,7 @@ public class DicionarioAcoes {
 		//*******  Acoes OnExamine do estado 0 do papel
 		//**********************************************
 
-		Acao mudarCenaPorta = new  MudarCena("Cena2", "transitor2");
+		Acao mudarCenaPorta = new  MudarCena("Creditos", "transitor2");
 		DoorState1.OnExamineAction.Add(mudarCenaPorta);
 		AddStateTo("Porta", DoorState1);
 		//acoesHashtable.Add("Papel-0", PapelState0);
