@@ -328,7 +328,12 @@ public class GameController : MonoBehaviour {
 
 	public void activateEvent(int ev_num)
 	{
-		gerEstados.setEventActive (ev_num);
+		gerEstados.setEventActive(ev_num);
+	}
+
+	public void deactivateEvent(int ev_num)
+	{
+		gerEstados.setEventDeactive(ev_num);
 	}
 
 	public bool TemItem(string item){

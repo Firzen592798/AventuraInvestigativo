@@ -61,11 +61,13 @@
      <Compile Include="Assets\Resources\scripts\acoes\Acao.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\AdicionarItem.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\AtivarEvento.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\DesativarEvento.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarDialogos.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarEscolhas.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MoverPersonagem.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MudarCena.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MudarEstado.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\MudarLocalPersonagem.cs" />
      <Compile Include="Assets\Resources\scripts\hash\DicionarioAcoes.cs" />
      <Compile Include="Assets\Resources\scripts\hash\GerenciadorEstados.cs" />
      <Compile Include="Assets\Resources\scripts\items\Chave.cs" />

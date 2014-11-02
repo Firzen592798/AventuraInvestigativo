@@ -15,27 +15,24 @@ public class MoverPersonagem : Acao{
 		npcNome = personagem;
 		point = destiny_position;
 		wait = waitToArrive;
-		inPlace = false;
 		isWalking = false;
 	}
 	
 	public override bool Update(){
 		if (!isWalking) {
-			Debug.Log("akiiiiiiiiiiiiiiiiiiiiiiiiiii");
 			npc = gm.getNPC(npcNome);
 			NPC_Controller = (ObjectController) npc.GetComponent(typeof(ObjectController));
 			NPC_Controller.addWayPoint(destiny_position);
-			isWalking = true;
 		}
 		if (wait) {
+			isWalking = true;
 			gm.lockplayer();
 			if (NPC_Controller.hasStoredWayPoint(destiny_position)) {
-				Debug.Log("ainda nao terminou");
 				return false;
 			}
 			else {
-				Debug.Log("terminou");
 				gm.unlockplayer();
+				isWalking = false;
 				return true;
 			}
 		}

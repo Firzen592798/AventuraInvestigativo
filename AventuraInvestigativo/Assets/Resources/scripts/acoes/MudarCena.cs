@@ -17,6 +17,4 @@ public class MudarCena : Acao{
 		gm.TransiteScene(goto_cene, spawn_point);
 		return true;
 	}
-	
-	
 }

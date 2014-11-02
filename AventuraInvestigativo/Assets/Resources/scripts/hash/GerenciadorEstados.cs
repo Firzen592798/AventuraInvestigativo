@@ -81,10 +81,14 @@ public class GerenciadorEstados {
 		return dict.getStatePersonagem(personagem, (int)hash[personagem]);
 	}
 
-	public void setEventActive(int ev_num)
-	{
-		eventos [ev_num] = true;
-		Debug.Log ("Eventos:" + eventos [0] + eventos [1]);
+	public void setEventActive(int ev_num) {
+		eventos[ev_num] = true;
+		//Debug.Log ("Eventos:" + eventos [0] + eventos [1]);
+	}
+
+	public void setEventDeactive(int ev_num) {
+		eventos[ev_num] = false;
+		//Debug.Log ("Eventos:" + eventos [0] + eventos [1]);
 	}
 
 	string to_suffix(string infix) {
@@ -106,7 +110,7 @@ public class GerenciadorEstados {
 					symbol = "";
 				}
 				
-				if (c == '(') {
+				if ((c == '(')||(c == '!')) {
 					s.Push(c);
 				}
 				else if (c == ')') {
@@ -126,9 +130,6 @@ public class GerenciadorEstados {
 					if (top == '(' && s.Count > 0) {
 						s.Pop();
 					}
-				}
-				else if (c == '!') {
-					s.Push(c);
 				}
 				else if (c != ' ') {
 					char top = '#';
