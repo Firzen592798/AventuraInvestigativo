@@ -16,12 +16,13 @@ public class GerenciadorEstados {
 	//evento 1 - pegar papel
 	private GerenciadorEstados() {
 		dict = new DicionarioAcoes();
+
 		hash = new Hashtable();
 		eventos = new bool[2];
-		hash.Add ("Tapete", 0);
-		hash.Add ("Papel", 0);
-		hash.Add ("Eduardo", 0);
-		hash.Add ("Porta", 0);
+		hash.Add ("Tapete", new states_CarpetObject());
+		hash.Add ("Papel", new states_PaperObject());
+		hash.Add ("Eduardo", new states_Eduardo());
+		hash.Add ("Porta", new states_DoorObject());
 	}
 
 	public void alterarEstado(string personagem, int novoEstado, string condit){
@@ -68,17 +69,19 @@ public class GerenciadorEstados {
 		}
 		
 		if (hash.ContainsKey(personagem)&&THE_ANSWER) {
-			hash[personagem] = novoEstado;
+			((DicionarioAcoes)hash[personagem]).setAState(novoEstado);
 		}
 	}
 
 	public int getEstadoIndex(string personagem) {
 		//Debug.Log ("Estado de " + personagem + " = " + (int)hash [personagem]);
-		return (int)hash[personagem];
+		return ((DicionarioAcoes)hash[personagem]).getAState();
 	}
 
 	public state getEstado(string personagem) {
-		return dict.getStatePersonagem(personagem, (int)hash[personagem]);
+		int state_index = getEstadoIndex (personagem);
+		return ((DicionarioAcoes)hash[personagem]).getStatePersonagem(state_index);
+		//return dict.getStatePersonagem(personagem, (int)hash[personagem]);
 	}
 
 	public void setEventActive(int ev_num)
