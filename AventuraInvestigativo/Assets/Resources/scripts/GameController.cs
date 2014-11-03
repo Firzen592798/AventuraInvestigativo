@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
 	private Hashtable NPC_dict;
 
 	private GerenciadorEstados gerEstados;
+	MusicManager soundplayer;
     
     //testes do victor
 	public Camera cam;
@@ -37,6 +38,13 @@ public class GameController : MonoBehaviour {
 	public Sprite[] menu_icons;//balao de fala,inventorio,perfis,backlog,anotacoes
 
 	string dialog_text;//variavel que guarda o texto a ser exibido no dialogo
+	string realtext;
+	bool showing_dialog;
+	int dialog_word_count;
+	int actual_dw_count;
+	int updates_per_word;
+	int words_per_sound;
+	int update_count;
 	string[] choices_text;//variavel que guarda os textos das escolhas
 	Sprite[] face_images;//variavel que guarda as imagens sendo exibidas (0 = face esquerda, 1 = face direita, 2 = imagem de item ao centro)
 	string[] face_names;//variavel que guarda o nome das imagens sendo exibidas
@@ -114,6 +122,7 @@ public class GameController : MonoBehaviour {
 		persona = null;
 		NPC_dict = new Hashtable();
 
+		soundplayer = GetComponent<MusicManager> ();
 		gerEstados = GerenciadorEstados.getInstance();
                 
         //testes do victor
@@ -125,6 +134,11 @@ public class GameController : MonoBehaviour {
 		page = 0;
 		face_images = new Sprite[3];
 		face_names = new string[2];
+		updates_per_word = 1;
+		dialog_word_count = 0;
+		actual_dw_count = 0;
+		words_per_sound = 2;
+		update_count = 0;
 		cam_move = false;
 		leftmouse_pressed = false;
 		rightmouse_pressed = false;
@@ -240,6 +254,43 @@ public class GameController : MonoBehaviour {
 				show_menu_GUI = false;
 			}
 			rightmouse_pressed = false;
+		}
+			//Dialogo
+		if (showing_dialog) 
+		{
+			string newshowtext = "";
+			if (update_count < updates_per_word)
+			{
+				update_count++;
+			}else
+			{
+				if (dialog_word_count == 0)
+				{
+					dialog_word_count = realtext.Length;
+					actual_dw_count = 0;
+				}
+				if (actual_dw_count < dialog_word_count)
+				{
+					if ((actual_dw_count%words_per_sound)==0)
+					{
+						soundplayer.loadsound(0);
+						soundplayer.playsound();
+					}
+					actual_dw_count++;
+					newshowtext = getChars(realtext,actual_dw_count);
+					dialog_text = newshowtext;
+				}else
+				{
+					showing_dialog= false;
+				}
+				update_count=0;
+			}
+			 
+		}else
+		{
+			dialog_word_count=0;
+			actual_dw_count=0;
+			dialog_text = realtext;
 		}
 	}
 
@@ -430,7 +481,9 @@ public class GameController : MonoBehaviour {
 
 	public void LoadShowTxt(string s)
 	{
-		dialog_text = s;
+		dialog_text = "";
+		realtext = s;
+		showing_dialog = true;
 	}
 
 	public void lockplayer()
@@ -443,6 +496,18 @@ public class GameController : MonoBehaviour {
 		persona.unlockplayer ();
 	}
 
+	public string getChars(string text, int num)
+	{
+		return text.Substring (0, num);
+	}
+	public void quickPassTxt()
+	{
+		showing_dialog = false;
+	}
+	public bool isShowingDialog()
+	{
+		return showing_dialog;
+	}
 	public void showExamineGUI()
 	{
 		//Definir area do botao de interacao
@@ -755,5 +820,7 @@ public class GameController : MonoBehaviour {
 		GUI.EndGroup();
 
 	}
+
+
 
 }

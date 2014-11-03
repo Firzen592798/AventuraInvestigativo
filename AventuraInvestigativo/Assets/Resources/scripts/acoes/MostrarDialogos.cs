@@ -30,26 +30,33 @@ public class MostrarDialogos : Acao{
 		}
 		else if (Input.GetKeyDown (Teclas.Confirma)&&(!gm.show_menu_GUI&&!gm.show_inventory_GUI)) {
 			//gm.lockplayer();
-			if(falaAtual == dialogos.Count){
-				//Debug.Log("Terminou");
-				falaAtual = 0;
-				gm.hideface(0);
-				gm.hidedialogbox();
-				gm.unlockplayer();
-				return true;
-			}
-			DialogLine dl = ((DialogLine)dialogos[falaAtual]);
-			string texto = dl.getTexto();
+			if (!gm.isShowingDialog())
+			{
+				if(falaAtual == dialogos.Count){
+					//Debug.Log("Terminou");
+					falaAtual = 0;
+					gm.hideface(0);
+					gm.hidedialogbox();
+					gm.unlockplayer();
+					return true;
+				}
+				DialogLine dl = ((DialogLine)dialogos[falaAtual]);
+				string texto = dl.getTexto();
 
-			if(dl.getSprite() != -1)
-			{	gm.hideface(1 - dl.getSprite ());
-				gm.showface(dl.getPos(), dl.getSprite(), 0);
-			}
-			gm.showdialogbox();
-			gm.LoadShowTxt(texto);
-			//Debug.Log (texto);
+				if(dl.getSprite() != -1)
+				{	
+					gm.hideface(1 - dl.getSprite ());
+					gm.showface(dl.getPos(), dl.getSprite(), 0);
+				}
+				gm.showdialogbox();
+				gm.LoadShowTxt(texto);
+				//Debug.Log (texto);
 
-			falaAtual++;
+				falaAtual++;
+			}else
+			{
+				gm.quickPassTxt();
+			}
 		}
 		return false;
 	}

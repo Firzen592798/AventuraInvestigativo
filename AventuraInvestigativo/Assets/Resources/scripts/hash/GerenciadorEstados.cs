@@ -3,7 +3,7 @@ using System.Collections;
 public class GerenciadorEstados {
 
 	private static GerenciadorEstados instance;
-	DicionarioAcoes dict;
+
 	Hashtable hash;
 	bool[] eventos;
 	public static GerenciadorEstados getInstance(){
@@ -15,8 +15,6 @@ public class GerenciadorEstados {
 	//evento 0 - pegar chave
 	//evento 1 - pegar papel
 	private GerenciadorEstados() {
-		dict = new DicionarioAcoes();
-
 		hash = new Hashtable();
 		eventos = new bool[2];
 		hash.Add ("Tapete", new states_CarpetObject());
