@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour {
 	public string[] char_names;//Nomes de cada personagem
 	public int[] face_divider;//indices do inicio do faceset de cada personagem
 	public Sprite[] menu_icons;//balao de fala,inventorio,perfis,backlog,anotacoes
+	int active_talk;
 
 	string dialog_text;//variavel que guarda o texto a ser exibido no dialogo
 	string realtext;
@@ -396,6 +397,11 @@ public class GameController : MonoBehaviour {
 		gerEstados.setEventDeactive(ev_num);
 	}
 
+	public void playSound(int n)
+	{
+		soundplayer.playnew (n);
+	}
+
 	public bool TemItem(string item){
 		return inventorio.TemItem (item);
 	}	
@@ -457,6 +463,7 @@ public class GameController : MonoBehaviour {
 		Sprite face_sprite = face_sets [face_divider [personagem]+faceindex];//corrigir
 		face_images [pos] = face_sprite;
 		face_names [pos] = char_names [personagem];
+		active_talk = pos;
 		show_face_GUI = true;
 	}
 
@@ -793,12 +800,19 @@ public class GameController : MonoBehaviour {
 	{
 		//Definir a area das faces
 		GUI.BeginGroup(new Rect(Wdef-dialogbox_width,Hdef-dialogbox_height-facearea_height,dialogbox_width,facearea_height));
-		
+		Color guicol = GUI.color;
 		//Desenhar cada imagem de face
 		if (face_images[0] != null)//esquerda
 		{
 			GUIStyle styl0 = GUI.skin.GetStyle("FaceimgBackground");
 			styl0.normal.background = face_images[0].texture;
+			if (active_talk == 1)
+			{
+				GUI.color = new Color (0.5f,0.5f,0.5f,1.0f);
+			}else
+			{
+				GUI.color = new Color (1f,1f,1f,1f);
+			}
 			GUIStyle plate0 = GUI.skin.GetStyle("NameplateBackground");
 			plate0.fontSize = Mathf.RoundToInt(faceplate_fontsize);
 			GUI.Box(new Rect(0,0,facearea_width,facearea_height),"",styl0);
@@ -808,6 +822,13 @@ public class GameController : MonoBehaviour {
 		{
 			GUIStyle styl1 = GUI.skin.GetStyle("FaceimgBackground");
 			styl1.normal.background = face_images[1].texture;
+			if (active_talk == 0)
+			{
+				GUI.color = new Color (0.5f,0.5f,0.5f,1.0f);
+			}else
+			{
+				GUI.color = new Color (1f,1f,1f,1f);
+			}
 			GUIStyle plate1 = GUI.skin.GetStyle("NameplateBackground");
 			plate1.fontSize = Mathf.RoundToInt(faceplate_fontsize);
 			GUI.Box(new Rect(dialogbox_width-facearea_width,0,facearea_width,facearea_height),"",styl1);
@@ -820,7 +841,7 @@ public class GameController : MonoBehaviour {
 			GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"","MenuBackground");
 			GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"",styl2);
 		}
-		
+		GUI.color = guicol;
 		GUI.EndGroup();
 	}
 

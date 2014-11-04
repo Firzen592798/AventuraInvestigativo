@@ -36,6 +36,7 @@ public class MostrarDialogos : Acao{
 					//Debug.Log("Terminou");
 					falaAtual = 0;
 					gm.hideface(0);
+					gm.hideface(1);
 					gm.hidedialogbox();
 					gm.unlockplayer();
 					return true;
@@ -45,7 +46,7 @@ public class MostrarDialogos : Acao{
 
 				if(dl.getSprite() != -1)
 				{	
-					gm.hideface(1 - dl.getSprite ());
+					//gm.hideface(1 - dl.getSprite ());
 					gm.showface(dl.getPos(), dl.getSprite(), 0);
 				}
 				gm.showdialogbox();
