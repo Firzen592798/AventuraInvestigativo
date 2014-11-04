@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameController : MonoBehaviour {
@@ -113,6 +113,10 @@ public class GameController : MonoBehaviour {
 		//variaveis dos botoes do menu principal
 	float startbtn_width;
 	float startbtn_height;
+	//GUI movement
+	int QM_movecounter;
+	bool QM_Appear;
+	bool IM_Appear;
 
 	// Use this for initialization
 	void Start () {
@@ -196,6 +200,9 @@ public class GameController : MonoBehaviour {
 		startbtn_width = Wdef/3;
 		startbtn_height = startbtn_width / 6;
 
+		QM_movecounter = 0;
+		QM_Appear = false;
+		IM_Appear = false;
 	}
 
 	// Update is called once per frame
@@ -247,11 +254,13 @@ public class GameController : MonoBehaviour {
 			{
 				if (!show_inventory_GUI)
 				{
+					QM_Appear = true;
 					show_menu_GUI = true;
 				}
 			}else
 			{
-				show_menu_GUI = false;
+				//show_menu_GUI = false;
+				QM_Appear = false;
 			}
 			rightmouse_pressed = false;
 		}
@@ -532,20 +541,55 @@ public class GameController : MonoBehaviour {
 	public void showQuickmenuGUI()
 	{
 		//Definir area dos botoes de acesso
-		GUI.BeginGroup(new Rect((Wdef-menugrid_width)/2,(Hdef-menugrid_height)/2,menugrid_width,menugrid_height));
+		float mgwidth = menugrid_width;
+		float mgheight = menugrid_height;
+
+		if (QM_Appear)
+		{
+			if (QM_movecounter == 0)
+			{
+				QM_movecounter = 10;
+			}
+			if (QM_movecounter <= 10)
+			{
+				mgwidth = menugrid_width/Mathf.CeilToInt(QM_movecounter/2);
+				mgheight = menugrid_height/Mathf.CeilToInt(QM_movecounter/2);
+				if (QM_movecounter > 2)
+				{
+					QM_movecounter--;
+				}
+			}
+		}else
+		{
+			if (QM_movecounter <= 10)
+			{
+				mgwidth = menugrid_width/Mathf.CeilToInt(QM_movecounter/2);
+				mgheight = menugrid_height/Mathf.CeilToInt(QM_movecounter/2);
+				QM_movecounter++;
+				Debug.Log(QM_movecounter);
+				if (QM_movecounter == 10)
+				{
+					QM_movecounter = 0;
+					show_menu_GUI = false;
+				}
+			}
+		}
+
+		GUI.BeginGroup(new Rect((Wdef-mgwidth)/2,(Hdef-mgheight)/2,mgwidth,mgheight));
 		
 		//Desenhar botoes de acesso
 		//Esquerda - inventorio
 		GUIStyle inventory_style = new GUIStyle();
 		inventory_style.normal.background = menu_icons[1].texture;
-		bool invbtn = GUI.Button(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"","SlotBackground");
-		GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
+		bool invbtn = GUI.Button(new Rect(0,(mgheight-intbutton_height)/2,intbutton_width,intbutton_height),"","SlotBackground");
+		GUI.Box(new Rect(0,(mgheight-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
 		if (invbtn)
 		{
 			show_menu_GUI = false;
 			show_inventory_GUI = true;
+			IM_Appear = true;
 			persona.lockplayer();
-		}
+		}/*
 		//Direita - Perfis
 		//GUIStyle inventory_style = new GUIStyle();
 		//inventory_style.normal.background = menu_icons[1].texture;
@@ -575,7 +619,7 @@ public class GameController : MonoBehaviour {
 		{
 			//show_menu_GUI = true;
 			//persona.lockplayer();
-		}		
+		}*/		
 		GUI.EndGroup();
 	}
 
@@ -600,9 +644,30 @@ public class GameController : MonoBehaviour {
 				}
 			}
 		}
-		
+		float lpos = Wdef - menu_width;
+
+		if (IM_Appear == true)
+		{
+			if (QM_movecounter <= 10)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10);
+				QM_movecounter++;
+			}
+		}else
+		{
+			if (QM_movecounter >= 0)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10); 
+				QM_movecounter--;
+			}else
+			{
+				QM_movecounter = 0;
+				show_inventory_GUI = false;
+			}
+		}
+
 		//Fazer a area delimitante do menu
-		GUI.BeginGroup(new Rect(Wdef-menu_width,Hdef-menu_height,menu_width,menu_height));
+		GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,menu_width,menu_height));
 		
 		//Desenhar o background do menu
 		GUI.Box(new Rect(0,0,menu_width,menu_height),"","MenuBackground");
@@ -714,7 +779,8 @@ public class GameController : MonoBehaviour {
 		if (closebutton)
 		{
 			show_menu_GUI = false;
-			show_inventory_GUI = false;
+			//show_inventory_GUI = false;
+			IM_Appear = false;
 			persona.unlockplayer();
 		}
 		
@@ -810,7 +876,7 @@ public class GameController : MonoBehaviour {
 		GUI.BeginGroup(new Rect((Wdef-startbtn_width)/2,3*Hdef/5,startbtn_width,startbtn_height));
 		
 		//Desenhar botao de iniciar jogo
-		bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"","StartBtnBackground");
+		bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"Iniciar Jogo","StartBtnBackground");
 		if (intbtn)
 		{
 			on_mainmenu = false;
