@@ -27,7 +27,7 @@ public class states_Eduardo : DicionarioAcoes
 		//=================================
 
 
-		Acao playost = new TocarMusica (1);
+
 		Acao move = new MoverPersonagem("Eduardo", "point2", true);
 
 		
@@ -57,7 +57,7 @@ public class states_Eduardo : DicionarioAcoes
 		
 		Acao eduardo_s0_a0 = new MostrarDialogos(dEduardo_s0);
 
-		EduardoState0.OnInitActions.Add (playost);
+		//EduardoState0.OnInitActions.Add(playost);
 		EduardoState0.OnInitActions.Add(move);
 		EduardoState0.OnInitActions.Add(eduardo_s0_a0);
 		EduardoState0.OnInitActions.Add(new MudarEstado("Player", 0));

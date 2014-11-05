@@ -27,12 +27,17 @@ public class states_Player : DicionarioAcoes
 		//=================================
 		//  Acoes Settings do estado 1
 		//=================================
+		Acao playost = new TocarMusica (1);
+
+		PlayerState1.SettingActions.Add (playost);
 		PlayerState1.SettingActions.Add(new MudarControlePlayer(true));
 		PlayerState1.SettingActions.Add(new PlayWaitingAnimation());
 
 		//=================================
 		//  Acoes OnInit do estado 1
 		//=================================
+
+
 		Acao mover0 = new MoverPersonagem("Player", "point1", true);
 		Acao dialog0 = new MostrarDialogos(new DialogLine("Jane", "...", 0, 0));
 		Acao mover1 = new MoverPersonagem("Player", "initial_spot", true);

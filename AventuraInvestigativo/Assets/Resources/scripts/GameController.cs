@@ -128,7 +128,9 @@ public class GameController : MonoBehaviour {
 	float gydev; 
 	int gfsize;
 	string gtext;
-	
+
+	float player_height;
+
 	//GUI movement
 	int QM_movecounter;
 	bool QM_Appear;
@@ -298,8 +300,7 @@ public class GameController : MonoBehaviour {
 			//Camera
 		if (cam_move) 
 		{
-			float h = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
-			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y+h,cam.transform.position.z);
+			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y+player_height,cam.transform.position.z);
 		}
 			//Inputs
         //if (Input.GetKeyDown (KeyCode.C)) 
@@ -506,6 +507,7 @@ public class GameController : MonoBehaviour {
 	public void InstancePlayer() {
 		player = Instantiate(Resources.Load("prefab/Jane", typeof(GameObject))) as GameObject;
 		cam.orthographicSize = 4;
+		player_height = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
 		cam_move = true;
 	}
 
@@ -667,8 +669,7 @@ public class GameController : MonoBehaviour {
 	public void showExamineGUI()
 	{
 		//Definir area do botao de interacao
-		float h = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
-		Vector3 p1 = cam.WorldToScreenPoint (new Vector3 (0, h, 0));
+		Vector3 p1 = cam.WorldToScreenPoint (new Vector3 (0, player_height, 0));
 		Vector3 p2 = cam.WorldToScreenPoint (new Vector3 (0, 0, 0));
 		float char_height = (p1 - p2).y;
 		GUI.BeginGroup(new Rect((Wdef-intbutton_width)/2,Hdef/2-intbutton_height-char_height,intbutton_width,intbutton_height));
