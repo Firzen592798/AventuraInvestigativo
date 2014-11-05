@@ -6,6 +6,7 @@ public class MusicManager : MonoBehaviour {
 	AudioSource[] asources;
 	public AudioClip[] musics;
 	public AudioClip[] sounds;
+	public AudioClip[] ambient;
 
 
 	// Use this for initialization
@@ -36,5 +37,12 @@ public class MusicManager : MonoBehaviour {
 	{
 		asources [1].Stop ();
 		asources [1].Play ();
+	}
+
+	public void playambient(int n)
+	{
+		asources[2].Stop();
+		asources[2].clip = ambient [n];
+		asources[2].Play();
 	}
 }

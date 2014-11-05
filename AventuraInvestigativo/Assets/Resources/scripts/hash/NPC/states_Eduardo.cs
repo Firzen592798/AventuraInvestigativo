@@ -32,8 +32,8 @@ public class states_Eduardo : DicionarioAcoes
 
 		
 		ArrayList dEduardo_s0 = new ArrayList ();
-		dEduardo_s0.Add(new DialogLine ("", "Para passar o texto ou interagir aperte a tecla Z.", 0, 0)); 
-		dEduardo_s0.Add(new DialogLine ("", "Para acessar o menu clique com o botão direito do mouse.", 0, 0)); 
+		//dEduardo_s0.Add(new DialogLine ("", "Para passar o texto ou interagir aperte a tecla Z.", 0, 0)); 
+		//dEduardo_s0.Add(new DialogLine ("", "Para acessar o menu clique com o botão direito do mouse.", 0, 0)); 
 		dEduardo_s0.Add(new DialogLine ("Eduardo Hastings", "Oi, Sinto que vou me arrepender em te-la convidado a passar este fim-de-semana na Mansão Christie. Você parece um tanto chateada.", 1, 1));
 		dEduardo_s0.Add(new DialogLine ("Jane", "Não se incomode comigo, Hastings. Você sabe que meu temperamento não é dos mais sociáveis.", 0, 0));
 		dEduardo_s0.Add(new DialogLine ("Eduardo Hastings", "Sim, sim... espero que se divirta, contudo.", 1,1));

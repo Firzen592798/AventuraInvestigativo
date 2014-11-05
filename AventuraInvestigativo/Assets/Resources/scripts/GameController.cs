@@ -128,6 +128,7 @@ public class GameController : MonoBehaviour {
 	float gydev; 
 	int gfsize;
 	string gtext;
+	Color gtextcol;
 
 	float player_height;
 
@@ -167,7 +168,7 @@ public class GameController : MonoBehaviour {
 		updates_per_word = 1;
 		dialog_word_count = 0;
 		actual_dw_count = 0;
-		words_per_sound = 2;
+		words_per_sound = 4;
 		update_count = 0;
 		cam_move = false;
 		leftmouse_pressed = false;
@@ -491,9 +492,15 @@ public class GameController : MonoBehaviour {
 		gerEstados.setEventDeactive(ev_num);
 	}
 
-	public void playSound(int n)
+	public void playSound(int n,int t)
 	{
-		soundplayer.playnew (n);
+		if (t == 0)
+		{
+			soundplayer.playnew (n);
+		}else
+		{
+			soundplayer.playambient(n);
+		}
 	}
 
 	public bool TemItem(string item){
@@ -600,7 +607,7 @@ public class GameController : MonoBehaviour {
 		show_face_GUI = false;
 	}
 
-	public void showbigimage(int n, Rect textarea, float xdev, float ydev, int fsize,string texto)
+	public void showbigimage(int n, Rect textarea, float xdev, float ydev, int fsize,string texto, Color tc)
 	{
 		gn = n;
 		gtextarea = textarea;
@@ -608,6 +615,7 @@ public class GameController : MonoBehaviour {
 		gydev = ydev;
 		gfsize = fsize;
 		gtext = texto;
+		gtextcol = tc;
 		show_bigimage_GUI = true;
 	}
 
@@ -992,9 +1000,19 @@ public class GameController : MonoBehaviour {
 	{
 		GUI.BeginGroup (new Rect ((Wdef - bigimage_width) / 2, (Hdef - bigimage_height) / 2, bigimage_width, bigimage_height));
 
+		GUIStyle b0styl = GUI.skin.GetStyle ("CentralTextBackground");
+		if (gn != -1)
+		{
+			b0styl.normal.background = objectimgs[gn].texture;
+		}else
+		{
+			b0styl.normal.background = null;
+		}
+		GUI.Box (new Rect (0, 0, bigimage_width, bigimage_height), "", b0styl);
+
 		GUIStyle bstyl = GUI.skin.GetStyle("CentralTextBackground");
-		bstyl.normal.background = objectimgs[gn].texture;
 		bstyl.fontSize = gfsize;
+		bstyl.normal.textColor = gtextcol;
 		float x0 = ((bigimage_width - gtextarea.width) / 2) + gxdev;
 		float y0 = ((bigimage_height - gtextarea.height) / 2) + gydev;
 		GUI.Box(new Rect(x0,y0,gtextarea.width,gtextarea.height),gtext,bstyl);

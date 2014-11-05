@@ -3,14 +3,16 @@ using System.Collections;
 public class TocarMusica : Acao{
 	GameController gm;
 	int n;
-	public TocarMusica(int num){
+	int t;
+	public TocarMusica(int num,int tp){
 		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
 		n = num;
+		t = tp;
 	}
 	
 	public override bool Update(){
-		gm.playSound (n);
+		gm.playSound (n, t);
 		return true;
 	}
 }
