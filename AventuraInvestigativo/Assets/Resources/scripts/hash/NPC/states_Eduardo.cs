@@ -25,7 +25,11 @@ public class states_Eduardo : DicionarioAcoes
 		//=================================
 		//  Acoes OnInit do estado 0
 		//=================================
+
+
+		Acao playost = new TocarMusica (1);
 		Acao move = new MoverPersonagem("Eduardo", "point2", true);
+
 		
 		ArrayList dEduardo_s0 = new ArrayList ();
 		dEduardo_s0.Add(new DialogLine ("", "Para passar o texto ou interagir aperte a tecla Z.", 0, 0)); 
@@ -52,7 +56,8 @@ public class states_Eduardo : DicionarioAcoes
 		dEduardo_s0.Add(new DialogLine ("Eduardo Hastings", "Creio que um rápido reconhecimento do saguão deve bastar... Depois me encontre e diga o que você encontrou. Estarei próximo ao bar.", 1,1));
 		
 		Acao eduardo_s0_a0 = new MostrarDialogos(dEduardo_s0);
-		
+
+		EduardoState0.OnInitActions.Add (playost);
 		EduardoState0.OnInitActions.Add(move);
 		EduardoState0.OnInitActions.Add(eduardo_s0_a0);
 		EduardoState0.OnInitActions.Add(new MudarEstado("Player", 0));

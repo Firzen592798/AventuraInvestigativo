@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameController : MonoBehaviour {
@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
 	private Hashtable Spawn_dict;
 
 	private GerenciadorEstados gerEstados;
+	MusicManager soundplayer;
     
     //testes do victor
 	public Camera cam;
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour {
 	bool show_intbutton_GUI;// variavel que controla se a gui do botao de interacao deve ser exibida
 	bool show_choicebox_GUI;// variavel que controla se a gui da caixa de escolha deve ser exibida
 	bool show_face_GUI;// variavel que controla se a gui de exibicao da face deve ser exibida
+	bool show_bigimage_GUI;
 
 	Item[,,] item_grid;//Matriz da representacao dos itens
 	int page;//qual indice da 3a dimensao da matriz
@@ -37,8 +39,17 @@ public class GameController : MonoBehaviour {
 	public string[] char_names;//Nomes de cada personagem
 	public int[] face_divider;//indices do inicio do faceset de cada personagem
 	public Sprite[] menu_icons;//balao de fala,inventorio,perfis,backlog,anotacoes
+	public Sprite[] objectimgs;
+	int active_talk;
 
 	string dialog_text;//variavel que guarda o texto a ser exibido no dialogo
+	string realtext;
+	bool showing_dialog;
+	int dialog_word_count;
+	int actual_dw_count;
+	int updates_per_word;
+	int words_per_sound;
+	int update_count;
 	string[] choices_text;//variavel que guarda os textos das escolhas
 	Sprite[] face_images;//variavel que guarda as imagens sendo exibidas (0 = face esquerda, 1 = face direita, 2 = imagem de item ao centro)
 	string[] face_names;//variavel que guarda o nome das imagens sendo exibidas
@@ -107,7 +118,27 @@ public class GameController : MonoBehaviour {
 		//variaveis dos botoes do menu principal
 	float startbtn_width;
 	float startbtn_height;
+		//variaveis dos componentes de imagem fora de dialogo
+	float bigimage_width;
+	float bigimage_height;
 
+	int gn; 
+	Rect gtextarea;
+	float gxdev;
+	float gydev; 
+	int gfsize;
+	string gtext;
+	
+	//GUI movement
+	int QM_movecounter;
+	bool QM_Appear;
+	bool IM_Appear;
+
+	bool fadingtoblack;
+	bool fadingtoclear;
+	bool pendingstart;
+
+	GUITexture guiTexture;
 	// Use this for initialization
 	void Start () {
 		selectedItem = null;
@@ -118,6 +149,7 @@ public class GameController : MonoBehaviour {
 		NPC_dict = new Hashtable();
 		Spawn_dict = new Hashtable();
 
+		soundplayer = GetComponent<MusicManager> ();
 		gerEstados = GerenciadorEstados.getInstance();
                 
         //testes do victor
@@ -125,10 +157,16 @@ public class GameController : MonoBehaviour {
 		//menu_button_press = false;
 		show_menu_GUI = false;
 		show_inventory_GUI = false;
+		show_bigimage_GUI = false;
 		item_grid = new Item[4,4,3];
 		page = 0;
 		face_images = new Sprite[3];
 		face_names = new string[2];
+		updates_per_word = 1;
+		dialog_word_count = 0;
+		actual_dw_count = 0;
+		words_per_sound = 2;
+		update_count = 0;
 		cam_move = false;
 		leftmouse_pressed = false;
 		rightmouse_pressed = false;
@@ -185,16 +223,83 @@ public class GameController : MonoBehaviour {
 		//variaveis dos botoes do menu principal
 		startbtn_width = Wdef/3;
 		startbtn_height = startbtn_width / 6;
+		//
+		bigimage_height = Hdef - dialogbox_height;
+		bigimage_width = bigimage_height;
 
+		QM_movecounter = 0;
+		QM_Appear = false;
+		IM_Appear = false;
+
+
+		guiTexture = GetComponent<GUITexture> ();
+		guiTexture.pixelInset = new Rect(0f, 0f, Wdef*2, Hdef*2);
+		guiTexture.color = Color.clear;
+		fadingtoblack = false;
+		fadingtoclear = false;
+		pendingstart = false;
+	}
+
+	bool FadeToClear ()
+	{
+		// Lerp the colour of the texture between itself and transparent.
+		guiTexture.color = Color.Lerp(guiTexture.color, Color.clear, 3f * Time.deltaTime);
+		if (guiTexture.color.a <= 0.01f)
+		{
+			guiTexture.color = Color.clear;
+			return true;
+		}else
+		{
+			return false;
+		}
+	}
+	bool FadeToBlack ()
+	{
+		// Lerp the colour of the texture between itself and black.
+		guiTexture.color = Color.Lerp(guiTexture.color, Color.black, 3f * Time.deltaTime);
+		if (guiTexture.color.a >= 0.9f)
+		{
+			guiTexture.color = Color.black;
+			return true;
+		}else
+		{
+			return false;
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
       	//testes do victor
+
+		if (fadingtoblack)
+		{
+			bool faded = FadeToBlack();
+			if (faded)
+			{
+				fadingtoblack = false;
+				if (pendingstart)
+				{
+					TransiteScene("Cena1", "initial_spot");
+					pendingstart = false;
+					fadingtoclear = true;
+				}
+			}
+		}
+		if (fadingtoclear) 
+		{
+			bool faded = FadeToClear();
+			if (faded)
+			{
+				fadingtoclear = false;
+			}
+		}
+
+
 			//Camera
 		if (cam_move) 
 		{
-			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y,cam.transform.position.z);
+			float h = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
+			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y+h,cam.transform.position.z);
 		}
 			//Inputs
         //if (Input.GetKeyDown (KeyCode.C)) 
@@ -237,13 +342,52 @@ public class GameController : MonoBehaviour {
 			{
 				if (!show_inventory_GUI)
 				{
+					QM_Appear = true;
 					show_menu_GUI = true;
 				}
 			}else
 			{
-				show_menu_GUI = false;
+				//show_menu_GUI = false;
+				QM_Appear = false;
 			}
 			rightmouse_pressed = false;
+		}
+			//Dialogo
+		if (showing_dialog) 
+		{
+			string newshowtext = "";
+			if (update_count < updates_per_word)
+			{
+				update_count++;
+			}else
+			{
+				if (dialog_word_count == 0)
+				{
+					dialog_word_count = realtext.Length;
+					actual_dw_count = 0;
+				}
+				if (actual_dw_count < dialog_word_count)
+				{
+					if ((actual_dw_count%words_per_sound)==0)
+					{
+						soundplayer.loadsound(0);
+						soundplayer.playsound();
+					}
+					actual_dw_count++;
+					newshowtext = getChars(realtext,actual_dw_count);
+					dialog_text = newshowtext;
+				}else
+				{
+					showing_dialog= false;
+				}
+				update_count=0;
+			}
+			 
+		}else
+		{
+			dialog_word_count=0;
+			actual_dw_count=0;
+			dialog_text = realtext;
 		}
 	}
 
@@ -284,7 +428,12 @@ public class GameController : MonoBehaviour {
 			{
 				showQuickmenuGUI();
 			}
-			
+
+			if (show_bigimage_GUI)
+			{
+				showBigImageGUI();
+			}
+
 			//Faces dos personagens e mostrar itens
 			if (show_face_GUI) 
 			{
@@ -339,6 +488,11 @@ public class GameController : MonoBehaviour {
 	public void deactivateEvent(int ev_num)
 	{
 		gerEstados.setEventDeactive(ev_num);
+	}
+
+	public void playSound(int n)
+	{
+		soundplayer.playnew (n);
 	}
 
 	public bool TemItem(string item){
@@ -433,6 +587,7 @@ public class GameController : MonoBehaviour {
 		Sprite face_sprite = face_sets [face_divider [personagem]+faceindex];//corrigir
 		face_images [pos] = face_sprite;
 		face_names [pos] = char_names [personagem];
+		active_talk = pos;
 		show_face_GUI = true;
 	}
 
@@ -441,6 +596,22 @@ public class GameController : MonoBehaviour {
 		face_images [pos] = null;
 		face_names [pos] = "";
 		show_face_GUI = false;
+	}
+
+	public void showbigimage(int n, Rect textarea, float xdev, float ydev, int fsize,string texto)
+	{
+		gn = n;
+		gtextarea = textarea;
+		gxdev = xdev;
+		gydev = ydev;
+		gfsize = fsize;
+		gtext = texto;
+		show_bigimage_GUI = true;
+	}
+
+	public void hidebigimage()
+	{
+		show_bigimage_GUI = false;
 	}
 
 	public void showchoicebox(string[] choices)
@@ -466,7 +637,9 @@ public class GameController : MonoBehaviour {
 
 	public void LoadShowTxt(string s)
 	{
-		dialog_text = s;
+		dialog_text = "";
+		realtext = s;
+		showing_dialog = true;
 	}
 
 	public void lockplayer()
@@ -479,10 +652,22 @@ public class GameController : MonoBehaviour {
 		persona.unlockplayer ();
 	}
 
+	public string getChars(string text, int num)
+	{
+		return text.Substring (0, num);
+	}
+	public void quickPassTxt()
+	{
+		showing_dialog = false;
+	}
+	public bool isShowingDialog()
+	{
+		return showing_dialog;
+	}
 	public void showExamineGUI()
 	{
 		//Definir area do botao de interacao
-		float h = player.GetComponent<SpriteRenderer> ().bounds.extents.y * 2;
+		float h = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
 		Vector3 p1 = cam.WorldToScreenPoint (new Vector3 (0, h, 0));
 		Vector3 p2 = cam.WorldToScreenPoint (new Vector3 (0, 0, 0));
 		float char_height = (p1 - p2).y;
@@ -503,20 +688,54 @@ public class GameController : MonoBehaviour {
 	public void showQuickmenuGUI()
 	{
 		//Definir area dos botoes de acesso
-		GUI.BeginGroup(new Rect((Wdef-menugrid_width)/2,(Hdef-menugrid_height)/2,menugrid_width,menugrid_height));
+		float mgwidth = menugrid_width;
+		float mgheight = menugrid_height;
+
+		if (QM_Appear)
+		{
+			if (QM_movecounter == 0)
+			{
+				QM_movecounter = 10;
+			}
+			if (QM_movecounter <= 10)
+			{
+				mgwidth = menugrid_width/Mathf.CeilToInt(QM_movecounter/2);
+				mgheight = menugrid_height/Mathf.CeilToInt(QM_movecounter/2);
+				if (QM_movecounter > 2)
+				{
+					QM_movecounter--;
+				}
+			}
+		}else
+		{
+			if (QM_movecounter <= 10)
+			{
+				mgwidth = menugrid_width/Mathf.CeilToInt(QM_movecounter/2);
+				mgheight = menugrid_height/Mathf.CeilToInt(QM_movecounter/2);
+				QM_movecounter++;
+				if (QM_movecounter == 10)
+				{
+					QM_movecounter = 0;
+					show_menu_GUI = false;
+				}
+			}
+		}
+
+		GUI.BeginGroup(new Rect((Wdef-mgwidth)/2,(Hdef-mgheight)/2,mgwidth,mgheight));
 		
 		//Desenhar botoes de acesso
 		//Esquerda - inventorio
 		GUIStyle inventory_style = new GUIStyle();
 		inventory_style.normal.background = menu_icons[1].texture;
-		bool invbtn = GUI.Button(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"","SlotBackground");
-		GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
+		bool invbtn = GUI.Button(new Rect(0,(mgheight-intbutton_height)/2,intbutton_width,intbutton_height),"","SlotBackground");
+		GUI.Box(new Rect(0,(mgheight-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
 		if (invbtn)
 		{
 			show_menu_GUI = false;
 			show_inventory_GUI = true;
+			IM_Appear = true;
 			persona.lockplayer();
-		}
+		}/*
 		//Direita - Perfis
 		//GUIStyle inventory_style = new GUIStyle();
 		//inventory_style.normal.background = menu_icons[1].texture;
@@ -546,7 +765,7 @@ public class GameController : MonoBehaviour {
 		{
 			//show_menu_GUI = true;
 			//persona.lockplayer();
-		}		
+		}*/		
 		GUI.EndGroup();
 	}
 
@@ -571,9 +790,30 @@ public class GameController : MonoBehaviour {
 				}
 			}
 		}
-		
+		float lpos = Wdef - menu_width;
+
+		if (IM_Appear == true)
+		{
+			if (QM_movecounter <= 10)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10);
+				QM_movecounter++;
+			}
+		}else
+		{
+			if (QM_movecounter >= 0)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10); 
+				QM_movecounter--;
+			}else
+			{
+				QM_movecounter = 0;
+				show_inventory_GUI = false;
+			}
+		}
+
 		//Fazer a area delimitante do menu
-		GUI.BeginGroup(new Rect(Wdef-menu_width,Hdef-menu_height,menu_width,menu_height));
+		GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,menu_width,menu_height));
 		
 		//Desenhar o background do menu
 		GUI.Box(new Rect(0,0,menu_width,menu_height),"","MenuBackground");
@@ -685,7 +925,8 @@ public class GameController : MonoBehaviour {
 		if (closebutton)
 		{
 			show_menu_GUI = false;
-			show_inventory_GUI = false;
+			//show_inventory_GUI = false;
+			IM_Appear = false;
 			persona.unlockplayer();
 		}
 		
@@ -698,12 +939,19 @@ public class GameController : MonoBehaviour {
 	{
 		//Definir a area das faces
 		GUI.BeginGroup(new Rect(Wdef-dialogbox_width,Hdef-dialogbox_height-facearea_height,dialogbox_width,facearea_height));
-		
+		Color guicol = GUI.color;
 		//Desenhar cada imagem de face
 		if (face_images[0] != null)//esquerda
 		{
 			GUIStyle styl0 = GUI.skin.GetStyle("FaceimgBackground");
 			styl0.normal.background = face_images[0].texture;
+			if (active_talk == 1)
+			{
+				GUI.color = new Color (0.5f,0.5f,0.5f,1.0f);
+			}else
+			{
+				GUI.color = new Color (1f,1f,1f,1f);
+			}
 			GUIStyle plate0 = GUI.skin.GetStyle("NameplateBackground");
 			plate0.fontSize = Mathf.RoundToInt(faceplate_fontsize);
 			GUI.Box(new Rect(0,0,facearea_width,facearea_height),"",styl0);
@@ -713,6 +961,13 @@ public class GameController : MonoBehaviour {
 		{
 			GUIStyle styl1 = GUI.skin.GetStyle("FaceimgBackground");
 			styl1.normal.background = face_images[1].texture;
+			if (active_talk == 0)
+			{
+				GUI.color = new Color (0.5f,0.5f,0.5f,1.0f);
+			}else
+			{
+				GUI.color = new Color (1f,1f,1f,1f);
+			}
 			GUIStyle plate1 = GUI.skin.GetStyle("NameplateBackground");
 			plate1.fontSize = Mathf.RoundToInt(faceplate_fontsize);
 			GUI.Box(new Rect(dialogbox_width-facearea_width,0,facearea_width,facearea_height),"",styl1);
@@ -725,8 +980,25 @@ public class GameController : MonoBehaviour {
 			GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"","MenuBackground");
 			GUI.Box(new Rect((dialogbox_width/2)-(upimg_width/2),0,upimg_width,upimg_height),"",styl2);
 		}
-		
+		GUI.color = guicol;
 		GUI.EndGroup();
+	}
+
+	//Mostra uma imagem quadrada no centro da tela
+	//textarea eh a area retangular onde ficara o texto, devx e devy os deslocamentos
+	//da area de texto em x e y a partir do centro e fsize o tamanho da fonte
+	public void showBigImageGUI()
+	{
+		GUI.BeginGroup (new Rect ((Wdef - bigimage_width) / 2, (Hdef - bigimage_height) / 2, bigimage_width, bigimage_height));
+
+		GUIStyle bstyl = GUI.skin.GetStyle("CentralTextBackground");
+		bstyl.normal.background = objectimgs[gn].texture;
+		bstyl.fontSize = gfsize;
+		float x0 = ((bigimage_width - gtextarea.width) / 2) + gxdev;
+		float y0 = ((bigimage_height - gtextarea.height) / 2) + gydev;
+		GUI.Box(new Rect(x0,y0,gtextarea.width,gtextarea.height),gtext,bstyl);
+
+		GUI.EndGroup ();
 	}
 
 	public void showDialogGUI()
@@ -781,15 +1053,19 @@ public class GameController : MonoBehaviour {
 		GUI.BeginGroup(new Rect((Wdef-startbtn_width)/2,3*Hdef/5,startbtn_width,startbtn_height));
 		
 		//Desenhar botao de iniciar jogo
-		bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"","StartBtnBackground");
+		bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"Iniciar Jogo","StartBtnBackground");
 		if (intbtn)
 		{
 			on_mainmenu = false;
-			TransiteScene("Cena1", "initial_spot");
+			fadingtoblack = true;	
+			pendingstart = true;
+			//TransiteScene("Cena1", "initial_spot");
 		}
 		
 		GUI.EndGroup();
 
 	}
+
+
 
 }
