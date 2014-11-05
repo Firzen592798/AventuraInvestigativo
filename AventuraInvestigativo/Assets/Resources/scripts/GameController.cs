@@ -7,7 +7,9 @@ public class GameController : MonoBehaviour {
 	private Item selectedItem;
 	private Inventorio inventorio;
 
+	private int current_scene_index;
 	private Hashtable NPC_dict;
+	private Hashtable Spawn_dict;
 
 	private GerenciadorEstados gerEstados;
     
@@ -112,7 +114,9 @@ public class GameController : MonoBehaviour {
 		inventorio = new Inventorio(5);
 		player = null;
 		persona = null;
+		current_scene_index = Application.loadedLevel;
 		NPC_dict = new Hashtable();
+		Spawn_dict = new Hashtable();
 
 		gerEstados = GerenciadorEstados.getInstance();
                 
@@ -250,8 +254,9 @@ public class GameController : MonoBehaviour {
 			DontDestroyOnLoad(player);
 		}
 		DontDestroyOnLoad(this.gameObject);
-		DontDestroyOnLoad (this.cam);
+		DontDestroyOnLoad(this.cam);
 		Application.LoadLevel(NextScene);
+
 	}
 
 	void OnGUI(){      
@@ -356,10 +361,16 @@ public class GameController : MonoBehaviour {
 			InstancePlayer();
 			persona = (PlayerController) player.GetComponent(typeof(PlayerController));
 		}
+		current_scene_index = thisLevel;
 		NPC_dict.Clear();
 		foreach(GameObject go in GameObject.FindGameObjectsWithTag("NPC")) {
 			NPC_dict.Add( go.GetComponent<ObjectController>().nome, go );
 		}
+		Spawn_dict.Clear();
+		foreach(GameObject go in GameObject.FindGameObjectsWithTag("Spawn")) {
+			Spawn_dict.Add( go.name, go );
+		}
+
 		if (thisLevel == 0) {
 			on_mainmenu = true;
 		}
@@ -368,8 +379,33 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public GameObject getNPC(string personagem) {
-		return (GameObject)NPC_dict[personagem];
+	public ObjectController getNPC(string personagem) {
+		if (personagem == "Player") {
+			return (ObjectController)persona;
+		}
+		if (Application.loadedLevel != current_scene_index) {
+			NPC_dict.Clear();
+			foreach(GameObject go in GameObject.FindGameObjectsWithTag("NPC")) {
+				NPC_dict.Add( go.GetComponent<ObjectController>().nome, go );
+			}
+		}
+		GameObject npco = (GameObject)NPC_dict[personagem];
+		return (ObjectController)npco.GetComponent<ObjectController>();
+		//return (GameObject)NPC_dict[personagem];
+	}
+
+	public GameObject getSpawnPoint(string spawn_name) {
+		if (Application.loadedLevel != current_scene_index) {
+			Spawn_dict.Clear();
+			foreach(GameObject go in GameObject.FindGameObjectsWithTag("Spawn")) {
+				Spawn_dict.Add( go.name, go );
+			}
+		}
+		return (GameObject)Spawn_dict[spawn_name];
+	}
+
+	public PlayerController getPlayer() {
+		return persona;
 	}
 
 	public void showppbutton()

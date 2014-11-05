@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+
 public class MudarCena : Acao{
+
 	public string goto_cene = "next";
 	public string spawn_point = "spawn";
 	GameController gm;

@@ -9,7 +9,7 @@ public class MudarLocalPersonagem : Acao{
 	Vector3 spawn;
 	
 	public MudarLocalPersonagem(string goto_scene, Vector3 position){
-		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
+		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
 		new_scene = goto_scene;
 		spawn = position;

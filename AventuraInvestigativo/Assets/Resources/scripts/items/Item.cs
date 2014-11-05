@@ -3,7 +3,7 @@ public abstract class Item{
 	public string descricao;
 	public string nome;
 	public bool consumivel;
-	private Sprite sprite;
+	protected Sprite sprite;
 	public abstract void usar ();
 	public string getNome(){
 		return nome;

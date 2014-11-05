@@ -23,6 +23,7 @@ public class GerenciadorEstados {
 		hash.Add ("Papel", new states_PaperObject());
 		hash.Add ("Eduardo", new states_Eduardo());
 		hash.Add ("Porta", new states_DoorObject());
+		hash.Add ("Player", new states_Player());
 	}
 
 	public void alterarEstado(string personagem, int novoEstado, string condit){

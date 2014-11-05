@@ -6,7 +6,16 @@ public class states_Eduardo : DicionarioAcoes
 	public states_Eduardo()
 	{
 
-		setAState (0);
+		setAState (-1);
+
+		//********************************************
+		//*****      Eduardo - Estado -1     *********
+		//********************************************
+		state EduardoStateI = new state(-1);
+
+		//FIM ESTADO INICIAL
+		AddStateTo(EduardoStateI);
+
 
 		//********************************************
 		//*****      Eduardo - Estado 0      *********
@@ -16,7 +25,7 @@ public class states_Eduardo : DicionarioAcoes
 		//=================================
 		//  Acoes OnInit do estado 0
 		//=================================
-		Acao move = new MoverPersonagem("Eduardo", Vector3.zero, true);
+		Acao move = new MoverPersonagem("Eduardo", "point2", true);
 		
 		ArrayList dEduardo_s0 = new ArrayList ();
 		dEduardo_s0.Add(new DialogLine ("", "Para passar o texto ou interagir aperte a tecla Z.", 0, 0)); 
@@ -46,6 +55,7 @@ public class states_Eduardo : DicionarioAcoes
 		
 		EduardoState0.OnInitActions.Add(move);
 		EduardoState0.OnInitActions.Add(eduardo_s0_a0);
+		EduardoState0.OnInitActions.Add(new MudarEstado("Player", 0));
 		
 		//=================================
 		//  Acoes OnExamine do estado 0

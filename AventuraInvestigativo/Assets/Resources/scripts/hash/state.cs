@@ -14,6 +14,7 @@ public class state {
 		OnInitActions = new ArrayList();
 		OnExamineAction = new ArrayList();
 	}
+
 	public void setPos (Vector3 pos)
 	{
 		ObjectPos = pos;

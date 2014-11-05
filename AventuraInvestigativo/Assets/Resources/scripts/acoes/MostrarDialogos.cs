@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 public class MostrarDialogos : Acao{
 	ArrayList dialogos;
-	DialogLine dialogo;
 	int falaAtual;
 	public MostrarDialogos(ArrayList dialogLines){
 		this.dialogos = dialogLines;
@@ -12,7 +11,9 @@ public class MostrarDialogos : Acao{
 	}
 
 	public MostrarDialogos(DialogLine dialogo){
-		this.dialogo = dialogo;
+		this.dialogos = new ArrayList();
+		this.dialogos.Add(dialogo);
+		falaAtual = 0;
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
 	}

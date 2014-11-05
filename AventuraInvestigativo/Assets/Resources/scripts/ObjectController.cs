@@ -2,42 +2,42 @@ using UnityEngine;
 using System.Collections;
 
 public class ObjectController : MonoBehaviour {
-	GameObject g;
-	GameController gm;
+	protected GameObject g;
+	protected GameController gm;
 	public Transform[] waypoints;
 	public Animator ani;
-	public int indexnum;
+	//public int indexnum;
 	public string nome;
 
-	//private Vector3 currentWaypoint;
-	private ArrayList storedWaypoints;
-	private int currentIndex;
-	private float minDistance = 0.1f;
-	private float moveSpeed = 3f;
-	private float moveSpeed2 = 3f;
+	//protected Vector3 currentWaypoint;
+	protected ArrayList storedWaypoints;
+	protected int currentIndex;
+	protected float minDistance = 0.1f;
+	protected float moveSpeed = 3f;
+	protected float moveSpeed2 = 3f;
 	
-	private float velx = 0f;
-	private float vely = 0f;
+	protected float velx = 0f;
+	protected float vely = 0f;
 	
-	private float dirX;
-	private float dirY;
-	
-	bool onregion;
-	int proximaAcaoInit = 0;
-	int proximaAcaoExam = 0;
-	bool dialog_button_pressed;
-	bool up_button_pressed;
-	bool down_button_pressed;
-	bool showingtext;
+	protected float dirX;
+	protected float dirY;
 
-	private ArrayList SettingActions;
-	private ArrayList OnInitActions;
-	private ArrayList OnExamineActions;
-	//private Acao acaoAtual;
+	protected bool onregion;
+	protected int proximaAcaoInit = 0;
+	protected int proximaAcaoExam = 0;
+	protected bool dialog_button_pressed;
+	protected bool up_button_pressed;
+	protected bool down_button_pressed;
+	protected bool showingtext;
+
+	protected ArrayList SettingActions;
+	protected ArrayList OnInitActions;
+	protected ArrayList OnExamineActions;
+	//protected Acao acaoAtual;
 
 	//Estado[] statemachine;
-	int actualstate;
-	bool proximaAcaoReady = false;
+	protected int actualstate;
+	protected bool proximaAcaoReady = false;
 
 	// Use this for initialization
 	void Start () { 
@@ -69,7 +69,7 @@ public class ObjectController : MonoBehaviour {
 		transform.position = pos;
 	}
 
-	void LoadState() {
+	protected void LoadState() {
 		state ActionsOfState = gm.getState(this.nome);
 		SettingActions = ActionsOfState.SettingActions;
 		OnInitActions = ActionsOfState.OnInitActions;
@@ -107,7 +107,7 @@ public class ObjectController : MonoBehaviour {
 		onregion = false;
 	}
 	
-	void move2Waypoint(Vector3 destiny) {
+	protected void move2Waypoint(Vector3 destiny) {
 		
 		Vector3 direction = destiny - transform.position;
 		Vector3 moveVector = direction.normalized * moveSpeed * Time.deltaTime;
@@ -264,7 +264,7 @@ public class ObjectController : MonoBehaviour {
 		storedWaypoints.Add(point);
 	}
 
-	bool ExecuteAction(ArrayList actionList, int indexAction) {
+	protected bool ExecuteAction(ArrayList actionList, int indexAction) {
 		if (indexAction >= actionList.Count) {
 			return false;
 		}
