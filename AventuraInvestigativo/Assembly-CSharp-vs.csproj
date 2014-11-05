@@ -64,6 +64,7 @@
      <Compile Include="Assets\Resources\scripts\acoes\DesativarEvento.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarDialogos.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MostrarEscolhas.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\MostrarImagemCentral.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MoverPersonagem.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MudarCena.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MudarEstado.cs" />

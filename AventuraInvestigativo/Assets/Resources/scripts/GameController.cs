@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour {
 	bool show_intbutton_GUI;// variavel que controla se a gui do botao de interacao deve ser exibida
 	bool show_choicebox_GUI;// variavel que controla se a gui da caixa de escolha deve ser exibida
 	bool show_face_GUI;// variavel que controla se a gui de exibicao da face deve ser exibida
+	bool show_bigimage_GUI;
 
 	Item[,,] item_grid;//Matriz da representacao dos itens
 	int page;//qual indice da 3a dimensao da matriz
@@ -36,6 +37,7 @@ public class GameController : MonoBehaviour {
 	public string[] char_names;//Nomes de cada personagem
 	public int[] face_divider;//indices do inicio do faceset de cada personagem
 	public Sprite[] menu_icons;//balao de fala,inventorio,perfis,backlog,anotacoes
+	public Sprite[] objectimgs;
 	int active_talk;
 
 	string dialog_text;//variavel que guarda o texto a ser exibido no dialogo
@@ -114,6 +116,17 @@ public class GameController : MonoBehaviour {
 		//variaveis dos botoes do menu principal
 	float startbtn_width;
 	float startbtn_height;
+		//variaveis dos componentes de imagem fora de dialogo
+	float bigimage_width;
+	float bigimage_height;
+
+	int gn; 
+	Rect gtextarea;
+	float gxdev;
+	float gydev; 
+	int gfsize;
+	string gtext;
+	
 	//GUI movement
 	int QM_movecounter;
 	bool QM_Appear;
@@ -140,6 +153,7 @@ public class GameController : MonoBehaviour {
 		//menu_button_press = false;
 		show_menu_GUI = false;
 		show_inventory_GUI = false;
+		show_bigimage_GUI = false;
 		item_grid = new Item[4,4,3];
 		page = 0;
 		face_images = new Sprite[3];
@@ -205,6 +219,9 @@ public class GameController : MonoBehaviour {
 		//variaveis dos botoes do menu principal
 		startbtn_width = Wdef/3;
 		startbtn_height = startbtn_width / 6;
+		//
+		bigimage_height = Hdef - dialogbox_height;
+		bigimage_width = bigimage_height;
 
 		QM_movecounter = 0;
 		QM_Appear = false;
@@ -222,7 +239,7 @@ public class GameController : MonoBehaviour {
 	bool FadeToClear ()
 	{
 		// Lerp the colour of the texture between itself and transparent.
-		guiTexture.color = Color.Lerp(guiTexture.color, Color.clear, 1.5f * Time.deltaTime);
+		guiTexture.color = Color.Lerp(guiTexture.color, Color.clear, 3f * Time.deltaTime);
 		if (guiTexture.color.a <= 0.01f)
 		{
 			guiTexture.color = Color.clear;
@@ -235,7 +252,7 @@ public class GameController : MonoBehaviour {
 	bool FadeToBlack ()
 	{
 		// Lerp the colour of the texture between itself and black.
-		guiTexture.color = Color.Lerp(guiTexture.color, Color.black, 1.5f * Time.deltaTime);
+		guiTexture.color = Color.Lerp(guiTexture.color, Color.black, 3f * Time.deltaTime);
 		if (guiTexture.color.a >= 0.9f)
 		{
 			guiTexture.color = Color.black;
@@ -277,7 +294,8 @@ public class GameController : MonoBehaviour {
 			//Camera
 		if (cam_move) 
 		{
-			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y,cam.transform.position.z);
+			float h = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
+			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y+h,cam.transform.position.z);
 		}
 			//Inputs
         //if (Input.GetKeyDown (KeyCode.C)) 
@@ -405,7 +423,12 @@ public class GameController : MonoBehaviour {
 			{
 				showQuickmenuGUI();
 			}
-			
+
+			if (show_bigimage_GUI)
+			{
+				showBigImageGUI();
+			}
+
 			//Faces dos personagens e mostrar itens
 			if (show_face_GUI) 
 			{
@@ -539,6 +562,22 @@ public class GameController : MonoBehaviour {
 		show_face_GUI = false;
 	}
 
+	public void showbigimage(int n, Rect textarea, float xdev, float ydev, int fsize,string texto)
+	{
+		gn = n;
+		gtextarea = textarea;
+		gxdev = xdev;
+		gydev = ydev;
+		gfsize = fsize;
+		gtext = texto;
+		show_bigimage_GUI = true;
+	}
+
+	public void hidebigimage()
+	{
+		show_bigimage_GUI = false;
+	}
+
 	public void showchoicebox(string[] choices)
 	{
 		choices_text = choices;
@@ -592,7 +631,7 @@ public class GameController : MonoBehaviour {
 	public void showExamineGUI()
 	{
 		//Definir area do botao de interacao
-		float h = player.GetComponent<SpriteRenderer> ().bounds.extents.y * 2;
+		float h = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
 		Vector3 p1 = cam.WorldToScreenPoint (new Vector3 (0, h, 0));
 		Vector3 p2 = cam.WorldToScreenPoint (new Vector3 (0, 0, 0));
 		float char_height = (p1 - p2).y;
@@ -638,7 +677,6 @@ public class GameController : MonoBehaviour {
 				mgwidth = menugrid_width/Mathf.CeilToInt(QM_movecounter/2);
 				mgheight = menugrid_height/Mathf.CeilToInt(QM_movecounter/2);
 				QM_movecounter++;
-				Debug.Log(QM_movecounter);
 				if (QM_movecounter == 10)
 				{
 					QM_movecounter = 0;
@@ -908,6 +946,23 @@ public class GameController : MonoBehaviour {
 		}
 		GUI.color = guicol;
 		GUI.EndGroup();
+	}
+
+	//Mostra uma imagem quadrada no centro da tela
+	//textarea eh a area retangular onde ficara o texto, devx e devy os deslocamentos
+	//da area de texto em x e y a partir do centro e fsize o tamanho da fonte
+	public void showBigImageGUI()
+	{
+		GUI.BeginGroup (new Rect ((Wdef - bigimage_width) / 2, (Hdef - bigimage_height) / 2, bigimage_width, bigimage_height));
+
+		GUIStyle bstyl = GUI.skin.GetStyle("CentralTextBackground");
+		bstyl.normal.background = objectimgs[gn].texture;
+		bstyl.fontSize = gfsize;
+		float x0 = ((bigimage_width - gtextarea.width) / 2) + gxdev;
+		float y0 = ((bigimage_height - gtextarea.height) / 2) + gydev;
+		GUI.Box(new Rect(x0,y0,gtextarea.width,gtextarea.height),gtext,bstyl);
+
+		GUI.EndGroup ();
 	}
 
 	public void showDialogGUI()
