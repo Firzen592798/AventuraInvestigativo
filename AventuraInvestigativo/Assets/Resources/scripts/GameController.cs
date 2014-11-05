@@ -119,6 +119,11 @@ public class GameController : MonoBehaviour {
 	bool QM_Appear;
 	bool IM_Appear;
 
+	bool fadingtoblack;
+	bool fadingtoclear;
+	bool pendingstart;
+
+	GUITexture guiTexture;
 	// Use this for initialization
 	void Start () {
 		selectedItem = null;
@@ -204,11 +209,71 @@ public class GameController : MonoBehaviour {
 		QM_movecounter = 0;
 		QM_Appear = false;
 		IM_Appear = false;
+
+
+		guiTexture = GetComponent<GUITexture> ();
+		guiTexture.pixelInset = new Rect(0f, 0f, Wdef*2, Hdef*2);
+		guiTexture.color = Color.clear;
+		fadingtoblack = false;
+		fadingtoclear = false;
+		pendingstart = false;
+	}
+
+	bool FadeToClear ()
+	{
+		// Lerp the colour of the texture between itself and transparent.
+		guiTexture.color = Color.Lerp(guiTexture.color, Color.clear, 1.5f * Time.deltaTime);
+		if (guiTexture.color.a <= 0.01f)
+		{
+			guiTexture.color = Color.clear;
+			return true;
+		}else
+		{
+			return false;
+		}
+	}
+	bool FadeToBlack ()
+	{
+		// Lerp the colour of the texture between itself and black.
+		guiTexture.color = Color.Lerp(guiTexture.color, Color.black, 1.5f * Time.deltaTime);
+		if (guiTexture.color.a >= 0.9f)
+		{
+			guiTexture.color = Color.black;
+			return true;
+		}else
+		{
+			return false;
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
       	//testes do victor
+
+		if (fadingtoblack)
+		{
+			bool faded = FadeToBlack();
+			if (faded)
+			{
+				fadingtoblack = false;
+				if (pendingstart)
+				{
+					TransiteScene("Cena1", "initial_spot");
+					pendingstart = false;
+					fadingtoclear = true;
+				}
+			}
+		}
+		if (fadingtoclear) 
+		{
+			bool faded = FadeToClear();
+			if (faded)
+			{
+				fadingtoclear = false;
+			}
+		}
+
+
 			//Camera
 		if (cam_move) 
 		{
@@ -901,7 +966,9 @@ public class GameController : MonoBehaviour {
 		if (intbtn)
 		{
 			on_mainmenu = false;
-			TransiteScene("Cena1", "initial_spot");
+			fadingtoblack = true;	
+			pendingstart = true;
+			//TransiteScene("Cena1", "initial_spot");
 		}
 		
 		GUI.EndGroup();
