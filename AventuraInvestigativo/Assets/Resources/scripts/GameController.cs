@@ -168,7 +168,7 @@ public class GameController : MonoBehaviour {
 		updates_per_word = 1;
 		dialog_word_count = 0;
 		actual_dw_count = 0;
-		words_per_sound = 4;
+		words_per_sound = 5;
 		update_count = 0;
 		cam_move = false;
 		leftmouse_pressed = false;
@@ -459,6 +459,7 @@ public class GameController : MonoBehaviour {
 			{
 				showInventoryGUI();
 			}
+
 		}else
 		{
 			//Menu principal
@@ -1000,7 +1001,7 @@ public class GameController : MonoBehaviour {
 	{
 		GUI.BeginGroup (new Rect ((Wdef - bigimage_width) / 2, (Hdef - bigimage_height) / 2, bigimage_width, bigimage_height));
 
-		GUIStyle b0styl = GUI.skin.GetStyle ("CentralTextBackground");
+		GUIStyle b0styl = new GUIStyle();
 		if (gn != -1)
 		{
 			b0styl.normal.background = objectimgs[gn].texture;
@@ -1013,6 +1014,7 @@ public class GameController : MonoBehaviour {
 		GUIStyle bstyl = GUI.skin.GetStyle("CentralTextBackground");
 		bstyl.fontSize = gfsize;
 		bstyl.normal.textColor = gtextcol;
+		bstyl.normal.background = null;
 		float x0 = ((bigimage_width - gtextarea.width) / 2) + gxdev;
 		float y0 = ((bigimage_height - gtextarea.height) / 2) + gydev;
 		GUI.Box(new Rect(x0,y0,gtextarea.width,gtextarea.height),gtext,bstyl);
@@ -1084,6 +1086,7 @@ public class GameController : MonoBehaviour {
 		GUI.EndGroup();
 
 	}
+
 
 
 
