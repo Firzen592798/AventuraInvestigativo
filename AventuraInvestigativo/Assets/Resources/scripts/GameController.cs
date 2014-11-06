@@ -516,10 +516,21 @@ public class GameController : MonoBehaviour {
 		if (t == 0)
 		{
 			soundplayer.playnew (n);
-		}else
+		}
+		if (t == 1)
 		{
 			soundplayer.playambient(n);
 		}
+	}
+
+	public void LoadAudio(int n)
+	{
+		soundplayer.loadsound (n);
+	}
+
+	public void PlayAudio()
+	{
+		soundplayer.playsound ();
 	}
 
 	public bool TemItem(string item){
@@ -536,7 +547,6 @@ public class GameController : MonoBehaviour {
 		player_height = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
 		cam_move = true;
 	}
-
 
 	void OnLevelWasLoaded(int thisLevel) {
 		if (player == null) {
