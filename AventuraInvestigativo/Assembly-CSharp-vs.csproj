@@ -85,6 +85,7 @@
      <Compile Include="Assets\Resources\scripts\hash\Object\states_CarpetObject.cs" />
      <Compile Include="Assets\Resources\scripts\hash\Object\states_DoorObject.cs" />
      <Compile Include="Assets\Resources\scripts\hash\Object\states_PaperObject.cs" />
+     <Compile Include="Assets\Resources\scripts\hash\Object\states_TableObject.cs" />
      <Compile Include="Assets\Resources\scripts\hash\Player\states_Player.cs" />
      <Compile Include="Assets\Resources\scripts\hash\state.cs" />
      <Compile Include="Assets\Resources\scripts\items\Chave.cs" />

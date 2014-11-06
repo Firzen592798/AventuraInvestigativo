@@ -18,7 +18,7 @@ public class GerenciadorEstados {
 		hash = new Hashtable();
 		eventos = new bool[2];
 		hash.Add ("Tapete", new states_CarpetObject());
-		hash.Add ("Papel", new states_PaperObject());
+		hash.Add ("Mesa", new states_PaperObject());
 		hash.Add ("Eduardo", new states_Eduardo());
 		hash.Add ("Porta", new states_DoorObject());
 		hash.Add ("Player", new states_Player());

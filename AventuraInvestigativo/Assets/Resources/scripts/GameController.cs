@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class GameController : MonoBehaviour {
@@ -282,7 +282,7 @@ public class GameController : MonoBehaviour {
 				fadingtoblack = false;
 				if (pendingstart)
 				{
-					TransiteScene("Cena1", "initial_spot");
+					TransiteScene("CenaQuarto1", "initial_spot");
 					pendingstart = false;
 					fadingtoclear = true;
 				}
@@ -636,13 +636,15 @@ public class GameController : MonoBehaviour {
 		show_face_GUI = false;
 	}
 
-	public void showbigimage(int n, Rect textarea, float xdev, float ydev, int fsize,string texto, Color tc)
+	public void showbigimage(int n, float px, float py, float xdev, float ydev, float fsize,string texto, Color tc)
 	{
 		gn = n;
-		gtextarea = textarea;
-		gxdev = xdev;
-		gydev = ydev;
-		gfsize = fsize;
+		float gpx = bigimage_width * px;
+		float gpy = bigimage_height * py;
+		gtextarea = new Rect(0,0,gpx,gpy);
+		gxdev = bigimage_width*xdev;
+		gydev = bigimage_height*ydev;
+		gfsize = Mathf.RoundToInt(bigimage_height*fsize);
 		gtext = texto;
 		gtextcol = tc;
 		show_bigimage_GUI = true;

@@ -4,17 +4,19 @@ public class MostrarImagemCentral : Acao
 {
 	string[] textos;
 	int[] nimg;
-	Rect tarea;
+	float tax;
+	float tay;
 	float xd;
 	float yd;
-	int fs;
+	float fs;
 	int textoatual;
 	Color tcolor;
 
-	public MostrarImagemCentral(int[] n, Rect textarea, float xdev, float ydev, int fsize, string[] texto, Color color)
+	public MostrarImagemCentral(int[] n, float xta, float yta, float xdev, float ydev, float fsize, string[] texto, Color color)
 	{
 		nimg = n;
-		tarea = textarea;
+		tax = xta;
+		tay = yta;
 		xd = xdev;
 		yd = ydev;
 		fs = fsize;
@@ -32,7 +34,7 @@ public class MostrarImagemCentral : Acao
 		{
 			string t = textos [textoatual];
 			int ti = nimg[textoatual];
-			gm.showbigimage (ti, tarea, xd, yd, fs, t, tcolor);
+			gm.showbigimage (ti, tax, tay, xd, yd, fs, t, tcolor);
 			textoatual++;
 		}
 		else if (Input.GetKeyDown (Teclas.Confirma))
@@ -44,7 +46,7 @@ public class MostrarImagemCentral : Acao
 			}
 			string t = textos [textoatual];
 			int ti = nimg[textoatual];
-			gm.showbigimage (ti, tarea, xd, yd, fs, t, tcolor);
+			gm.showbigimage (ti, tax, tay, xd, yd, fs, t, tcolor);
 			textoatual++;
 		}
 
