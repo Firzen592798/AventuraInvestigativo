@@ -168,7 +168,7 @@ public class GameController : MonoBehaviour {
 		updates_per_word = 1;
 		dialog_word_count = 0;
 		actual_dw_count = 0;
-		words_per_sound = 5;
+		words_per_sound = 4;
 		update_count = 0;
 		cam_move = false;
 		leftmouse_pressed = false;
@@ -243,7 +243,7 @@ public class GameController : MonoBehaviour {
 		pendingstart = false;
 	}
 
-	bool FadeToClear ()
+	public bool FadeToClear ()
 	{
 		// Lerp the colour of the texture between itself and transparent.
 		guiTexture.color = Color.Lerp(guiTexture.color, Color.clear, 3f * Time.deltaTime);
@@ -256,7 +256,7 @@ public class GameController : MonoBehaviour {
 			return false;
 		}
 	}
-	bool FadeToBlack ()
+	public bool FadeToBlack ()
 	{
 		// Lerp the colour of the texture between itself and black.
 		guiTexture.color = Color.Lerp(guiTexture.color, Color.black, 3f * Time.deltaTime);
@@ -1098,6 +1098,8 @@ public class GameController : MonoBehaviour {
 			on_mainmenu = false;
 			fadingtoblack = true;	
 			pendingstart = true;
+			soundplayer.loadsound(1);
+			soundplayer.playsound();
 			//TransiteScene("Cena1", "initial_spot");
 		}
 		
