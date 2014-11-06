@@ -1,9 +1,18 @@
 using UnityEngine;
 using System.Collections;
+
+public struct PositionGlobal {
+	public Vector3 position;
+	public int scene_index;
+};
+
 public class DicionarioAcoes {
 
 	protected Hashtable acoesHashtable = new Hashtable();
 	protected int actualState;
+	protected int initState;
+
+	protected PositionGlobal pg;
 
 	public DicionarioAcoes() {
 
@@ -17,6 +26,11 @@ public class DicionarioAcoes {
 		acoesHashtable.Add(estado.id, estado);
 	}
 
+	public void setInitState(int istate) {
+		initState = istate;
+		actualState = istate;
+	}
+
 	public void setAState (int stateN)
 	{
 		actualState = stateN;
@@ -25,6 +39,19 @@ public class DicionarioAcoes {
 	public int getAState ()
 	{
 		return actualState;
+	}
+
+	public void setGloabalPosition(Vector3 pos, int scene) {
+		pg.position = pos;
+		pg.scene_index = scene;
+	}
+
+	public PositionGlobal getGlobalPosition() {
+		PositionGlobal p;
+		p.position = pg.position;
+		p.scene_index = pg.scene_index;
+
+		return p;
 	}
 }
 

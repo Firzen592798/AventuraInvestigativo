@@ -5,12 +5,18 @@ public class states_DoorObject: DicionarioAcoes
 {
 	public states_DoorObject ()
 	{
+		setInitState(0);
+
 		//============================
 		//% Estado 0 da Porta
 		//============================
-		
 		state DoorState0 = new state(0);
-		
+
+		//=================================
+		//  Acoes Settings do estado 0
+		//=================================
+		DoorState0.SettingActions.Add(new SalvarPosicaoGlobal("Porta"));
+
 		//**********************************************
 		//*******  Acoes OnExamine do estado 0 do papel
 		//**********************************************

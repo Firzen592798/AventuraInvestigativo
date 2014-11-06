@@ -28,7 +28,7 @@ public class MoverPersonagem : Acao{
 		isWalking = false;
 	}
 
-	public override bool Update(){
+	public override bool Update() {
 		if (!isWalking) {
 			//npc = gm.getNPC(npcNome);
 			//NPC_Controller = (ObjectController) npc.GetComponent(typeof(ObjectController));

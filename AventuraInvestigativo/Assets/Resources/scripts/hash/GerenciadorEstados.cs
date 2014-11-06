@@ -93,6 +93,14 @@ public class GerenciadorEstados {
 		//Debug.Log ("Eventos:" + eventos [0] + eventos [1]);
 	}
 
+	public void setGlobalPosition(string personagem, Vector3 pos, int scene) {
+		((DicionarioAcoes)hash[personagem]).setGloabalPosition(pos, scene);
+	}
+
+	public PositionGlobal getGlobalPosition(string personagem) {
+		return ((DicionarioAcoes)hash[personagem]).getGlobalPosition();
+	}
+
 	string to_suffix(string infix) {
 		Stack s = new Stack();
 		s.Push('(');

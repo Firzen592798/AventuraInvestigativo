@@ -493,6 +493,24 @@ public class GameController : MonoBehaviour {
 		gerEstados.setEventDeactive(ev_num);
 	}
 
+	public void setGlobalPosition(string personagem) {
+		ObjectController npc = getNPC(personagem);
+		if (npc != null) {
+			Vector3 pos = npc.gameObject.transform.position;
+			int scene_index = Application.loadedLevel;
+
+			gerEstados.setGlobalPosition(personagem, pos, scene_index);
+		}
+	}
+
+	public void setGlobalPosition(string personagem, Vector3 pos, int scene_index) {
+		//TODO
+	}
+
+	public PositionGlobal getGlobalPosition(string personagem) {
+		return gerEstados.getGlobalPosition(personagem);
+	}
+
 	public void playSound(int n,int t)
 	{
 		if (t == 0)
@@ -513,7 +531,7 @@ public class GameController : MonoBehaviour {
 	}	
 
 	public void InstancePlayer() {
-		player = Instantiate(Resources.Load("prefab/Jane", typeof(GameObject))) as GameObject;
+		player = Instantiate(Resources.Load("prefab/characters/Jane", typeof(GameObject))) as GameObject;
 		cam.orthographicSize = 4;
 		player_height = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
 		cam_move = true;

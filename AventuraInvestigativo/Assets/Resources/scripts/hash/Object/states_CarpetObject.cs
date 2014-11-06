@@ -5,11 +5,18 @@ public class states_CarpetObject: DicionarioAcoes
 {
 	public states_CarpetObject ()
 	{
+		setInitState(0);
+
 		//********************************************
 		//*****      Tapete - Estado 0       *********
 		//********************************************
 		state TapeteState0 = new state(0);
-		
+
+		//=================================
+		//  Acoes Settings do estado 0
+		//=================================
+		TapeteState0.SettingActions.Add(new SalvarPosicaoGlobal("Tapete"));
+
 		//=================================
 		//  Acoes OnExamine do estado 0
 		//=================================

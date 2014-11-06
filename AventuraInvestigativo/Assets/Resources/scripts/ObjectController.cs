@@ -43,7 +43,20 @@ public class ObjectController : MonoBehaviour {
 	void Start () { 
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
+
 		LoadState();
+
+		PositionGlobal pg = gm.getGlobalPosition(this.nome);
+
+		Vector3 pos;
+		if (pg.position != null) {
+			pos = pg.position;
+		}
+		else {
+			pos = transform.position;
+		}
+		pos.z = pos.y;
+		transform.position = pos;
 
 		ani = this.GetComponent<Animator> ();
 		if (ani != null) {
@@ -63,10 +76,6 @@ public class ObjectController : MonoBehaviour {
 			storedWaypoints.Add(waypoints[0].gameObject.transform.position);
 		}
 		currentIndex = 0;
-		
-		Vector3 pos = transform.position;
-		pos.z = pos.y;
-		transform.position = pos;
 	}
 
 	protected void LoadState() {

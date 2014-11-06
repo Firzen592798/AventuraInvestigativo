@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +73,7 @@
      <Compile Include="Assets\Resources\scripts\acoes\MudarEstado.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MudarLocalPersonagem.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\PlayWaitingAnimation.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\SalvarPosicaoGlobal.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\TocarMusica.cs" />
      <Compile Include="Assets\Resources\scripts\hash\DicionarioAcoes.cs" />
      <Compile Include="Assets\Resources\scripts\hash\GerenciadorEstados.cs" />
