@@ -137,9 +137,6 @@ public class GerenciadorEstados {
 							top = '#';
 						}
 					}
-					if (top == '(' && s.Count > 0) {
-						s.Pop();
-					}
 				}
 				else if (c != ' ') {
 					char top = '#';
@@ -147,16 +144,19 @@ public class GerenciadorEstados {
 						top = (char)s.Pop();
 					}
 					while ((top != '(')&&(top != '#')) {
-						if ((top == '!')||(c != '!')){
+						P.Add(top.ToString());
+						if (top == '!'){
 							break;
 						}
-						P.Add(top.ToString());
 						if (s.Count > 0) {
 							top = (char)s.Pop();
 						}
 						else {
 							top = '#';
 						}
+					}
+					if (top == '(') {
+						s.Push('(');
 					}
 					s.Push(c);
 				}
