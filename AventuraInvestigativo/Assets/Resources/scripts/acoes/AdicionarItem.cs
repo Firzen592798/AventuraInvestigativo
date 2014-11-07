@@ -18,7 +18,7 @@ public class AdicionarItem : Acao{
 		gm.PegarItem(item, Resources.Load<Sprite>(spritepath));
 		if(destroy){
 			GameObject go = GameObject.FindGameObjectWithTag (item);
-			ObjectController npcController = (ObjectController)go.GetComponent (typeof(ObjectController));
+			//ObjectController npcController = (ObjectController)go.GetComponent (typeof(ObjectController));
 			gm.hideppbutton ();
 			ObjectController.Destroy (go);
 

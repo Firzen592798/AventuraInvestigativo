@@ -30,7 +30,7 @@ public class states_TableObject: DicionarioAcoes
 		//TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
 		TapeteState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/Paper item", false));
 		TapeteState0.OnExamineAction.Add(new AtivarEvento(1));
-		TapeteState0.OnExamineAction.Add(new MudarEstado("Eduardo",1,"(!0 & 1)"));
+		TapeteState0.OnExamineAction.Add(new MudarEstado("Eduardo",2,"(1 & !0)"));
 		TapeteState0.OnExamineAction.Add(new MudarEstado("Mesa", 1));
 		
 		AddStateTo(TapeteState0);
