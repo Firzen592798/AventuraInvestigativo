@@ -3,8 +3,12 @@ using System.Collections;
 
 public class states_Eduardo : DicionarioAcoes
 {
+	GameObject g;
+	GameController gm;
 	public states_Eduardo()
 	{
+		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
+		gm = (GameController) g.GetComponent(typeof(GameController));
 		setInitState(-1);
 
 		//********************************************
@@ -15,8 +19,8 @@ public class states_Eduardo : DicionarioAcoes
 		//=================================
 		//  Acoes Settings do estado I
 		//=================================
-		EduardoStateI.SettingActions.Add(new SalvarPosicaoGlobal("Eduardo"));
-		EduardoStateI.SettingActions.Add(new MudarEstado("Eduardo", 0));
+		EduardoStateI.SettingActions.Add(new SalvarPosicaoGlobal(gm, "Eduardo"));
+		EduardoStateI.SettingActions.Add(new MudarEstado(gm, "Eduardo", 0));
 
 
 		AddStateTo(EduardoStateI);
@@ -35,7 +39,7 @@ public class states_Eduardo : DicionarioAcoes
 		dEduardo_s0_e.Add(new DialogLine ("Eduardo Hastings", "Ora... não a conheci desistindo assim tão fácil. Continue... estou certo de que encontrará algo intrigante.", 1, 1));
 		
 		
-		Acao eduardo_s0_a0_e = new MostrarDialogos (dEduardo_s0_e);
+		Acao eduardo_s0_a0_e = new MostrarDialogos (gm, dEduardo_s0_e);
 		EduardoState0.OnExamineAction.Add(eduardo_s0_a0_e);
 		
 		AddStateTo(EduardoState0);
@@ -55,8 +59,8 @@ public class states_Eduardo : DicionarioAcoes
 		dEduardo_s1.Add(new DialogLine ("Jane", "Sim, esta chave estava embaixo do tapete num canto escuro do saguão.", 0,0));
 		dEduardo_s1.Add(new DialogLine ("Eduardo Hastings", "Hum, parece ser uma chave GORJA, daquelas que abrem qualquer porta de fechadura simples...", 1, 1));
 		dEduardo_s1.Add(new DialogLine ("Eduardo Hastings", "pode ser muito útil, esta casa é bem velha e talvez você encontre uma porta ou outra que possa  ser aberta com esta chave.", 1, 1));
-		Acao eduardo_s1_a0_e = new MostrarDialogos (dEduardo_s1);
-		EduardoState1.OnExamineAction.Add(new MudarEstado("Eduardo",3,"(0 & 1)"));
+		Acao eduardo_s1_a0_e = new MostrarDialogos (gm, dEduardo_s1);
+		EduardoState1.OnExamineAction.Add(new MudarEstado(gm, "Eduardo",3,"(0 & 1)"));
 		EduardoState1.OnExamineAction.Add (eduardo_s1_a0_e);
 		
 		AddStateTo(EduardoState1);
@@ -71,8 +75,8 @@ public class states_Eduardo : DicionarioAcoes
 		dEduardo_s2.Add(new DialogLine ("Jane", "Sim, veja: encontrei este pedaço de papel com algumas palavras riscadas.", 0, 0));
 		dEduardo_s2.Add(new DialogLine ("Eduardo Hastings", "Hum... curioso... o nome parece ter sido escrito à caneta... ", 1, 1));
 		dEduardo_s2.Add(new DialogLine ("Eduardo Hastings", "mas os rabiscos rudes que foram feitos por cima foram feitos à lápis... nada que uma borracha não resolva, acredito.", 1, 1));
-		Acao eduardo_s2_a0_e = new MostrarDialogos (dEduardo_s2);
-		EduardoState2.OnExamineAction.Add(new MudarEstado("Eduardo",3,"(0 & 1)"));
+		Acao eduardo_s2_a0_e = new MostrarDialogos (gm, dEduardo_s2);
+		EduardoState2.OnExamineAction.Add(new MudarEstado(gm, "Eduardo",3,"(0 & 1)"));
 		EduardoState2.OnExamineAction.Add (eduardo_s2_a0_e);
 		
 		AddStateTo(EduardoState2);
@@ -96,10 +100,10 @@ public class states_Eduardo : DicionarioAcoes
 		dEduardo_s3.Add(new DialogLine ("Eduardo Hastings", "que foram feitos por cima foram feitos à lápis... nada que uma borracha não resolva, acredito.", 1 ,1));
 		
 		
-		Acao eduardo_s3_a0_e = new MostrarDialogos (dEduardo_s3);
+		Acao eduardo_s3_a0_e = new MostrarDialogos (gm, dEduardo_s3);
 		EduardoState3.OnExamineAction.Add (eduardo_s3_a0_e);
 		
-		Acao mudarEstadoPorta = new MudarEstado ("Porta", 1);
+		Acao mudarEstadoPorta = new MudarEstado (gm, "Porta", 1);
 		EduardoState3.OnExamineAction.Add (mudarEstadoPorta);
 		
 		AddStateTo(EduardoState3);

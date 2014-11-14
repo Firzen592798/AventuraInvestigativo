@@ -3,10 +3,9 @@ using System.Collections;
 
 public class FadeInScreen : Acao{
 
-	public FadeInScreen()
+	public FadeInScreen(GameController gm)
 	{
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 
 	public override bool Update()

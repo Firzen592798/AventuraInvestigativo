@@ -3,8 +3,12 @@ using System.Collections;
 
 public class states_DoorObject: DicionarioAcoes
 {
+	protected GameController gm;
+	protected GameObject g;
 	public states_DoorObject ()
 	{
+		g = GameObject.FindGameObjectWithTag("GameManager");
+		gm = (GameController) g.GetComponent(typeof(GameController));
 		setInitState(0);
 
 		//============================
@@ -15,7 +19,7 @@ public class states_DoorObject: DicionarioAcoes
 		//=================================
 		//  Acoes Settings do estado 0
 		//=================================
-		DoorState0.SettingActions.Add(new SalvarPosicaoGlobal("Porta"));
+		DoorState0.SettingActions.Add(new SalvarPosicaoGlobal(gm, "Porta"));
 
 		//**********************************************
 		//*******  Acoes OnExamine do estado 0 do papel
@@ -24,7 +28,7 @@ public class states_DoorObject: DicionarioAcoes
 		DialogLine dialogDoor = new DialogLine ("Porta", "Voce nao pode entrar aqui ainda, voce ainda tem coisas para fazer", -1);
 		//ArrayList dialogosDoor = new ArrayList();
 		//dialogosDoor.Add (dialogDoor);
-		Acao mostrarDialogoDoor = new  MostrarDialogos(dialogDoor);
+		Acao mostrarDialogoDoor = new  MostrarDialogos(gm, dialogDoor);
 		DoorState0.OnExamineAction.Add(mostrarDialogoDoor);
 		AddStateTo(DoorState0);
 		
@@ -38,7 +42,7 @@ public class states_DoorObject: DicionarioAcoes
 		//*******  Acoes OnExamine do estado 0 do papel
 		//**********************************************
 		
-		Acao mudarCenaPorta = new MudarCena("Creditos", "transitor3");
+		Acao mudarCenaPorta = new MudarCena(gm, "Creditos", "transitor3");
 		DoorState1.OnExamineAction.Add(mudarCenaPorta);
 		AddStateTo(DoorState1);
 		//acoesHashtable.Add("Papel-0", PapelState0);

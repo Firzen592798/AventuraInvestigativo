@@ -3,19 +3,17 @@ using System.Collections;
 public class MostrarDialogos : Acao{
 	ArrayList dialogos;
 	int falaAtual;
-	public MostrarDialogos(ArrayList dialogLines){
+	public MostrarDialogos(GameController gm, ArrayList dialogLines){
 		this.dialogos = dialogLines;
 		falaAtual = 0;
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 
-	public MostrarDialogos(DialogLine dialogo){
+	public MostrarDialogos(GameController gm, DialogLine dialogo){
 		this.dialogos = new ArrayList();
 		this.dialogos.Add(dialogo);
 		falaAtual = 0;
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 
 	public override bool Update(){

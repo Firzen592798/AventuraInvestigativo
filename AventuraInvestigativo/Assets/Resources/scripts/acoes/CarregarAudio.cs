@@ -1,11 +1,9 @@
 using UnityEngine;
 using System.Collections;
 public class CarregarAudio : Acao{
-	GameController gm;
 	int n;
-	public CarregarAudio(int num){
-		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public CarregarAudio(GameController gm, int num){
+		this.gm = gm;
 		n = num;
 	}
 	

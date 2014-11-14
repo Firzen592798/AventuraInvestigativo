@@ -4,16 +4,13 @@ using System.Collections;
 public class SalvarPosicaoGlobal : Acao {
 
 	string npcNome;
-
-	public SalvarPosicaoGlobal(string personagem) {
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public SalvarPosicaoGlobal(GameController gm, string personagem) {
+		this.gm = gm;
 		npcNome = personagem;
 	}
 
-	public SalvarPosicaoGlobal(string personagem, Vector3 pos, int scene_index) {
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public SalvarPosicaoGlobal(GameController gm, string personagem, Vector3 pos, int scene_index) {
+		this.gm = gm;
 		npcNome = personagem;
 		//TODO
 	}

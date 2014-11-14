@@ -9,17 +9,15 @@ public class MostrarEscolhas : Acao{
 	bool dialog_button_pressed;
 	int choiceindex;
 
-	public MostrarEscolhas(DialogLine dialogLine, ArrayList escolhas){
+	public MostrarEscolhas(GameController gm, DialogLine dialogLine, ArrayList escolhas){
 		this.dialogLine = dialogLine;
 		this.escolhas = escolhas;
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 	
-	public MostrarEscolhas(DialogLine dialogLine){
+	public MostrarEscolhas(GameController gm, DialogLine dialogLine){
 		this.dialogLine = dialogLine;
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 	
 	public override bool Update(){

@@ -4,9 +4,8 @@ public class TocarMusica : Acao{
 	GameController gm;
 	int n;
 	int t;
-	public TocarMusica(int num,int tp){
-		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public TocarMusica(GameController gm, int num,int tp){
+		this.gm = gm;
 		n = num;
 		t = tp;
 	}

@@ -2,10 +2,9 @@ using UnityEngine;
 using System.Collections;
 public class EsconderImagemCentral : Acao
 {
-	public EsconderImagemCentral()
+	public EsconderImagemCentral(GameController gm)
 	{
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 	public override bool Update()
 	{

@@ -5,16 +5,14 @@ public class PlayWaitingAnimation : Acao {
 
 	bool enabled;
 
-	public PlayWaitingAnimation() {
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public PlayWaitingAnimation(GameController gm) {
 
+		this.gm = gm;
 		enabled = true;
 	}
 
-	public PlayWaitingAnimation(bool enable) {
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public PlayWaitingAnimation(GameController gm, bool enable) {
+		this.gm = gm;
 
 		enabled = enable;
 	}

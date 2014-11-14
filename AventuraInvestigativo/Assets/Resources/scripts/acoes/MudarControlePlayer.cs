@@ -5,10 +5,8 @@ public class MudarControlePlayer : Acao{
 
 	PlayerController p;
 	bool behaviour;
-
-	public MudarControlePlayer(bool npc_behaviour) {
-		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public MudarControlePlayer(GameController gm, bool npc_behaviour) {
+		this.gm = gm;
 
 		behaviour = npc_behaviour;
 		//p = gm.getPlayer();

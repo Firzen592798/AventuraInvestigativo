@@ -6,7 +6,8 @@ public class Esperar : Acao{
 	float tempo_inicial;
 	double wait_seconds;
 
-	public Esperar(double segundos) {
+	public Esperar(GameController gm, double segundos) {
+		this.gm = gm;
 		wait_seconds = segundos;
 		tempo_inicial = -1;
 	}

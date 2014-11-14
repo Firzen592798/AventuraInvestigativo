@@ -4,11 +4,11 @@ using System.Collections;
 public class AtivarEvento : Acao
 {
 	int n;
-	public AtivarEvento(int ev_num)
+	GameController gm;
+	public AtivarEvento(GameController gm, int ev_num)
 	{
 		n = ev_num;
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 
 	public override bool Update()
