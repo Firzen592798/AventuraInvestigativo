@@ -24,8 +24,8 @@ public class states_TableObject: DicionarioAcoes
 		//=================================
 		//  Acoes OnExamine do estado 0
 		//=================================
-		DialogLine tapete1 = new DialogLine ("Mesa", "Voce achou um papel secreto", -1);
-		DialogLine tapete2 = new DialogLine ("Mesa", "O papel foi adicionado no seu inventorio", -1);
+		DialogLine tapete1 = new DialogLine ("Voce achou um papel secreto", -1);
+		DialogLine tapete2 = new DialogLine ("O papel foi adicionado no seu inventorio", -1);
 		ArrayList dialogosTapete = new ArrayList();
 		dialogosTapete.Add (tapete1);
 		dialogosTapete.Add (tapete2);
@@ -48,7 +48,7 @@ public class states_TableObject: DicionarioAcoes
 		//=================================
 		//  Acoes OnExamine do estado 1
 		//=================================
-		DialogLine dialogoTapeteVazio = new DialogLine ("Mesa", "Nao ha nada aqui", -1);
+		DialogLine dialogoTapeteVazio = new DialogLine ("Nao ha nada aqui", -1);
 		//ArrayList dialogosTapeteVazio = new ArrayList();
 		//dialogosTapeteVazio.Add (tapetevazio);
 		

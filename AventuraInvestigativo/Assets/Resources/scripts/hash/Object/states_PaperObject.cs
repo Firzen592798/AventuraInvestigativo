@@ -24,7 +24,7 @@ public class states_PaperObject : DicionarioAcoes
 		//=================================
 		//  Acoes OnExamine do estado 0
 		//=================================
-		DialogLine papelDialog = new DialogLine("Papel", "Voce achou um papel!", -1);
+		DialogLine papelDialog = new DialogLine("Voce achou um papel!", -1);
 		//ArrayList dialogosPapel = new ArrayList();
 		//dialogosPapel.Add (papelDialog);
 		Acao mostrarDialogoPapel = new  MostrarDialogos(gm, papelDialog);

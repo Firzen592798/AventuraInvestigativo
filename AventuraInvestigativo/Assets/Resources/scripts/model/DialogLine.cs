@@ -8,15 +8,13 @@ public class DialogLine {
 		
 	}
 
-	public DialogLine(string personagem, string texto, int imagempath){
-		this.personagem = personagem;
+	public DialogLine(string texto, int imagempath){
 		this.texto = texto;
 		this.sprite = imagempath;
 		//this.imagempath = Intimagempath;
 	}
 
-	public DialogLine(string personagem, string texto, int imagempath, int pos){
-		this.personagem = personagem;
+	public DialogLine(string texto, int imagempath, int pos){
 		this.texto = texto;
 		this.sprite = imagempath;
 		this.pos = pos;
