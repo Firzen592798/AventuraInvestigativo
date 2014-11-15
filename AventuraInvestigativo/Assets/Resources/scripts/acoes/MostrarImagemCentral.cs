@@ -12,7 +12,7 @@ public class MostrarImagemCentral : Acao
 	int textoatual;
 	Color tcolor;
 
-	public MostrarImagemCentral(int[] n, float xta, float yta, float xdev, float ydev, float fsize, string[] texto, Color color)
+	public MostrarImagemCentral(GameController gm, int[] n, float xta, float yta, float xdev, float ydev, float fsize, string[] texto, Color color)
 	{
 		nimg = n;
 		tax = xta;
@@ -23,8 +23,7 @@ public class MostrarImagemCentral : Acao
 		textos = texto;
 		tcolor = color;
 		textoatual = 0;
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 
 	public override bool Update()

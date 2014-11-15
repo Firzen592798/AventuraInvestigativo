@@ -2,15 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class MudarLocalPersonagem : Acao{
-	
-	GameController gm;
 
 	string new_scene;
 	Vector3 spawn;
 	
-	public MudarLocalPersonagem(string goto_scene, Vector3 position){
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public MudarLocalPersonagem(GameController gm, string goto_scene, Vector3 position){
+		this.gm = gm;
 		new_scene = goto_scene;
 		spawn = position;
 	}

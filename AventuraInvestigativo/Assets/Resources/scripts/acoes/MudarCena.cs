@@ -5,13 +5,11 @@ public class MudarCena : Acao{
 
 	public string goto_cene = "next";
 	public string spawn_point = "spawn";
-	GameController gm;
 	
-	public MudarCena(string goto_cene, string spawn){
+	public MudarCena(GameController gm, string goto_cene, string spawn){
 		this.goto_cene = goto_cene;
 		this.spawn_point = spawn;
-		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 	
 	public override bool Update(){

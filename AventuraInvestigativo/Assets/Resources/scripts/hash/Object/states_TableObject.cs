@@ -3,8 +3,12 @@ using System.Collections;
 
 public class states_TableObject: DicionarioAcoes
 {
+	protected GameController gm;
+	protected GameObject g;
 	public states_TableObject ()
 	{
+		g = GameObject.FindGameObjectWithTag("GameManager");
+		gm = (GameController) g.GetComponent(typeof(GameController));
 		setInitState(0);
 		
 		//********************************************
@@ -15,7 +19,7 @@ public class states_TableObject: DicionarioAcoes
 		//=================================
 		//  Acoes Settings do estado 0
 		//=================================
-		TapeteState0.SettingActions.Add(new SalvarPosicaoGlobal("Mesa"));
+		TapeteState0.SettingActions.Add(new SalvarPosicaoGlobal(gm, "Mesa"));
 		
 		//=================================
 		//  Acoes OnExamine do estado 0
@@ -25,13 +29,13 @@ public class states_TableObject: DicionarioAcoes
 		ArrayList dialogosTapete = new ArrayList();
 		dialogosTapete.Add (tapete1);
 		dialogosTapete.Add (tapete2);
-		Acao mostrarDialogoTapete = new  MostrarDialogos(dialogosTapete);
+		Acao mostrarDialogoTapete = new  MostrarDialogos(gm, dialogosTapete);
 		TapeteState0.OnExamineAction.Add(mostrarDialogoTapete);
 		//TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
-		TapeteState0.OnExamineAction.Add(new AdicionarItem("Papel", "sprites/Paper item", false));
-		TapeteState0.OnExamineAction.Add(new AtivarEvento(1));
-		TapeteState0.OnExamineAction.Add(new MudarEstado("Eduardo",2,"(!0 & 1)"));
-		TapeteState0.OnExamineAction.Add(new MudarEstado("Mesa", 1));
+		TapeteState0.OnExamineAction.Add(new AdicionarItem(gm, "Papel", "sprites/Paper item", false));
+		TapeteState0.OnExamineAction.Add(new AtivarEvento(gm, 1));
+		TapeteState0.OnExamineAction.Add(new MudarEstado(gm, "Eduardo",2,"(!0 & 1)"));
+		TapeteState0.OnExamineAction.Add(new MudarEstado(gm, "Mesa", 1));
 		
 		AddStateTo(TapeteState0);
 		//acoesHashtable.Add("Tapete-0", TapeteState0);
@@ -48,7 +52,7 @@ public class states_TableObject: DicionarioAcoes
 		//ArrayList dialogosTapeteVazio = new ArrayList();
 		//dialogosTapeteVazio.Add (tapetevazio);
 		
-		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(dialogoTapeteVazio);
+		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, dialogoTapeteVazio);
 		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
 		
 		AddStateTo(TapeteState1);

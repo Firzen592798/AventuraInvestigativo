@@ -9,9 +9,8 @@ public class MoverPersonagem : Acao{
 	private bool inPlace;
 	private bool isWalking;
 
-	public MoverPersonagem(string personagem, Vector3 point, bool waitToArrive){
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public MoverPersonagem(GameController gm, string personagem, Vector3 point, bool waitToArrive){
+		this.gm = gm;
 		npcNome = personagem;
 		spawn = "";
 		point = destiny_position;
@@ -19,9 +18,8 @@ public class MoverPersonagem : Acao{
 		isWalking = false;
 	}
 
-	public MoverPersonagem(string personagem, string spawn_point, bool waitToArrive) {
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+	public MoverPersonagem(GameController gm, string personagem, string spawn_point, bool waitToArrive) {
+		this.gm = gm;
 		npcNome = personagem;
 		spawn = spawn_point;
 		wait = waitToArrive;

@@ -3,9 +3,11 @@ using System.Collections;
 
 public class states_Player : DicionarioAcoes
 {
+	GameController gm;
 	public states_Player() {
 		setInitState(1);
-
+		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
+		gm = (GameController) g.GetComponent(typeof(GameController));
 		//********************************************
 		//*****      Player - Estado 0      **********
 		//********************************************
@@ -14,7 +16,7 @@ public class states_Player : DicionarioAcoes
 		//=================================
 		//  Acoes Settings do estado 0
 		//=================================
-		PlayerState0.SettingActions.Add(new MudarControlePlayer(false));
+		PlayerState0.SettingActions.Add(new MudarControlePlayer(gm, false));
 		
 		//FIM ESTADO 0
 		AddStateTo(PlayerState0);
@@ -30,7 +32,7 @@ public class states_Player : DicionarioAcoes
 		//Acao playost = new TocarMusica (0,1);
 
 		//PlayerState1.SettingActions.Add(playost);
-		PlayerState1.SettingActions.Add(new MudarControlePlayer(true));
+		PlayerState1.SettingActions.Add(new MudarControlePlayer(gm, true));
 		//PlayerState1.SettingActions.Add(new PlayWaitingAnimation());
 
 		//=================================
@@ -70,48 +72,48 @@ public class states_Player : DicionarioAcoes
 		int[] imgs5 = new int[1] {1};
 
 		// Cena 1
-		PlayerState1.OnInitActions.Add (new TocarMusica(1,0));
-		PlayerState1.OnInitActions.Add (new Esperar (1));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (imgs1,1f,1f,0f,0.3f,0.1f,textos1,Color.white));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (imgs0, 1f, 1f, 0f, 0.4f, 0.15f, textos0, Color.white));
-		PlayerState1.OnInitActions.Add (new EsconderImagemCentral ());
-		PlayerState1.OnInitActions.Add (new MoverPersonagem ("Player", "initial_spot2", false));
-		PlayerState1.OnInitActions.Add (new MoverPersonagem ("Player", "initial_spot3",true));
-		PlayerState1.OnInitActions.Add (new CarregarAudio (2));
-		PlayerState1.OnInitActions.Add (new TocarAudio ());
-		PlayerState1.OnInitActions.Add (new Esperar (1));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2, Color.black));
-		PlayerState1.OnInitActions.Add (new EsconderImagemCentral ());
-		PlayerState1.OnInitActions.Add (new FadeOutScreen ());
-		PlayerState1.OnInitActions.Add (new Esperar (4));
+		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 1,0));
+		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs1,1f,1f,0f,0.3f,0.1f,textos1,Color.white));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs0, 1f, 1f, 0f, 0.4f, 0.15f, textos0, Color.white));
+		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
+		PlayerState1.OnInitActions.Add (new MoverPersonagem (gm, "Player", "initial_spot2", false));
+		PlayerState1.OnInitActions.Add (new MoverPersonagem (gm, "Player", "initial_spot3",true));
+		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 2));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2, Color.black));
+		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
+		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
+		PlayerState1.OnInitActions.Add (new Esperar (gm, 4));
 		//Cena 2
-		PlayerState1.OnInitActions.Add (new TocarMusica(2,0));
-		PlayerState1.OnInitActions.Add (new FadeInScreen ());
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (imgs3, 1f, 1f, 0f, 0.4f, 0.15f, textos3, Color.white));
-		PlayerState1.OnInitActions.Add (new EsconderImagemCentral ());
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4, Color.black));
-		PlayerState1.OnInitActions.Add (new EsconderImagemCentral ());
-		PlayerState1.OnInitActions.Add (new FadeOutScreen ());
-		PlayerState1.OnInitActions.Add (new Esperar (1));
-		PlayerState1.OnInitActions.Add (new CarregarAudio (3));
-		PlayerState1.OnInitActions.Add (new TocarAudio ());
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (imgs5, 1f, 1f, 0f, 0f, 0f, textos5, Color.clear));
-		PlayerState1.OnInitActions.Add (new EsconderImagemCentral ());
+		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 2,0));
+		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs3, 1f, 1f, 0f, 0.4f, 0.15f, textos3, Color.white));
+		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4, Color.black));
+		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
+		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
+		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
+		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 3));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs5, 1f, 1f, 0f, 0f, 0f, textos5, Color.clear));
+		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		//Cena 3
-		PlayerState1.OnInitActions.Add (new MudarCena ("CenaSalao", "SpawnJane"));
-		PlayerState1.OnInitActions.Add (new TocarMusica(3,0));
-		PlayerState1.OnInitActions.Add (new TocarMusica(0,1));
-		PlayerState1.OnInitActions.Add (new FadeInScreen ());
+		PlayerState1.OnInitActions.Add (new MudarCena (gm, "CenaSalao", "SpawnJane"));
+		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 3,0));
+		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 0,1));
+		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
 
 
 
 
 
 
-		Acao mover0 = new MoverPersonagem("Player", "MoveJane1", true);
-		Acao mover1 = new MoverPersonagem("Player", "SpawnJane", true);
-		Acao dialog1 = new MostrarDialogos(new DialogLine("Jane", "...", 0, 0));
-		Acao dialog2 = new MostrarDialogos(new DialogLine ("Jane", "...!", 0, 0));
+		Acao mover0 = new MoverPersonagem(gm, "Player", "MoveJane1", true);
+		Acao mover1 = new MoverPersonagem(gm, "Player", "SpawnJane", true);
+		Acao dialog1 = new MostrarDialogos(gm, new DialogLine("Jane", "...", 0, 0));
+		Acao dialog2 = new MostrarDialogos(gm, new DialogLine ("Jane", "...!", 0, 0));
 
 		ArrayList dialogoEduardo = new ArrayList ();
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Sinto que vou me arrepender em tê-la convidado a passar este fim-desemana na Mansão Christie. Você parece um tanto chateada.", 1, 1));
@@ -146,42 +148,42 @@ public class states_Player : DicionarioAcoes
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Também servirá como maneira de socializar. ", 1,1));
 		dialogoEduardo.Add(new DialogLine ("Jane", "Não é má ideia... é exatamente isto que eu vou fazer!", 0,0));
 
-		PlayerState1.OnInitActions.Add(new Esperar(2));
+		PlayerState1.OnInitActions.Add(new Esperar(gm, 2));
 
 		PlayerState1.OnInitActions.Add(mover0);
 
-		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation());
-		PlayerState1.OnInitActions.Add(new Esperar(2));
+		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm));
+		PlayerState1.OnInitActions.Add(new Esperar(gm, 2));
 
 		PlayerState1.OnInitActions.Add(mover1);
-		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation());
+		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm));
 		PlayerState1.OnInitActions.Add(dialog1);
-		PlayerState1.OnInitActions.Add(new Esperar(2));
+		PlayerState1.OnInitActions.Add(new Esperar(gm, 2));
 
 		PlayerState1.OnInitActions.Add(mover0);
-		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation());
+		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm));
 		PlayerState1.OnInitActions.Add(dialog1);
-		PlayerState1.OnInitActions.Add(new Esperar(2));
+		PlayerState1.OnInitActions.Add(new Esperar(gm, 2));
 
 		PlayerState1.OnInitActions.Add(mover1);
-		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation());
+		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm));
 		PlayerState1.OnInitActions.Add(dialog1);
-		PlayerState1.OnInitActions.Add(new Esperar(2));
+		PlayerState1.OnInitActions.Add(new Esperar(gm, 2));
 
 		PlayerState1.OnInitActions.Add(mover0);
-		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation());
+		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm));
 		PlayerState1.OnInitActions.Add(dialog1);
-		PlayerState1.OnInitActions.Add(new Esperar(2));
+		PlayerState1.OnInitActions.Add(new Esperar(gm, 2));
 
-		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(false));
+		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm, false));
 		PlayerState1.OnInitActions.Add(dialog2);
 
-		PlayerState1.OnInitActions.Add(new MoverPersonagem("Eduardo", "point1", false));
-		PlayerState1.OnInitActions.Add(new MoverPersonagem("Eduardo", "point2", true));
-		PlayerState1.OnInitActions.Add(new MostrarDialogos(dialogoEduardo));
-		PlayerState1.OnInitActions.Add(new SalvarPosicaoGlobal("Eduardo"));
-		PlayerState1.OnInitActions.Add(new TocarMusica(4,0));
-		PlayerState1.OnInitActions.Add(new MudarEstado("Player", 0));
+		PlayerState1.OnInitActions.Add(new MoverPersonagem(gm, "Eduardo", "point1", false));
+ 		PlayerState1.OnInitActions.Add(new MoverPersonagem(gm, "Eduardo", "point2", true));
+		PlayerState1.OnInitActions.Add(new MostrarDialogos(gm, dialogoEduardo));
+		PlayerState1.OnInitActions.Add(new SalvarPosicaoGlobal(gm, "Eduardo"));
+		PlayerState1.OnInitActions.Add(new TocarMusica(gm, 4,0));
+		PlayerState1.OnInitActions.Add(new MudarEstado(gm, "Player", 0));
 
 
 		// FIM ESTADO 1

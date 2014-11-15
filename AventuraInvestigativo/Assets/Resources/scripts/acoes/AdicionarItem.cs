@@ -6,12 +6,11 @@ public class AdicionarItem : Acao{
 	bool destroy;
 	GameController gm;
 
-	public AdicionarItem(string item, string spritepath, bool destroy){
+	public AdicionarItem(GameController gm, string item, string spritepath, bool destroy){
+		this.gm = gm;
 		this.item = item;
 		this.spritepath = spritepath;
 		this.destroy = destroy;
-		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
 	}
 	
 	public override bool Update(){

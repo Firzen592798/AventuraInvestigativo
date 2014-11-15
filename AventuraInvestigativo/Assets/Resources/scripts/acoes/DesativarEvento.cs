@@ -4,11 +4,10 @@ using System.Collections;
 public class DesativarEvento : Acao
 {
 	int n;
-	public DesativarEvento(int ev_num)
+	public DesativarEvento(GameController gm, int ev_num)
 	{
 		n = ev_num;
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 	
 	public override bool Update()

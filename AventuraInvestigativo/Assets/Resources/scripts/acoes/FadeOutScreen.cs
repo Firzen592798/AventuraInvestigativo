@@ -3,10 +3,9 @@ using System.Collections;
 
 public class FadeOutScreen : Acao{
 	
-	public FadeOutScreen()
+	public FadeOutScreen(GameController gm)
 	{
-		g = GameObject.FindGameObjectWithTag("GameManager");
-		gm = (GameController) g.GetComponent(typeof(GameController));
+		this.gm = gm;
 	}
 	
 	public override bool Update()
