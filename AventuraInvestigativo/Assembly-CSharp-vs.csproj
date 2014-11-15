@@ -51,6 +51,7 @@
      <Compile Include="Assets\Resources\scripts\ButtonMan.cs" />
      <Compile Include="Assets\Resources\scripts\CreditosController.cs" />
      <Compile Include="Assets\Resources\scripts\DoorScript.cs" />
+     <Compile Include="Assets\Resources\scripts\FileManager.cs" />
      <Compile Include="Assets\Resources\scripts\GameController.cs" />
      <Compile Include="Assets\Resources\scripts\MusicManager.cs" />
      <Compile Include="Assets\Resources\scripts\ObjectController.cs" />
