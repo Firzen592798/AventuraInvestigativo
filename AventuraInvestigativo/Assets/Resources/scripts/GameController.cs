@@ -553,7 +553,7 @@ public class GameController : MonoBehaviour {
 		player = Instantiate(Resources.Load("prefab/characters/Jane", typeof(GameObject))) as GameObject;
 		cam.orthographicSize = 4;
 		player_height = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
-		//cam_move = true;
+		cam_move = true;
 	}
 
 	void OnLevelWasLoaded(int thisLevel) {
@@ -1109,10 +1109,13 @@ public class GameController : MonoBehaviour {
 	public void showMainMenuGUI()
 	{
 		//Definir area dos botoes
-		GUI.BeginGroup(new Rect((Wdef-startbtn_width)/2,3*Hdef/5,startbtn_width,startbtn_height));
-		
+		GUI.BeginGroup(new Rect((Wdef-startbtn_width)/2,3*Hdef/5,startbtn_width,4*startbtn_height));
+
+		GUIStyle sbstl = GUI.skin.GetStyle ("StartBtnBackground");
+		sbstl.fontSize = Mathf.RoundToInt (startbtn_height);
+
 		//Desenhar botao de iniciar jogo
-		bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"Iniciar Jogo","StartBtnBackground");
+		bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"Iniciar Jogo",sbstl);
 		if (intbtn)
 		{
 			on_mainmenu = false;
@@ -1121,6 +1124,23 @@ public class GameController : MonoBehaviour {
 			soundplayer.loadsound(1);
 			soundplayer.playsound();
 			//TransiteScene("Cena1", "initial_spot");
+		}
+		bool loadbtn = GUI.Button(new Rect(0,startbtn_height,startbtn_width,startbtn_height),"Carregar Jogo",sbstl);
+		if (loadbtn)
+		{
+
+		}
+
+		bool optbtn = GUI.Button(new Rect(0,2*startbtn_height,startbtn_width,startbtn_height),"Configurar",sbstl);
+		if (optbtn)
+		{
+			
+		}
+
+		bool extbtn = GUI.Button(new Rect(0,3*startbtn_height,startbtn_width,startbtn_height),"Fechar Jogo",sbstl);
+		if (extbtn)
+		{
+			
 		}
 		
 		GUI.EndGroup();
