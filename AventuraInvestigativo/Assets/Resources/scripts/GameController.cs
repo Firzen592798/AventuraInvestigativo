@@ -299,10 +299,14 @@ public class GameController : MonoBehaviour {
 
 
 			//Camera
-		if (cam_move) 
+		if (!on_mainmenu)
 		{
-			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y+player_height,cam.transform.position.z);
+			if (cam_move) 
+			{
+				cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y+player_height,cam.transform.position.z);
+			}
 		}
+
 			//Inputs
         //if (Input.GetKeyDown (KeyCode.C)) 
 		//{
@@ -470,6 +474,10 @@ public class GameController : MonoBehaviour {
 
 	}
 
+	public void camLock (bool y)
+	{
+		cam_move = y;
+	}
 
 	public int getStateIndex(string personagem) {
 		return gerEstados.getEstadoIndex(personagem);
@@ -545,7 +553,7 @@ public class GameController : MonoBehaviour {
 		player = Instantiate(Resources.Load("prefab/characters/Jane", typeof(GameObject))) as GameObject;
 		cam.orthographicSize = 4;
 		player_height = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
-		cam_move = true;
+		//cam_move = true;
 	}
 
 	void OnLevelWasLoaded(int thisLevel) {
