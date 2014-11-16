@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 	public GameObject player;
-	PlayerController persona;
+	private PlayerController persona;
 	private Item selectedItem;
 	private Inventorio inventorio;
 
@@ -11,8 +11,10 @@ public class GameController : MonoBehaviour {
 	private Hashtable NPC_dict;
 	private Hashtable Spawn_dict;
 
+
 	private GerenciadorEstados gerEstados;
-	MusicManager soundplayer;
+	private MusicManager soundplayer;
+	private FileManager fm;
     
     //testes do victor
 	public Camera cam;
@@ -154,7 +156,8 @@ public class GameController : MonoBehaviour {
 
 		soundplayer = GetComponent<MusicManager> ();
 		gerEstados = GerenciadorEstados.getInstance();
-                
+		fm = FileManager.getInstance();
+		
         //testes do victor
 		on_mainmenu = true;
 		//menu_button_press = false;
@@ -299,14 +302,10 @@ public class GameController : MonoBehaviour {
 
 
 			//Camera
-		if (!on_mainmenu)
+		if (cam_move) 
 		{
-			if (cam_move) 
-			{
-				cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y+player_height,cam.transform.position.z);
-			}
+			cam.transform.position = new Vector3(player.transform.position.x,player.transform.position.y+player_height,cam.transform.position.z);
 		}
-
 			//Inputs
         //if (Input.GetKeyDown (KeyCode.C)) 
 		//{
@@ -474,10 +473,6 @@ public class GameController : MonoBehaviour {
 
 	}
 
-	public void camLock (bool y)
-	{
-		cam_move = y;
-	}
 
 	public int getStateIndex(string personagem) {
 		return gerEstados.getEstadoIndex(personagem);
@@ -553,7 +548,7 @@ public class GameController : MonoBehaviour {
 		player = Instantiate(Resources.Load("prefab/characters/Jane", typeof(GameObject))) as GameObject;
 		cam.orthographicSize = 4;
 		player_height = player.GetComponent<SpriteRenderer> ().bounds.extents.y;
-		//cam_move = true;
+		cam_move = true;
 	}
 
 	void OnLevelWasLoaded(int thisLevel) {

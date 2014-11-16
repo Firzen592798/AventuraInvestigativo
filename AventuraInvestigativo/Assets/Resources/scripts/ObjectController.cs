@@ -132,33 +132,26 @@ public class ObjectController : MonoBehaviour {
 			vely = 0f;
 			bool hor = false;
 			bool ver = false;
-			if (dx < 0) {
+
+			if (dx < -0.2f) {
 				dirX = -1f;
-				if (dx < -0.2f) {
-					velx = -1f;
-				}
+				velx = -1f;
 				hor = true;
 			}
-			else if (dx > 0) {
+			else if (dx > 0.2f) {
 				dirX = 1f;
-				if (dx > 0.2f) {
-					velx = 1f;
-				}
+				velx = 1f;
 				hor = true;
 			}
-			
-			if (dy < 0) {
+
+			if (dy < -0.2f) {
 				dirY = -1f;
-				if (dy < -0.2f) {
-					vely = -1f;
-				}
+				vely = -1f;
 				ver = true;
 			}
-			else if (dy > 0) {
+			else if (dy > 0.2f) {
 				dirY = 1f;
-				if (dy > 0.2f) {
-					vely = 1f;
-				}
+				vely = 1f;
 				ver = true;
 			}
 			

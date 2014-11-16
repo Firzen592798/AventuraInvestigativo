@@ -25,7 +25,7 @@ public class states_DoorObject: DicionarioAcoes
 		//*******  Acoes OnExamine do estado 0 do papel
 		//**********************************************
 		
-		DialogLine dialogDoor = new DialogLine ("Voce nao pode entrar aqui ainda, voce ainda tem coisas para fazer", -1);
+		DialogLine dialogDoor = new DialogLine ("Porta", "Voce nao pode entrar aqui ainda, voce ainda tem coisas para fazer", -1);
 		//ArrayList dialogosDoor = new ArrayList();
 		//dialogosDoor.Add (dialogDoor);
 		Acao mostrarDialogoDoor = new  MostrarDialogos(gm, dialogDoor);

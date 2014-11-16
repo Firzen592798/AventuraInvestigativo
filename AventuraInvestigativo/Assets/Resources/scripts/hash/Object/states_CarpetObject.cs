@@ -24,8 +24,8 @@ public class states_CarpetObject: DicionarioAcoes
 		//=================================
 		//  Acoes OnExamine do estado 0
 		//=================================
-		DialogLine tapete1 = new DialogLine ("Voce achou uma chave secreta", -1);
-		DialogLine tapete2 = new DialogLine ("A chave foi adicionada no seu inventorio", -1);
+		DialogLine tapete1 = new DialogLine ("Tapete", "Voce achou uma chave secreta", -1);
+		DialogLine tapete2 = new DialogLine ("Tapete", "A chave foi adicionada no seu inventorio", -1);
 		ArrayList dialogosTapete = new ArrayList();
 		dialogosTapete.Add (tapete1);
 		dialogosTapete.Add (tapete2);
@@ -48,7 +48,7 @@ public class states_CarpetObject: DicionarioAcoes
 		//=================================
 		//  Acoes OnExamine do estado 1
 		//=================================
-		DialogLine dialogoTapeteVazio = new DialogLine ("Nao ha nada aqui", -1);
+		DialogLine dialogoTapeteVazio = new DialogLine ("Tapete", "Nao ha nada aqui", -1);
 		//ArrayList dialogosTapeteVazio = new ArrayList();
 		//dialogosTapeteVazio.Add (tapetevazio);
 		
