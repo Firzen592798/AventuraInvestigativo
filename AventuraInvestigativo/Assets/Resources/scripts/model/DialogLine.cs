@@ -1,7 +1,6 @@
 using UnityEngine;
 public class DialogLine {
 	string texto;
-	string personagem;
 	int sprite;
 	int pos;
 	public DialogLine(){
@@ -28,9 +27,7 @@ public class DialogLine {
 	public string getTexto(){
 		return texto;
 	}
-	public string getPersonagem(){
-		return personagem;
-	}
+
 	public int getSprite(){
 		return sprite;
 	}
