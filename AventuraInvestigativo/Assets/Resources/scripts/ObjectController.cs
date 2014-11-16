@@ -93,27 +93,43 @@ public class ObjectController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D c) {
-		moveSpeed = 0f;
-		gm.showppbutton ();
-		onregion = true;
+
+		if (c.collider.CompareTag("Player"))
+		{
+			moveSpeed = 0f;
+			gm.showppbutton ();
+			onregion = true;
+		}
 	}
 	
 	void OnCollisionExit2D (Collision2D c) {
-		moveSpeed = moveSpeed2;
-		gm.hideppbutton ();
-		onregion = false;
+
+		if (c.collider.CompareTag("Player"))
+		{
+			moveSpeed = moveSpeed2;
+			gm.hideppbutton ();
+			onregion = false;
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		moveSpeed = 0f;
-		gm.showppbutton ();
-		onregion = true;
+
+		if (other.CompareTag("Player"))
+		{
+			moveSpeed = 0f;
+			gm.showppbutton ();
+			onregion = true;
+		}
 	}
 	
 	void OnTriggerExit2D(Collider2D other) {
-		moveSpeed = moveSpeed2;
-		gm.hideppbutton ();
-		onregion = false;
+
+		if (other.CompareTag("Player"))
+		{
+			moveSpeed = moveSpeed2;
+			gm.hideppbutton ();
+			onregion = false;
+		}
 	}
 	
 	protected void move2Waypoint(Vector3 destiny) {
