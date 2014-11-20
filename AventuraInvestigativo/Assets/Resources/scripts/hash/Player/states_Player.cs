@@ -116,6 +116,9 @@ public class states_Player : DicionarioAcoes
 		Acao dialog2 = new MostrarDialogos(gm, new DialogLine ("Jane", "...!", 0, 0));
 
 		ArrayList dialogoEduardo = new ArrayList ();
+		dialogoEduardo.Add(new DialogLine ("Jane", "TESTE!", 0, 0));
+		/*
+
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Sinto que vou me arrepender em tê-la convidado a passar este fim-desemana na Mansão Christie. Você parece um tanto chateada.", 1, 1));
 		dialogoEduardo.Add(new DialogLine ("Jane", "Não se incomode comigo, Hastings. Você sabe que meu temperamento não é dos mais sociáveis.", 0, 0));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Sim, sim... espero que se divirta, contudo.", 1,1));
@@ -173,6 +176,7 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add(mover0);
 		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm));
 		PlayerState1.OnInitActions.Add(dialog1);
+		*/
 		PlayerState1.OnInitActions.Add(new Esperar(gm, 2));
 
 		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm, false));
