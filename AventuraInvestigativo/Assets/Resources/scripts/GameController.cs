@@ -131,6 +131,7 @@ public class GameController : MonoBehaviour {
 	int gfsize;
 	string gtext;
 	Color gtextcol;
+	TextAnchor galin;
 
 	float player_height;
 
@@ -252,6 +253,7 @@ public class GameController : MonoBehaviour {
 		guiTexture.color = Color.Lerp(guiTexture.color, Color.clear, 3f * Time.deltaTime);
 		if (guiTexture.color.a <= 0.01f)
 		{
+			Debug.Log("acabou fadetoclear");
 			guiTexture.color = Color.clear;
 			return true;
 		}else
@@ -265,6 +267,7 @@ public class GameController : MonoBehaviour {
 		guiTexture.color = Color.Lerp(guiTexture.color, Color.black, 3f * Time.deltaTime);
 		if (guiTexture.color.a >= 0.9f)
 		{
+			Debug.Log("acabou fadetoblack");
 			guiTexture.color = Color.black;
 			return true;
 		}else
@@ -287,7 +290,7 @@ public class GameController : MonoBehaviour {
 				{
 					TransiteScene("CenaQuarto1", "initial_spot");
 					pendingstart = false;
-					fadingtoclear = true;
+					//fadingtoclear = true;
 				}
 			}
 		}
@@ -639,7 +642,7 @@ public class GameController : MonoBehaviour {
 		show_face_GUI = false;
 	}
 
-	public void showbigimage(int n, float px, float py, float xdev, float ydev, float fsize,string texto, Color tc)
+	public void showbigimage(int n, float px, float py, float xdev, float ydev, float fsize,string texto, Color tc, TextAnchor talin)
 	{
 		gn = n;
 		float gpx = bigimage_width * px;
@@ -650,6 +653,7 @@ public class GameController : MonoBehaviour {
 		gfsize = Mathf.RoundToInt(bigimage_height*fsize);
 		gtext = texto;
 		gtextcol = tc;
+		galin = talin;
 		show_bigimage_GUI = true;
 	}
 
@@ -1046,6 +1050,7 @@ public class GameController : MonoBehaviour {
 
 		GUIStyle bstyl = GUI.skin.GetStyle("CentralTextBackground");
 		bstyl.fontSize = gfsize;
+		bstyl.alignment = galin;
 		bstyl.normal.textColor = gtextcol;
 		bstyl.normal.background = null;
 		float x0 = ((bigimage_width - gtextarea.width) / 2) + gxdev;

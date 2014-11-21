@@ -72,32 +72,34 @@ public class states_Player : DicionarioAcoes
 		int[] imgs5 = new int[1] {1};
 
 		// Cena 1
+
 		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 1,0));
-		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs1,1f,1f,0f,0.3f,0.1f,textos1,Color.white));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs0, 1f, 1f, 0f, 0.4f, 0.15f, textos0, Color.white));
+		PlayerState1.OnInitActions.Add (new Esperar (gm, 2));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs1,1f,1f,0f,0.3f,0.1f,textos1,Color.white,TextAnchor.UpperCenter,new double[3] {2,2,2}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs0, 1f, 1f, 0f, 0.4f, 0.15f, textos0, Color.white,TextAnchor.UpperCenter,new double[1] {2}));
+		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new MoverPersonagem (gm, "Player", "initial_spot2", false));
 		PlayerState1.OnInitActions.Add (new MoverPersonagem (gm, "Player", "initial_spot3",true));
 		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 2));
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2, Color.black));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2, Color.black,TextAnchor.UpperLeft,new double[6] {2,2,2,2,2,2}));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 4));
 		//Cena 2
 		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 2,0));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs3, 1f, 1f, 0f, 0.4f, 0.15f, textos3, Color.white,TextAnchor.UpperCenter,new double[2] {2,2}));
 		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs3, 1f, 1f, 0f, 0.4f, 0.15f, textos3, Color.white));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4, Color.black));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4, Color.black,TextAnchor.UpperLeft,new double[2] {2,2}));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
 		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 3));
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs5, 1f, 1f, 0f, 0f, 0f, textos5, Color.clear));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs5, 1f, 1f, 0f, 0f, 0f, textos5, Color.clear,TextAnchor.UpperLeft,new double[1] {2}));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		//Cena 3
 		PlayerState1.OnInitActions.Add (new MudarCena (gm, "CenaSalao", "SpawnJane"));
