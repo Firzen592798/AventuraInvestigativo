@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 using System.IO;
-using UnityEditor;
+//using UnityEditor;
 using System.Text;
 using System.Security.Cryptography;
 

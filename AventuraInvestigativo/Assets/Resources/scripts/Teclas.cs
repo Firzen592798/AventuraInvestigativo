@@ -36,5 +36,10 @@ public class Teclas : MonoBehaviour {
 		}
 	}
 
+	public string getAcceptKey()
+	{
+		return Confirma;
+	}
+
 
 }

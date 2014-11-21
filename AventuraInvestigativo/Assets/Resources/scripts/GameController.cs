@@ -489,6 +489,11 @@ public class GameController : MonoBehaviour {
 		gerEstados.alterarEstado(personagem, state, condit);
 	}
 
+	public void setExaminable(string personagem, bool te)
+	{
+		/* problema */
+	}
+
 	public void activateEvent(int ev_num)
 	{
 		gerEstados.setEventActive(ev_num);
@@ -712,22 +717,50 @@ public class GameController : MonoBehaviour {
 	{
 		return showing_dialog;
 	}
+
+	public void DrawOutline(Rect pos, string text, GUIStyle styl, Color colOut, Color colIn){
+		GUIStyle backupStyle = styl;
+		styl.normal.textColor = colOut;
+		//styl.fontSize++;
+
+		pos.x = pos.x - 2;
+		GUI.Label(pos, text, styl);
+		pos.x = pos.x + 4;
+		GUI.Label(pos, text, styl);
+		pos.x = pos.x - 2;
+		pos.y = pos.y - 2;
+		GUI.Label(pos, text, styl);
+		pos.y = pos.y + 4;
+		GUI.Label(pos, text, styl);
+		pos.y = pos.y - 2;
+
+		styl.normal.textColor = colIn;
+		//styl.fontSize--;
+		GUI.Label(pos, text, styl);
+		styl = backupStyle;
+	}
+
 	public void showExamineGUI()
 	{
 		//Definir area do botao de interacao
 		Vector3 p1 = cam.WorldToScreenPoint (new Vector3 (0, player_height, 0));
 		Vector3 p2 = cam.WorldToScreenPoint (new Vector3 (0, 0, 0));
 		float char_height = (p1 - p2).y;
-		GUI.BeginGroup(new Rect((Wdef-intbutton_width)/2,Hdef/2-intbutton_height-char_height,intbutton_width,intbutton_height));
+		GUI.BeginGroup(new Rect((Wdef-intbutton_width*3)/2,Hdef/2-intbutton_height-char_height,intbutton_width*3,3*intbutton_height+char_height));
 		//Desenhar botao de interacao
 		GUIStyle intbtnstyle = new GUIStyle ();
 		intbtnstyle.normal.background = menu_icons [0].texture;
-		bool intbtn = GUI.Button(new Rect(0,0,intbutton_width,intbutton_height),"",intbtnstyle);
+		bool intbtn = GUI.Button(new Rect(intbutton_width,0,intbutton_width,intbutton_height),"",intbtnstyle);
 		if (intbtn)
 		{
 			//colocar acao do botao - iniciar dialogo
 			leftmouse_pressed = true;
 		}
+		GUIStyle tooltipstyle = GUI.skin.GetStyle ("Tooltip");
+		tooltipstyle.fontSize = Mathf.RoundToInt(intbutton_height / 3);
+		string tooltiptext = (Teclas.Confirma+" - Examinar");
+		Rect tooltiparea = new Rect (0, 2 * intbutton_height + char_height, 3 * intbutton_width, intbutton_height);
+		DrawOutline (tooltiparea, tooltiptext, tooltipstyle, Color.black, Color.white);
 		
 		GUI.EndGroup();
 	}
