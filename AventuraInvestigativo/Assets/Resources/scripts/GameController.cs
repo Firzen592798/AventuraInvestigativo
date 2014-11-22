@@ -158,7 +158,9 @@ public class GameController : MonoBehaviour {
 		soundplayer = GetComponent<MusicManager> ();
 		gerEstados = GerenciadorEstados.getInstance();
 		fm = FileManager.getInstance();
-		
+		Debug.Log("diretorio GameData criado em:\n"+fm.gamedirectory);
+		initializeGameDataDirectory();
+
         //testes do victor
 		on_mainmenu = true;
 		//menu_button_press = false;
@@ -247,6 +249,22 @@ public class GameController : MonoBehaviour {
 		pendingstart = false;
 	}
 
+	public void initializeGameDataDirectory() {
+		if (!fm.checkDirectory("GameData")) {
+			fm.createDirectory("GameData");
+			fm.createDirectory("GameData/saves");
+			fm.createFile("GameData", "README", "txt");
+		}
+		else { 
+			if (!fm.checkDirectory("GameData/saves")) {
+				fm.createDirectory("GameData/saves");
+			}
+			if (!fm.checkFile("GameData", "README", "txt")) {
+				fm.createFile("GameData", "README", "txt");
+			}
+		}
+	}
+
 	public bool FadeToClear ()
 	{
 		// Lerp the colour of the texture between itself and transparent.
@@ -261,6 +279,7 @@ public class GameController : MonoBehaviour {
 			return false;
 		}
 	}
+
 	public bool FadeToBlack ()
 	{
 		// Lerp the colour of the texture between itself and black.

@@ -5,6 +5,8 @@ using System.IO;
 //using UnityEditor;
 using System.Text;
 using System.Security.Cryptography;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 /// <summary>
 /// Classe responsavel pelo gerenciamento de arquivos e diretorios.
@@ -171,29 +173,22 @@ public class FileManager {
 		}
 	}
 
-	public string ReadFile(string filePath, bool isEncryptedFile) {
+	public string ReadTextFile(string filePath, bool isEncryptedFile) {
 		if (checkFile(filePath)) {
 			string data;
 			if (isEncryptedFile) {
-				File.SetAttributes(this.path+'/'+filePath, FileAttributes.Normal);
 				createFile(filePath+"._temp_");
-				DecryptFile(this.path+'/'+filePath, this.path+'/'+filePath+"._temp_", "1234567890123456");
+				DecryptFile(this.path+'/'+filePath, this.path+'/'+filePath+"._temp_", "ROero|YZhMuSUIae");
 				using (StreamReader TxtReader = new StreamReader(File.Open(this.path+'/'+filePath+"._temp_", FileMode.Open))) {
 					data = TxtReader.ReadToEnd();
 				}
 				deleteFile(filePath+"._temp_");
-				File.SetAttributes(this.path+'/'+filePath, FileAttributes.ReadOnly);
-				//data = File.ReadAllText(filePath);
 			}
 			else {
 				using (StreamReader TxtReader = new StreamReader(File.Open(this.path+'/'+filePath, FileMode.Open))) {
 					data = TxtReader.ReadToEnd();
 				}
 			}
-
-			//if (isEncryptedFile) {
-			//	data = Decrypt(data);
-			//}
 			return data;
 		}
 		else {
@@ -202,53 +197,13 @@ public class FileManager {
 		}
 	}
 
-	public string ReadFile(string dir, string filename, string ext, bool isEncryptedFile) {
+	public string ReadTextFile(string dir, string filename, string ext, bool isEncryptedFile) {
 		if (checkDirectory(dir)) {
-			if (checkFile(dir, filename, ext)) {
-				string data;
-				string filePath = this.path+'/'+dir+'/'+filename;
-				if (ext != "") {
-					filePath = filePath+'.'+ext;
-				}
-
-				if (isEncryptedFile) {
-					File.SetAttributes(this.path+'/'+filePath, FileAttributes.Normal);
-					string fileTempPath;
-					if (ext != "") {
-						fileTempPath = dir+'/'+filename+'.'+ext+"._temp_";
-					}
-					else {
-						fileTempPath = dir+'/'+filename+"._temp_";
-					}
-
-					createFile(fileTempPath);
-					DecryptFile(filePath, filePath+"._temp_", "1234567890123456");
-					using (StreamReader TxtReader = new StreamReader(File.Open(filePath+"._temp_", FileMode.Open))) {
-						data = TxtReader.ReadToEnd();
-					}
-					deleteFile(fileTempPath);
-					File.SetAttributes(this.path+'/'+filePath, FileAttributes.ReadOnly);
-					//data = File.ReadAllText(filePath);
-				}
-				else {
-					using (StreamReader TxtReader = new StreamReader(File.Open(filePath, FileMode.Open))) {
-						data = TxtReader.ReadToEnd();
-					}
-				}
-				
-				//if (isEncryptedFile) {
-				//	data = Decrypt(data);
-				//}
-				return data;
+			string filePath = dir+'/'+filename;
+			if (ext != "") {
+				filePath = filePath+'.'+ext;
 			}
-			else {
-				string cdir = '/'+dir;
-				string cfile = filename;
-				if (ext != "") {
-					cfile = cfile+'.'+ext;
-				}
-				throw new System.IO.FileNotFoundException("Cannot read file '"+cfile+"' in directory '"+cdir+"' because it not exists a file with that name");
-			}
+			return ReadTextFile(filePath, isEncryptedFile);
 		}
 		else {
 			string dirname = '/'+dir;
@@ -256,22 +211,16 @@ public class FileManager {
 		}
 	}
 
-	public void WriteFile(string filePath, string data, bool encryptFile) {
+	public void WriteTextFile(string filePath, string data, bool encryptFile) {
 		if (checkFile(filePath)) {
 			string data_to_write = data;
-			//if (encryptFile) {
-			//	data_to_write = Encrypt(data);
-			//}
-
 			if (encryptFile) {
-				File.SetAttributes(this.path+'/'+filePath, FileAttributes.Normal);
 				createFile(filePath+"._temp_");
 				using (StreamWriter TxtWriter = new StreamWriter(File.Open(this.path+'/'+filePath+"._temp_", FileMode.Open))) {
 					TxtWriter.Write(data_to_write);
 				}
-				EncryptFile(this.path+'/'+filePath+"._temp_", this.path+'/'+filePath, "1234567890123456");
+				EncryptFile(this.path+'/'+filePath+"._temp_", this.path+'/'+filePath, "ROero|YZhMuSUIae");
 				deleteFile(filePath+"._temp_");
-				File.SetAttributes(this.path+'/'+filePath, FileAttributes.ReadOnly);
 			}
 			else {
 				using (StreamWriter TxtWriter = new StreamWriter(File.Open(this.path+'/'+filePath, FileMode.Open))) {
@@ -285,51 +234,68 @@ public class FileManager {
 		}
 	}
 
-	public void WriteFile(string dir, string filename, string ext, string data, bool encryptFile) {
+	public void WriteTextFile(string dir, string filename, string ext, string data, bool encryptFile) {
 		if (checkDirectory(dir)) {
-			if (checkFile(dir, filename, ext)) {
-				string data_to_write = data;
-				//if (encryptFile) {
-				//	data_to_write = Encrypt(data);
-				//}
-				string filePath = this.path+'/'+dir+'/'+filename;
-				if (ext != "") {
-					filePath = filePath+'.'+ext;
-				}
+			string filePath = dir+'/'+filename;
+			if (ext != "") {
+				filePath = filePath+'.'+ext;
+			}
+			WriteTextFile(filePath, data, encryptFile);
+		}
+		else {
+			string dirname = '/'+dir;
+			throw new System.IO.DirectoryNotFoundException("Cannot access '"+dirname+"' because it not exists");
+		}
+	}
 
-				if (encryptFile) {
-					File.SetAttributes(filePath, FileAttributes.Normal);
-					string fileTempPath;
-					if (ext != "") {
-						fileTempPath = dir+'/'+filename+'.'+ext+"._temp_";
-					}
-					else {
-						fileTempPath = dir+'/'+filename+"._temp_";
-					}
-					Debug.Log(fileTempPath+" ja existe? "+checkFile(fileTempPath));
-					createFile(fileTempPath);
-					using (StreamWriter TxtWriter = new StreamWriter(File.Open(filePath+"._temp_", FileMode.Open))) {
-						TxtWriter.Write(data_to_write);
-					}
-					EncryptFile(filePath+"._temp_", filePath, "1234567890123456");
-					deleteFile(fileTempPath);
-					File.SetAttributes(filePath, FileAttributes.ReadOnly);
-				}
-				else {
-					using (StreamWriter TxtWriter = new StreamWriter(File.Open(filePath, FileMode.Open))) {
-						TxtWriter.Write(data_to_write);
-					}
-				}
-				//File.WriteAllText(filePath, data_to_write);
+	public object ReadBinaryFile(string filePath) {
+		if (checkFile(filePath)) {
+			Stream arq = File.Open(this.path+'/'+filePath, FileMode.Open);
+			BinaryFormatter bform = new BinaryFormatter();
+			object data = bform.Deserialize(arq);
+			arq.Close();
+			return data;
+		}
+		else {
+			string dirname = '/'+filePath;
+			throw new System.IO.FileNotFoundException("Cannot read file '"+dirname+"' because it not exists");
+		}
+	}
+
+	public object ReadBinaryFile(string dir, string filename, string ext) {
+		if (checkDirectory(dir)) {
+			string filePath = dir+'/'+filename;
+			if (ext != "") {
+				filePath = filePath+'.'+ext;
 			}
-			else {
-				string cdir = '/'+dir;
-				string cfile = filename;
-				if (ext != "") {
-					cfile = cfile+'.'+ext;
-				}
-				throw new System.IO.FileNotFoundException("Cannot write in file '"+cfile+"' in directory '"+cdir+"' because it not exists a file with that name");
+			return ReadBinaryFile(filePath);
+		}
+		else {
+			string dirname = '/'+dir;
+			throw new System.IO.DirectoryNotFoundException("Cannot access '"+dirname+"' because it not exists");
+		}
+	}
+
+	public void WriteBinaryFile(string filePath, object data) {
+		if (checkFile(filePath)) {
+			Stream arq = File.Open(this.path+'/'+filePath, FileMode.Open);
+			BinaryFormatter bform = new BinaryFormatter();
+			bform.Serialize(arq, data); 
+			arq.Close();
+		}
+		else {
+			string dirname = '/'+filePath;
+			throw new System.IO.FileNotFoundException("Cannot write in file '"+dirname+"' because it not exists");
+		}
+	}
+
+	public void WriteBinaryFile(string dir, string filename, string ext, object data) {
+		if (checkDirectory(dir)) {
+			string filePath = dir+'/'+filename;
+			if (ext != "") {
+				filePath = filePath+'.'+ext;
 			}
+			WriteBinaryFile(filePath, data);
 		}
 		else {
 			string dirname = '/'+dir;

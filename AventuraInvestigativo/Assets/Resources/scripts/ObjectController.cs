@@ -274,7 +274,14 @@ public class ObjectController : MonoBehaviour {
 		pos.z = pos.y;
 		transform.position = pos;
 	}
-	
+
+	public void changeDirection(int dirX, int dirY) {
+		if (ani != null) {
+			ani.SetFloat("dirX", (float)dirX);
+			ani.SetFloat("dirY", (float)dirY);
+		}
+	}
+
 	public bool hasStoredWayPoint(Vector3 point) {
 		return storedWaypoints.Contains(point);
 	}
