@@ -11,7 +11,6 @@ public class GameController : MonoBehaviour {
 	private Hashtable NPC_dict;
 	private Hashtable Spawn_dict;
 
-
 	private GerenciadorEstados gerEstados;
 	private MusicManager soundplayer;
 	private FileManager fm;
@@ -27,13 +26,18 @@ public class GameController : MonoBehaviour {
 	public bool show_menu_GUI;// variavel que controla se a gui do menu deve ser exibida
 	public bool show_inventory_GUI;
 	bool show_profiles_GUI;
-	bool show_backlog_GUI;
+	bool show_backlog_GUI;// variavel que controla se a gui da caixa de backlog deve ser exibida
 	bool show_notes_GUI;
 	bool show_dialogbox_GUI;// variavel que controla se a gui da caixa de dialogo deve ser exibida
 	bool show_intbutton_GUI;// variavel que controla se a gui do botao de interacao deve ser exibida
 	bool show_choicebox_GUI;// variavel que controla se a gui da caixa de escolha deve ser exibida
 	bool show_face_GUI;// variavel que controla se a gui de exibicao da face deve ser exibida
 	bool show_bigimage_GUI;
+
+	BacklogManager backlog;
+	Vector2 scrollPosition;
+	float backlog_width;
+	float backlog_height;
 
 	Item[,,] item_grid;//Matriz da representacao dos itens
 	int page;//qual indice da 3a dimensao da matriz
@@ -235,6 +239,9 @@ public class GameController : MonoBehaviour {
 		//
 		bigimage_height = Hdef - dialogbox_height;
 		bigimage_width = bigimage_height;
+		//variaveis do backlog
+		backlog_width = 4* Wdef / 5;
+		backlog_height =  4*Hdef / 5;
 
 		QM_movecounter = 0;
 		QM_Appear = false;
@@ -247,6 +254,8 @@ public class GameController : MonoBehaviour {
 		fadingtoblack = false;
 		fadingtoclear = false;
 		pendingstart = false;
+
+		backlog = BacklogManager.getInstance ();
 	}
 
 	public void initializeGameDataDirectory() {
@@ -483,6 +492,12 @@ public class GameController : MonoBehaviour {
 			if (show_inventory_GUI)
 			{
 				showInventoryGUI();
+			}
+
+			//Caixa de backlog
+			if (show_backlog_GUI) 
+			{
+				showBacklogGUI();
 			}
 
 		}else
@@ -868,6 +883,44 @@ public class GameController : MonoBehaviour {
 		GUI.EndGroup();
 	}
 
+	public void showBacklogGUI(){
+
+		//Fazer a area delimitante da caixa de dialogo;
+
+
+		ArrayList backlogList = backlog.getBacklog();
+		//AKI
+		//Fazer a area delimitante do backlog
+		GUI.BeginGroup(new Rect(50,50, backlog_width, backlog_height));
+		//Desenhar o background do backlog
+		scrollPosition = GUI.BeginScrollView (new Rect(0, 0, backlog_width, backlog_height),scrollPosition, new Rect(0, 0, backlog_width, backlog_height / 5 * backlogList.Count));
+		GUI.Box(new Rect(0,0,backlog_width,backlog_height),"Backlog","MenuBackground");
+		for(int i = 0; i < backlogList.Count; i++){
+
+			//Fazer a area delimitante da caixa de texto
+			GUI.BeginGroup(new Rect(0,backlog_height * i / 5,backlog_width,backlog_height / 5));
+			
+			//Desenhar o texto da caixa de texto
+			GUIStyle text_gui = GUI.skin.GetStyle("TextBackground");
+			text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
+			DialogLine dialog = (DialogLine)backlogList[i];
+			                        GUI.Box(new Rect(0, 0, backlog_width / 5, backlog_height / 5),dialog.getPersonagem(),text_gui);
+			                        GUI.Box(new Rect(backlog_width / 5, 0, 4 * backlog_width / 5, backlog_height / 5),dialog.getTexto(),text_gui);
+			
+			GUI.EndGroup ();
+		}
+		GUI.EndScrollView ();
+		GUI.EndGroup ();
+		GUI.BeginGroup(new Rect(50, backlog_height + 50, backlog_width, lbutton_height * 1.5f));		
+		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
+		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
+		bool closebutton = GUI.Button(new Rect(0,0,backlog_width,lbutton_height * 1.5f),"Fechar",lbutton);	
+		if(closebutton){
+			show_backlog_GUI= false;
+		}
+		GUI.EndGroup();
+	}
+
 	public void showInventoryGUI()
 	{
 		Item[] itemsPegos = inventorio.getItems();
@@ -1016,7 +1069,12 @@ public class GameController : MonoBehaviour {
 		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
 		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
 		GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Perfis",lbutton);
-		GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Backlog",lbutton);
+
+		//botao de backlog
+		bool backlogbutton = GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Backlog",lbutton);
+		if (backlogbutton) {
+			show_backlog_GUI = true;
+		}
 		GUI.Button(new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Anotações",lbutton);
 		
 		//Botao de fechar menu

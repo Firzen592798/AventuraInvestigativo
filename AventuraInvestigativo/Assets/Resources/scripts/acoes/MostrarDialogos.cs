@@ -3,9 +3,11 @@ using System.Collections;
 public class MostrarDialogos : Acao{
 	ArrayList dialogos;
 	int falaAtual;
+	BacklogManager backlogManager;
 	public MostrarDialogos(GameController gm, ArrayList dialogLines){
 		this.dialogos = dialogLines;
 		falaAtual = 0;
+		backlogManager = BacklogManager.getInstance ();
 		this.gm = gm;
 	}
 
@@ -13,6 +15,7 @@ public class MostrarDialogos : Acao{
 		this.dialogos = new ArrayList();
 		this.dialogos.Add(dialogo);
 		falaAtual = 0;
+		backlogManager = BacklogManager.getInstance ();
 		this.gm = gm;
 	}
 
@@ -20,6 +23,7 @@ public class MostrarDialogos : Acao{
 		gm.lockplayer();
 		if (falaAtual == 0) {
 			DialogLine dl = ((DialogLine)dialogos[falaAtual]);
+			backlogManager.addToBacklog(dl);
 			string texto = dl.getTexto();
 			gm.showdialogbox();
 			gm.LoadShowTxt(texto);
@@ -41,6 +45,7 @@ public class MostrarDialogos : Acao{
 					return true;
 				}
 				DialogLine dl = ((DialogLine)dialogos[falaAtual]);
+				backlogManager.addToBacklog(dl);
 				string texto = dl.getTexto();
 
 				if(dl.getSprite() != -1)
