@@ -523,11 +523,6 @@ public class GameController : MonoBehaviour {
 		gerEstados.alterarEstado(personagem, state, condit);
 	}
 
-	public void setExaminable(string personagem, bool te)
-	{
-		/* problema */
-	}
-
 	public void activateEvent(int ev_num)
 	{
 		gerEstados.setEventActive(ev_num);
@@ -545,6 +540,16 @@ public class GameController : MonoBehaviour {
 			int scene_index = Application.loadedLevel;
 
 			gerEstados.setGlobalPosition(personagem, pos, scene_index);
+		}
+	}
+
+	public void setExaminable(string personagem,bool examinable)
+	{
+		ObjectController npc = getNPC(personagem);
+		if (npc != null)
+		{
+			npc.setExaminable(examinable);
+			Debug.Log(personagem+" examinavel = "+npc.examinable);
 		}
 	}
 
@@ -802,9 +807,9 @@ public class GameController : MonoBehaviour {
 	public void showQuickmenuGUI()
 	{
 		//Definir area dos botoes de acesso
-		float mgwidth = menugrid_width;
-		float mgheight = menugrid_height;
-
+		float mgwidth = intbutton_width*7;
+		float mgheight = intbutton_height;
+		/*
 		if (QM_Appear)
 		{
 			if (QM_movecounter == 0)
@@ -834,15 +839,15 @@ public class GameController : MonoBehaviour {
 				}
 			}
 		}
-
-		GUI.BeginGroup(new Rect((Wdef-mgwidth)/2,(Hdef-mgheight)/2,mgwidth,mgheight));
+		*/
+		GUI.BeginGroup(new Rect((Wdef-mgwidth)/2,0,mgwidth,mgheight));
 		
 		//Desenhar botoes de acesso
-		//Esquerda - inventorio
+		//Esquerda - inventorio - botao 1
 		GUIStyle inventory_style = new GUIStyle();
 		inventory_style.normal.background = menu_icons[1].texture;
 		bool invbtn = GUI.Button(new Rect(0,(mgheight-intbutton_height)/2,intbutton_width,intbutton_height),"","SlotBackground");
-		GUI.Box(new Rect(0,(mgheight-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
+		GUI.Box(new Rect(0,0,intbutton_width,intbutton_height),"",inventory_style);
 		if (invbtn)
 		{
 			show_menu_GUI = false;

@@ -95,7 +95,7 @@ public class ObjectController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D c) {
 
-		if ((c.collider.CompareTag("Player"))/*&&(examinable)*/)
+		if ((c.collider.CompareTag("Player"))&&(examinable))
 		{
 			moveSpeed = 0f;
 			gm.showppbutton ();
@@ -105,7 +105,7 @@ public class ObjectController : MonoBehaviour {
 	
 	void OnCollisionExit2D (Collision2D c) {
 
-		if ((c.collider.CompareTag("Player"))/*&&(examinable)*/)
+		if ((c.collider.CompareTag("Player"))&&(examinable))
 		{
 			moveSpeed = moveSpeed2;
 			gm.hideppbutton ();
@@ -115,7 +115,7 @@ public class ObjectController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 
-		if ((other.CompareTag("Player"))/*&&(examinable)*/)
+		if ((other.CompareTag("Player"))&&(examinable))
 		{
 			moveSpeed = 0f;
 			gm.showppbutton ();
@@ -125,7 +125,7 @@ public class ObjectController : MonoBehaviour {
 	
 	void OnTriggerExit2D(Collider2D other) {
 
-		if ((other.CompareTag("Player"))/*&&(examinable)*/)
+		if ((other.CompareTag("Player"))&&(examinable))
 		{
 			moveSpeed = moveSpeed2;
 			gm.hideppbutton ();
@@ -306,5 +306,14 @@ public class ObjectController : MonoBehaviour {
 	
 	public int getState() {
 		return actualstate;
+	}
+
+	public void setExaminable(bool exam)
+	{
+		if (!exam)
+		{
+			gm.hideppbutton();
+		}
+		examinable = exam;
 	}
 }
