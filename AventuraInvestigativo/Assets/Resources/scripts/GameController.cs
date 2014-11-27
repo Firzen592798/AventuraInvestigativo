@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour {
 	bool show_face_GUI;// variavel que controla se a gui de exibicao da face deve ser exibida
 	bool show_bigimage_GUI;
 
+	ArrayList backlogList;
 	BacklogManager backlog;
 	Vector2 scrollPosition;
 	float backlog_width;
@@ -887,8 +888,8 @@ public class GameController : MonoBehaviour {
 
 		//Fazer a area delimitante da caixa de dialogo;
 
-
-		ArrayList backlogList = backlog.getBacklog();
+		if(backlogList == null)
+			backlogList = backlog.getBacklog();
 		//AKI
 		//Fazer a area delimitante do backlog
 		GUI.BeginGroup(new Rect(50,50, backlog_width, backlog_height));
@@ -916,6 +917,7 @@ public class GameController : MonoBehaviour {
 		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
 		bool closebutton = GUI.Button(new Rect(0,0,backlog_width,lbutton_height * 1.5f),"Fechar",lbutton);	
 		if(closebutton){
+			backlogList = null;
 			show_backlog_GUI= false;
 		}
 		GUI.EndGroup();
