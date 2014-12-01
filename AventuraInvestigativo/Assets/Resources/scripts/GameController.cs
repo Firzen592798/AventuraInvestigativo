@@ -889,7 +889,7 @@ public class GameController : MonoBehaviour {
 		//Fazer a area delimitante da caixa de dialogo;
 
 		if(backlogList == null)
-			backlogList = backlog.getBacklog();
+			backlogList = backlog.getPersonagemBacklog("Eduardo Hastings");
 		//AKI
 		//Fazer a area delimitante do backlog
 		GUI.BeginGroup(new Rect(50,50, backlog_width, backlog_height));
@@ -904,9 +904,10 @@ public class GameController : MonoBehaviour {
 			//Desenhar o texto da caixa de texto
 			GUIStyle text_gui = GUI.skin.GetStyle("TextBackground");
 			text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
-			DialogLine dialog = (DialogLine)backlogList[i];
-			                        GUI.Box(new Rect(0, 0, backlog_width / 5, backlog_height / 5),dialog.getPersonagem(),text_gui);
-			                        GUI.Box(new Rect(backlog_width / 5, 0, 4 * backlog_width / 5, backlog_height / 5),dialog.getTexto(),text_gui);
+			Conversa conversa = (Conversa)backlogList[i];
+			//DialogLine dialog = (DialogLine)backlogList[i];
+			                        GUI.Box(new Rect(0, 0, backlog_width / 5, backlog_height / 5),"TESTE",text_gui);
+			GUI.Box(new Rect(backlog_width / 5, 0, 4 * backlog_width / 5, backlog_height / 5),conversa.getRotulo(),text_gui);
 			
 			GUI.EndGroup ();
 		}

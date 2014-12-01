@@ -28,7 +28,9 @@ public class states_DoorObject: DicionarioAcoes
 		DialogLine dialogDoor = new DialogLine ("Porta", "Voce nao pode entrar aqui ainda, voce ainda tem coisas para fazer", -1);
 		//ArrayList dialogosDoor = new ArrayList();
 		//dialogosDoor.Add (dialogDoor);
-		Acao mostrarDialogoDoor = new  MostrarDialogos(gm, dialogDoor);
+		Conversa c0 = new Conversa ("Porta", dialogDoor);
+		Acao mostrarDialogoDoor = new  MostrarDialogos(gm, c0);
+
 		DoorState0.OnExamineAction.Add(mostrarDialogoDoor);
 		AddStateTo(DoorState0);
 		

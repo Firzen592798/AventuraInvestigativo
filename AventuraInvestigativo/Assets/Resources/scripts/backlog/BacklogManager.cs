@@ -17,6 +17,9 @@ public class BacklogManager
 {
 	private static BacklogManager instance;
 	ArrayList backlog;
+	ArrayList conversas;
+
+
 	public static BacklogManager getInstance(){
 		if (instance == null) {
 			instance = new BacklogManager ();
@@ -26,12 +29,34 @@ public class BacklogManager
 	
 	private BacklogManager(){
 		this.backlog = new ArrayList ();
+		this.conversas = new ArrayList ();
 	}
 
 	//Adiciona uma fala ao backlog
 	public void addToBacklog(DialogLine dialogLine){
 		Debug.Log ("Adicionou para o backlog" + dialogLine.getTexto());
 		this.backlog.Add (dialogLine);
+	}
+
+	//Adiciona uma fala ao backlog
+	public void addToBacklog(Conversa conversa){
+		Debug.Log ("Adicionou para o backlog uma conversa");
+		this.conversas.Add (conversa);
+	}
+
+	public ArrayList getPersonagemBacklog(String nome){
+		ArrayList conversasBacklog = new ArrayList ();
+		for(int i = conversas.Count - 1; i >= 0; i--){
+			Conversa c = (Conversa)conversas[i];
+			for(int j = 0; j < c.getPersonagens().Count; j++){
+				string personagem = (String)c.getPersonagens()[j];
+				if(personagem.Equals(nome)){
+					conversasBacklog.Add(c);
+					j = c.getPersonagens().Count;
+				}
+			}
+		}
+		return conversasBacklog;
 	}
 
 	//Recupera o backlog inteiro, ja na ordem do mais atual para o mais antigo

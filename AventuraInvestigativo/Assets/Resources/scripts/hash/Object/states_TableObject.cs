@@ -29,7 +29,8 @@ public class states_TableObject: DicionarioAcoes
 		ArrayList dialogosTapete = new ArrayList();
 		dialogosTapete.Add (tapete1);
 		dialogosTapete.Add (tapete2);
-		Acao mostrarDialogoTapete = new  MostrarDialogos(gm, dialogosTapete);
+		Conversa c0 = new Conversa ("Dialogo da mesa", dialogosTapete);
+		Acao mostrarDialogoTapete = new  MostrarDialogos(gm, c0);
 		TapeteState0.OnExamineAction.Add(mostrarDialogoTapete);
 		//TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
 		TapeteState0.OnExamineAction.Add(new AdicionarItem(gm, "Papel", "sprites/Paper item", false));
@@ -51,8 +52,8 @@ public class states_TableObject: DicionarioAcoes
 		DialogLine dialogoTapeteVazio = new DialogLine ("Mesa", "Nao ha nada aqui", -1);
 		//ArrayList dialogosTapeteVazio = new ArrayList();
 		//dialogosTapeteVazio.Add (tapetevazio);
-		
-		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, dialogoTapeteVazio);
+		Conversa c1 = new Conversa ("Dialogo tapete vazio", dialogoTapeteVazio);
+		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, c1);
 		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
 		
 		AddStateTo(TapeteState1);
