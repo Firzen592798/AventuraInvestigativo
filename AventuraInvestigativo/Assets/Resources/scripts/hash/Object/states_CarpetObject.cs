@@ -46,7 +46,8 @@ public class states_CarpetObject: DicionarioAcoes
 		//*****      Tapete - Estado 1       *********
 		//********************************************
 		state TapeteState1 = new state(1);
-		
+
+		TapeteState1.OnInitActions.Add (new TornarExaminavel (gm, "Tapete", false));
 		//=================================
 		//  Acoes OnExamine do estado 1
 		//=================================
@@ -56,6 +57,7 @@ public class states_CarpetObject: DicionarioAcoes
 		Conversa c1 = new Conversa ("Tapete sem nada", dialogosTapete);
 		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, c1);
 		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
+
 		
 		AddStateTo(TapeteState1);
 		//acoesHashtable.Add("Tapete-1", TapeteState1);

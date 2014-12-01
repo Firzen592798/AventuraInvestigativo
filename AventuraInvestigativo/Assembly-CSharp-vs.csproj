@@ -81,6 +81,7 @@
      <Compile Include="Assets\Resources\scripts\acoes\SalvarPosicaoGlobal.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\TocarAudio.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\TocarMusica.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\TornarExaminavel.cs" />
      <Compile Include="Assets\Resources\scripts\backlog\BacklogManager.cs" />
      <Compile Include="Assets\Resources\scripts\hash\DicionarioAcoes.cs" />
      <Compile Include="Assets\Resources\scripts\hash\GerenciadorEstados.cs" />

@@ -45,7 +45,8 @@ public class states_TableObject: DicionarioAcoes
 		//*****      Tapete - Estado 1       *********
 		//********************************************
 		state TapeteState1 = new state(1);
-		
+
+		TapeteState1.OnInitActions.Add (new TornarExaminavel (gm, "Mesa", false));
 		//=================================
 		//  Acoes OnExamine do estado 1
 		//=================================
