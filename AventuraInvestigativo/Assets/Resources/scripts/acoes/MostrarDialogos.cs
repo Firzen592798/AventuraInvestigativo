@@ -32,6 +32,7 @@ public class MostrarDialogos : Acao{
 	public override bool Update(){
 		gm.lockplayer();
 		if (falaAtual == 0) {
+
 			DialogLine dl = ((DialogLine)dialogos[falaAtual]);
 			//backlogManager.addToBacklog(dl);
 			string texto = dl.getTexto();
@@ -41,7 +42,7 @@ public class MostrarDialogos : Acao{
 			gm.showface(dl.getPos(), dl.getSprite(), 0);
 			falaAtual++;
 		}
-		else if (Input.GetKeyDown (Teclas.Confirma)&&(!gm.show_menu_GUI&&!gm.show_inventory_GUI)) {
+		else if (Input.GetKeyDown (Teclas.Confirma)) {
 			//gm.lockplayer();
 			if (!gm.isShowingDialog())
 			{
@@ -52,6 +53,7 @@ public class MostrarDialogos : Acao{
 					gm.hideface(1);
 					gm.hidedialogbox();
 					gm.unlockplayer();
+
 					return true;
 				}
 				DialogLine dl = ((DialogLine)dialogos[falaAtual]);

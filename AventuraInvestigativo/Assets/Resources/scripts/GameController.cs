@@ -207,7 +207,7 @@ public class GameController : MonoBehaviour {
 		desc_fontsize = midarea_height / 7.5f;
 		lowarea_width = menu_width;
 		lowarea_height = 3 * menu_height / 10;
-		grid_height = 9 * lowarea_height / 10;
+		grid_height = 9f * lowarea_height / 10;
 		grid_width = grid_height;
 		slot_width = grid_width / 4;
 		slot_height = grid_height / 4;
@@ -1042,7 +1042,7 @@ public class GameController : MonoBehaviour {
 		
 		//Definir area inferior
 		GUI.BeginGroup(new Rect(0,menu_height-lowarea_height-btnarea_height,lowarea_width,lowarea_height));
-		
+
 		//Desenhar areas laterais inferiores (setas de mudanca de pagina)
 		bool leftarrow = GUI.Button(new Rect(0.02f*lowarea_width,2*lowarea_height/5,slot_width,slot_height),"","ArrowLBackground");
 		if (leftarrow)
@@ -1069,8 +1069,8 @@ public class GameController : MonoBehaviour {
 		}
 		
 		//Definir area central inferior(itens do inventario)
-		GUI.BeginGroup(new Rect((lowarea_width-grid_width)/2,(lowarea_height-grid_height)/2,grid_width,grid_height));
-		
+		GUI.BeginGroup(new Rect((lowarea_width-grid_width)/2,0,grid_width,grid_height));
+
 		//Desenhar area central inferior(item slots)
 		bool[,] itemshow= new bool[4,4];
 		for (int i = 0;i< 4;i++)
@@ -1096,6 +1096,11 @@ public class GameController : MonoBehaviour {
 			}
 		}
 		GUI.EndGroup();
+
+		GUIStyle numlabel = GUI.skin.GetStyle("Tooltip");
+		numlabel.normal.textColor = Color.black;
+		numlabel.fontSize = Mathf.RoundToInt(lbutton_fontsize);
+		GUI.Box (new Rect (0, lowarea_height-(lbutton_height/2), lowarea_width, lbutton_height / 2), ((page+1) + "/3"), numlabel);
 		
 		GUI.EndGroup();
 		
