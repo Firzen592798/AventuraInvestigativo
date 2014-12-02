@@ -14,6 +14,11 @@ public class GameController : MonoBehaviour {
 	private GerenciadorEstados gerEstados;
 	private MusicManager soundplayer;
 	private FileManager fm;
+
+	BacklogManager backlog;
+	Vector2 scrollPosition;
+	float backlog_width;
+	float backlog_height;
     
     //testes do victor
 	public Camera cam;
@@ -33,11 +38,6 @@ public class GameController : MonoBehaviour {
 	bool show_choicebox_GUI;// variavel que controla se a gui da caixa de escolha deve ser exibida
 	bool show_face_GUI;// variavel que controla se a gui de exibicao da face deve ser exibida
 	bool show_bigimage_GUI;
-
-	BacklogManager backlog;
-	Vector2 scrollPosition;
-	float backlog_width;
-	float backlog_height;
 
 	Item[,,] item_grid;//Matriz da representacao dos itens
 	int page;//qual indice da 3a dimensao da matriz
@@ -246,8 +246,7 @@ public class GameController : MonoBehaviour {
 		QM_movecounter = 0;
 		QM_Appear = false;
 		IM_Appear = false;
-
-
+		
 		guiTexture = GetComponent<GUITexture> ();
 		guiTexture.pixelInset = new Rect(0f, 0f, Wdef*2, Hdef*2);
 		guiTexture.color = Color.clear;
