@@ -27,9 +27,11 @@ public class states_CarpetObject: DicionarioAcoes
 		DialogLine tapete1 = new DialogLine ("Tapete", "Voce achou uma chave secreta", -1);
 		DialogLine tapete2 = new DialogLine ("Tapete", "A chave foi adicionada no seu inventorio", -1);
 		ArrayList dialogosTapete = new ArrayList();
+
 		dialogosTapete.Add (tapete1);
 		dialogosTapete.Add (tapete2);
-		Acao mostrarDialogoTapete = new  MostrarDialogos(gm, dialogosTapete);
+		Conversa c0 = new Conversa ("Tapetao", dialogosTapete);
+		Acao mostrarDialogoTapete = new  MostrarDialogos(gm, c0);
 		TapeteState0.OnExamineAction.Add(mostrarDialogoTapete);
 		//TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
 		TapeteState0.OnExamineAction.Add(new AdicionarItem(gm, "Chave", "sprites/Key item", false));
@@ -44,16 +46,18 @@ public class states_CarpetObject: DicionarioAcoes
 		//*****      Tapete - Estado 1       *********
 		//********************************************
 		state TapeteState1 = new state(1);
-		
+
+		TapeteState1.OnInitActions.Add (new TornarExaminavel (gm, "Tapete", false));
 		//=================================
 		//  Acoes OnExamine do estado 1
 		//=================================
 		DialogLine dialogoTapeteVazio = new DialogLine ("Tapete", "Nao ha nada aqui", -1);
 		//ArrayList dialogosTapeteVazio = new ArrayList();
 		//dialogosTapeteVazio.Add (tapetevazio);
-		
-		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, dialogoTapeteVazio);
+		Conversa c1 = new Conversa ("Tapete sem nada", dialogosTapete);
+		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, c1);
 		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
+
 		
 		AddStateTo(TapeteState1);
 		//acoesHashtable.Add("Tapete-1", TapeteState1);

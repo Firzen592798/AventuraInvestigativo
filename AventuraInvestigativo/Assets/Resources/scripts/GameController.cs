@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
 	private FileManager fm;
 
 	BacklogManager backlog;
+	ArrayList backlogList;
 	Vector2 scrollPosition;
 	float backlog_width;
 	float backlog_height;
@@ -371,6 +372,7 @@ public class GameController : MonoBehaviour {
 		{
 			rightmouse_pressed = false;
 		}
+		/*
 		if (rightmouse_pressed) 
 		{
 			if (!show_menu_GUI)
@@ -387,6 +389,7 @@ public class GameController : MonoBehaviour {
 			}
 			rightmouse_pressed = false;
 		}
+		*/
 			//Dialogo
 		if (showing_dialog) 
 		{
@@ -459,7 +462,7 @@ public class GameController : MonoBehaviour {
 			}
 
 			//Botao de acesso ao menu (inventario)
-			if ((show_menu_GUI)&&(!show_inventory_GUI))
+			if (show_menu_GUI)
 			{
 				showQuickmenuGUI();
 			}
@@ -522,11 +525,6 @@ public class GameController : MonoBehaviour {
 		gerEstados.alterarEstado(personagem, state, condit);
 	}
 
-	public void setExaminable(string personagem, bool te)
-	{
-		/* problema */
-	}
-
 	public void activateEvent(int ev_num)
 	{
 		gerEstados.setEventActive(ev_num);
@@ -544,6 +542,16 @@ public class GameController : MonoBehaviour {
 			int scene_index = Application.loadedLevel;
 
 			gerEstados.setGlobalPosition(personagem, pos, scene_index);
+		}
+	}
+
+	public void setExaminable(string personagem,bool examinable)
+	{
+		ObjectController npc = getNPC(personagem);
+		if (npc != null)
+		{
+			npc.setExaminable(examinable);
+			Debug.Log(personagem+" examinavel = "+npc.examinable);
 		}
 	}
 
@@ -773,6 +781,17 @@ public class GameController : MonoBehaviour {
 		styl = backupStyle;
 	}
 
+	public bool HoverCheck(Rect button)
+	{
+		bool b = false;
+		if (button.Contains(Event.current.mousePosition))
+		{
+			Debug.Log("hovering on button");
+			b = true;
+		}
+		return b;
+	}
+	
 	public void showExamineGUI()
 	{
 		//Definir area do botao de interacao
@@ -801,93 +820,110 @@ public class GameController : MonoBehaviour {
 	public void showQuickmenuGUI()
 	{
 		//Definir area dos botoes de acesso
-		float mgwidth = menugrid_width;
-		float mgheight = menugrid_height;
+		float mgwidth = intbutton_width;
+		float mgheight = intbutton_height*4;
 
-		if (QM_Appear)
-		{
-			if (QM_movecounter == 0)
-			{
-				QM_movecounter = 10;
-			}
-			if (QM_movecounter <= 10)
-			{
-				mgwidth = menugrid_width/Mathf.CeilToInt(QM_movecounter/2);
-				mgheight = menugrid_height/Mathf.CeilToInt(QM_movecounter/2);
-				if (QM_movecounter > 2)
-				{
-					QM_movecounter--;
-				}
-			}
-		}else
-		{
-			if (QM_movecounter <= 10)
-			{
-				mgwidth = menugrid_width/Mathf.CeilToInt(QM_movecounter/2);
-				mgheight = menugrid_height/Mathf.CeilToInt(QM_movecounter/2);
-				QM_movecounter++;
-				if (QM_movecounter == 10)
-				{
-					QM_movecounter = 0;
-					show_menu_GUI = false;
-				}
-			}
-		}
+		float dpos = Wdef - QM_movecounter*(menu_width/10) - mgwidth;
 
-		GUI.BeginGroup(new Rect((Wdef-mgwidth)/2,(Hdef-mgheight)/2,mgwidth,mgheight));
-		
+		GUI.BeginGroup(new Rect(dpos-lbutton_width,(Hdef-mgheight)/3,mgwidth+lbutton_width,mgheight));
+		GUIStyle tooltipstyle = GUI.skin.GetStyle ("Tooltip");
+		tooltipstyle.fontSize = Mathf.RoundToInt(intbutton_height / 3);
 		//Desenhar botoes de acesso
-		//Esquerda - inventorio
+		//Botao 1 - Inventorio
 		GUIStyle inventory_style = new GUIStyle();
 		inventory_style.normal.background = menu_icons[1].texture;
-		bool invbtn = GUI.Button(new Rect(0,(mgheight-intbutton_height)/2,intbutton_width,intbutton_height),"","SlotBackground");
-		GUI.Box(new Rect(0,(mgheight-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
+
+		Rect invrect = new Rect (lbutton_width, 0, intbutton_width, intbutton_height);
+		bool invbtn = GUI.Button(invrect,"","SlotBackground");
+		GUI.Box(invrect,"",inventory_style);
+		bool hoverinv = HoverCheck (invrect);
+		if (hoverinv)
+		{
+			string tooltiptext = ("Inventório");
+			Rect tooltiparea = new Rect (0,0, lbutton_width, intbutton_height);
+			DrawOutline (tooltiparea, tooltiptext, tooltipstyle, Color.black, Color.white);
+		}
 		if (invbtn)
 		{
-			show_menu_GUI = false;
+
 			show_inventory_GUI = true;
 			IM_Appear = true;
 			persona.lockplayer();
-		}/*
-		//Direita - Perfis
-		//GUIStyle inventory_style = new GUIStyle();
-		//inventory_style.normal.background = menu_icons[1].texture;
-		bool perfbtn = GUI.Button(new Rect(menugrid_width-intbutton_width,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"","SlotBackground");
-		//GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
-		if (perfbtn)
-		{
-			//show_menu_GUI = true;
-			//persona.lockplayer();
 		}
-		//Baixo - backlog
-		//GUIStyle inventory_style = new GUIStyle();
-		//inventory_style.normal.background = menu_icons[1].texture;
-		bool bklbtn = GUI.Button(new Rect((menugrid_width-intbutton_width)/2,menugrid_height-intbutton_height,intbutton_width,intbutton_height),"","SlotBackground");
-		//GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
-		if (bklbtn)
+		//Botao 2 - Profiles
+		GUIStyle profiles_style = new GUIStyle();
+		profiles_style.normal.background = menu_icons[2].texture;
+
+		Rect prfrect = new Rect(lbutton_width,intbutton_height,intbutton_width,intbutton_height);
+		bool prbtn = GUI.Button(prfrect,"","SlotBackground");
+		GUI.Box(prfrect,"",profiles_style);
+		bool hoverprf = HoverCheck (prfrect);
+		if (hoverprf)
 		{
-			//show_menu_GUI = true;
-			//persona.lockplayer();
+			string tooltiptext = ("Perfis");
+			Rect tooltiparea = new Rect (0,intbutton_height, lbutton_width, intbutton_height);
+			DrawOutline (tooltiparea, tooltiptext, tooltipstyle, Color.black, Color.white);
 		}
-		//Cima - anotacoes
-		//GUIStyle inventory_style = new GUIStyle();
-		//inventory_style.normal.background = menu_icons[1].texture;
-		bool anotbtn = GUI.Button(new Rect((menugrid_width-intbutton_width)/2,0,intbutton_width,intbutton_height),"","SlotBackground");
-		//GUI.Box(new Rect(0,(menugrid_height-intbutton_height)/2,intbutton_width,intbutton_height),"",inventory_style);
-		if (anotbtn)
+		if (prbtn)
 		{
-			//show_menu_GUI = true;
-			//persona.lockplayer();
-		}*/		
+
+			show_inventory_GUI = true;
+			IM_Appear = true;
+			persona.lockplayer();
+		}
+		//Botao 3 - Backlog
+		GUIStyle backlog_style = new GUIStyle();
+		backlog_style.normal.background = menu_icons[3].texture;
+
+		Rect blrect = new Rect(lbutton_width,intbutton_height*2,intbutton_width,intbutton_height);
+		bool blbtn = GUI.Button(blrect,"","SlotBackground");
+		GUI.Box(blrect,"",backlog_style);
+		bool hoverbl = HoverCheck (blrect);
+		if (hoverbl)
+		{
+			string tooltiptext = ("Backlog");
+			Rect tooltiparea = new Rect (0,intbutton_height*2, lbutton_width, intbutton_height);
+			DrawOutline (tooltiparea, tooltiptext, tooltipstyle, Color.black, Color.white);
+		}
+		if (blbtn)
+		{
+
+			show_inventory_GUI = true;
+			IM_Appear = true;
+			persona.lockplayer();
+		}
+		//Botao 4 - Anotacoes
+		GUIStyle anot_style = new GUIStyle();
+		anot_style.normal.background = menu_icons[4].texture;
+
+		Rect arect = new Rect(lbutton_width,intbutton_height*3,intbutton_width,intbutton_height);
+		bool abtn = GUI.Button(arect,"","SlotBackground");
+		GUI.Box(arect,"",anot_style);
+		bool hovera = HoverCheck (arect);
+		if (hovera)
+		{
+			string tooltiptext = ("Anotações");
+			Rect tooltiparea = new Rect (0,intbutton_height*3, lbutton_width, intbutton_height);
+			DrawOutline (tooltiparea, tooltiptext, tooltipstyle, Color.black, Color.white);
+		}
+		if (abtn)
+		{
+
+			show_inventory_GUI = true;
+			IM_Appear = true;
+			persona.lockplayer();
+		}
+
 		GUI.EndGroup();
+
 	}
 
 	public void showBacklogGUI(){
 
 		//Fazer a area delimitante da caixa de dialogo;
 
-
-		ArrayList backlogList = backlog.getBacklog();
+		if(backlogList == null)
+			backlogList = backlog.getPersonagemBacklog("Eduardo Hastings");
 		//AKI
 		//Fazer a area delimitante do backlog
 		GUI.BeginGroup(new Rect(50,50, backlog_width, backlog_height));
@@ -902,9 +938,10 @@ public class GameController : MonoBehaviour {
 			//Desenhar o texto da caixa de texto
 			GUIStyle text_gui = GUI.skin.GetStyle("TextBackground");
 			text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
-			DialogLine dialog = (DialogLine)backlogList[i];
-			                        GUI.Box(new Rect(0, 0, backlog_width / 5, backlog_height / 5),dialog.getPersonagem(),text_gui);
-			                        GUI.Box(new Rect(backlog_width / 5, 0, 4 * backlog_width / 5, backlog_height / 5),dialog.getTexto(),text_gui);
+			Conversa conversa = (Conversa)backlogList[i];
+			//DialogLine dialog = (DialogLine)backlogList[i];
+			GUI.Box(new Rect(0, 0, backlog_width / 5, backlog_height / 5),"TESTE",text_gui);
+			GUI.Box(new Rect(backlog_width / 5, 0, 4 * backlog_width / 5, backlog_height / 5),conversa.getRotulo(),text_gui);
 			
 			GUI.EndGroup ();
 		}
@@ -915,6 +952,7 @@ public class GameController : MonoBehaviour {
 		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
 		bool closebutton = GUI.Button(new Rect(0,0,backlog_width,lbutton_height * 1.5f),"Fechar",lbutton);	
 		if(closebutton){
+			backlogList = null;
 			show_backlog_GUI= false;
 		}
 		GUI.EndGroup();
@@ -945,14 +983,14 @@ public class GameController : MonoBehaviour {
 
 		if (IM_Appear == true)
 		{
-			if (QM_movecounter <= 10)
+			if (QM_movecounter < 10)
 			{
 				lpos = Wdef - QM_movecounter*(menu_width/10);
 				QM_movecounter++;
 			}
 		}else
 		{
-			if (QM_movecounter >= 0)
+			if (QM_movecounter > 0)
 			{
 				lpos = Wdef - QM_movecounter*(menu_width/10); 
 				QM_movecounter--;
@@ -1067,20 +1105,20 @@ public class GameController : MonoBehaviour {
 		//Desenhar area dos botoes dos menus(botoes)
 		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
 		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
-		GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Perfis",lbutton);
+		GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Salvar",lbutton);
 
 		//botao de backlog
-		bool backlogbutton = GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Backlog",lbutton);
-		if (backlogbutton) {
-			show_backlog_GUI = true;
-		}
-		GUI.Button(new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Anotações",lbutton);
+		GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Carregar",lbutton);
+		//if (backlogbutton) {
+		//	show_backlog_GUI = true;
+		//}
+		GUI.Button(new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Configurações",lbutton);
 		
 		//Botao de fechar menu
-		bool closebutton = GUI.Button(new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Fechar",lbutton);
+		bool closebutton = GUI.Button(new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Sair do jogo",lbutton);
 		if (closebutton)
 		{
-			show_menu_GUI = false;
+			//show_menu_GUI = false;
 			//show_inventory_GUI = false;
 			IM_Appear = false;
 			persona.unlockplayer();

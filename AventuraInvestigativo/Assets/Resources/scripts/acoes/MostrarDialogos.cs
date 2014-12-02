@@ -2,12 +2,22 @@ using UnityEngine;
 using System.Collections;
 public class MostrarDialogos : Acao{
 	ArrayList dialogos;
+	//Conversa conversa;
 	int falaAtual;
 	BacklogManager backlogManager;
 	public MostrarDialogos(GameController gm, ArrayList dialogLines){
 		this.dialogos = dialogLines;
 		falaAtual = 0;
 		backlogManager = BacklogManager.getInstance ();
+		this.gm = gm;
+	}
+
+	public MostrarDialogos(GameController gm, Conversa conversa){
+		this.dialogos = conversa.getDialogos();
+		//this.conversa = conversa;
+		falaAtual = 0;
+		backlogManager = BacklogManager.getInstance ();
+		backlogManager.addToBacklog (conversa);
 		this.gm = gm;
 	}
 
@@ -23,7 +33,7 @@ public class MostrarDialogos : Acao{
 		gm.lockplayer();
 		if (falaAtual == 0) {
 			DialogLine dl = ((DialogLine)dialogos[falaAtual]);
-			backlogManager.addToBacklog(dl);
+			//backlogManager.addToBacklog(dl);
 			string texto = dl.getTexto();
 			gm.showdialogbox();
 			gm.LoadShowTxt(texto);

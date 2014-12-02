@@ -189,6 +189,10 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add(new MostrarDialogos(gm, dialogoEduardo));
 		PlayerState1.OnInitActions.Add(new SalvarPosicaoGlobal(gm, "Eduardo"));
 		PlayerState1.OnInitActions.Add(new TocarMusica(gm, 4,0));
+		PlayerState1.OnInitActions.Add (new TornarExaminavel (gm, "Eduardo", true));
+		PlayerState1.OnInitActions.Add (new TornarExaminavel (gm, "Mesa", true));
+		PlayerState1.OnInitActions.Add (new TornarExaminavel (gm, "Tapete", true));
+		PlayerState1.OnInitActions.Add (new HabilitarMenu (gm, true));
 		PlayerState1.OnInitActions.Add(new MudarEstado(gm, "Player", 0));
 
 

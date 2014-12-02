@@ -27,7 +27,8 @@ public class states_PaperObject : DicionarioAcoes
 		DialogLine papelDialog = new DialogLine("Papel", "Voce achou um papel!", -1);
 		//ArrayList dialogosPapel = new ArrayList();
 		//dialogosPapel.Add (papelDialog);
-		Acao mostrarDialogoPapel = new  MostrarDialogos(gm, papelDialog);
+		Conversa c0 = new Conversa ("Papel", papelDialog);
+		Acao mostrarDialogoPapel = new  MostrarDialogos(gm, c0);
 
 		PapelState0.OnExamineAction.Add(mostrarDialogoPapel);
 		PapelState0.OnExamineAction.Add(new AtivarEvento (gm, 1));
