@@ -78,6 +78,7 @@
      <Compile Include="Assets\Resources\scripts\acoes\MudarDirecao.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MudarEstado.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\MudarLocalPersonagem.cs" />
+     <Compile Include="Assets\Resources\scripts\acoes\MudarPerfil.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\PlayWaitingAnimation.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\SalvarPosicaoGlobal.cs" />
      <Compile Include="Assets\Resources\scripts\acoes\TocarAudio.cs" />
@@ -101,6 +102,7 @@
      <Compile Include="Assets\Resources\scripts\model\Conversa.cs" />
      <Compile Include="Assets\Resources\scripts\model\DialogLine.cs" />
      <Compile Include="Assets\Resources\scripts\model\Escolha.cs" />
+     <Compile Include="Assets\Resources\scripts\model\Profile.cs" />
      <None Include="Assets\GameData\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
