@@ -9,26 +9,19 @@ public class states_Eduardo : DicionarioAcoes
 	{
 		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
-		setInitState(-1);
-
-		//********************************************
-		//*****      Eduardo - Estado I      *********
-		//********************************************
-		state EduardoStateI = new state(-1);
-		
-		//=================================
-		//  Acoes Settings do estado I
-		//=================================
-		EduardoStateI.SettingActions.Add(new SalvarPosicaoGlobal(gm, "Eduardo"));
-		EduardoStateI.SettingActions.Add(new MudarEstado(gm, "Eduardo", 0));
-
-
-		AddStateTo(EduardoStateI);
+		setInitState(0);
 
 		//********************************************
 		//*****      Eduardo - Estado 0      *********
 		//********************************************
 		state EduardoState0 = new state(0);
+
+		//=================================
+		//  Acoes Settings do estado 0
+		//=================================
+
+		EduardoState0.SettingActions.Add(new InicializarPosicaoGlobal(gm, "Eduardo"));
+		EduardoState0.SettingActions.Add(new MudarEstado(gm, "Eduardo", 0));
 
 		//=================================
 		//  Acoes OnExamine do estado 0

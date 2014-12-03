@@ -45,15 +45,20 @@ public class ObjectController : MonoBehaviour {
 		g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
 
+		examinable = true;
+
 		LoadState();
 
 		PositionGlobal pg = gm.getGlobalPosition(this.nome);
 
 		Vector3 pos;
+
 		if (pg.position != null) {
+			Debug.Log(this.nome+" position is: x="+pg.position.x+" y="+pg.position.y);
 			pos = pg.position;
 		}
 		else {
+			Debug.Log(this.nome+" position is: null");
 			pos = transform.position;
 		}
 		pos.z = pos.y;
@@ -105,7 +110,7 @@ public class ObjectController : MonoBehaviour {
 	
 	void OnCollisionExit2D (Collision2D c) {
 
-		if ((c.collider.CompareTag("Player"))&&(examinable))
+		if (c.collider.CompareTag("Player"))
 		{
 			moveSpeed = moveSpeed2;
 			gm.hideppbutton ();
@@ -125,7 +130,7 @@ public class ObjectController : MonoBehaviour {
 	
 	void OnTriggerExit2D(Collider2D other) {
 
-		if ((other.CompareTag("Player"))&&(examinable))
+		if (other.CompareTag("Player"))
 		{
 			moveSpeed = moveSpeed2;
 			gm.hideppbutton ();
@@ -232,6 +237,7 @@ public class ObjectController : MonoBehaviour {
 				if (!showingtext) {
 					if (onregion && dialog_button_pressed) {
 						showingtext = true;
+						gm.disableppbutton();
 					}
 				}
 				else {
@@ -241,6 +247,7 @@ public class ObjectController : MonoBehaviour {
 					if (proximaAcaoExam >= OnExamineActions.Count) {
 						showingtext = false;
 						proximaAcaoExam = 0;
+						gm.enableppbutton();
 					}
 				}
 			}

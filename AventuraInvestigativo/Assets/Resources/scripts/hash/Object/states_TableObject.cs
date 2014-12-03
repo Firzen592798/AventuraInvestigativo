@@ -19,7 +19,7 @@ public class states_TableObject: DicionarioAcoes
 		//=================================
 		//  Acoes Settings do estado 0
 		//=================================
-		TapeteState0.SettingActions.Add(new SalvarPosicaoGlobal(gm, "Mesa"));
+		TapeteState0.SettingActions.Add(new InicializarPosicaoGlobal(gm, "Mesa"));
 		
 		//=================================
 		//  Acoes OnExamine do estado 0
@@ -36,6 +36,7 @@ public class states_TableObject: DicionarioAcoes
 		TapeteState0.OnExamineAction.Add(new AdicionarItem(gm, "Papel", "sprites/Paper item", false));
 		TapeteState0.OnExamineAction.Add(new AtivarEvento(gm, 1));
 		TapeteState0.OnExamineAction.Add(new MudarEstado(gm, "Eduardo",2,"(!0 & 1)"));
+		TapeteState0.OnExamineAction.Add(new TornarExaminavel(gm, "Mesa", false));
 		TapeteState0.OnExamineAction.Add(new MudarEstado(gm, "Mesa", 1));
 		
 		AddStateTo(TapeteState0);
@@ -46,7 +47,7 @@ public class states_TableObject: DicionarioAcoes
 		//********************************************
 		state TapeteState1 = new state(1);
 
-		TapeteState1.OnInitActions.Add (new TornarExaminavel (gm, "Mesa", false));
+		TapeteState1.SettingActions.Add(new TornarExaminavel (gm, "Mesa", false));
 		//=================================
 		//  Acoes OnExamine do estado 1
 		//=================================

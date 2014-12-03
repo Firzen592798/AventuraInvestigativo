@@ -21,6 +21,10 @@ public class GameController : MonoBehaviour {
 	float backlog_width;
 	float backlog_height;
     
+	bool can_showppbutton;
+	int choice_number;
+
+
     //testes do victor
 	public Camera cam;
 
@@ -166,6 +170,8 @@ public class GameController : MonoBehaviour {
 		Debug.Log("diretorio GameData criado em:\n"+fm.gamedirectory);
 		initializeGameDataDirectory();
 
+		enableppbutton();
+
         //testes do victor
 		on_mainmenu = true;
 		//menu_button_press = false;
@@ -272,6 +278,14 @@ public class GameController : MonoBehaviour {
 				fm.createFile("GameData", "README", "txt");
 			}
 		}
+	}
+
+	public void enableppbutton() {
+		this.can_showppbutton = true;
+	}
+
+	public void disableppbutton() {
+		this.can_showppbutton = false;
 	}
 
 	public bool FadeToClear ()
@@ -456,10 +470,13 @@ public class GameController : MonoBehaviour {
 		{//Mostrando os componentes de GUI
 			
 			//Botao de interacao
-			if (show_intbutton_GUI) 
+			if (show_intbutton_GUI && can_showppbutton) 
 			{
 				showExamineGUI();
 			}
+			//else if (show_intbutton_GUI) {
+			//	hideppbutton();
+			//}
 
 			//Botao de acesso ao menu (inventario)
 			if (show_menu_GUI)
@@ -545,6 +562,10 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void setGlobalPosition(string personagem, Vector3 pos, int scene_index) {
+		gerEstados.setGlobalPosition(personagem, pos, scene_index);
+	}
+
 	public void setExaminable(string personagem,bool examinable)
 	{
 		ObjectController npc = getNPC(personagem);
@@ -553,10 +574,6 @@ public class GameController : MonoBehaviour {
 			npc.setExaminable(examinable);
 			Debug.Log(personagem+" examinavel = "+npc.examinable);
 		}
-	}
-
-	public void setGlobalPosition(string personagem, Vector3 pos, int scene_index) {
-		//TODO
 	}
 
 	public PositionGlobal getGlobalPosition(string personagem) {
@@ -711,7 +728,14 @@ public class GameController : MonoBehaviour {
 	public void showchoicebox(string[] choices)
 	{
 		choices_text = choices;
+		choice_number = -1;
 		show_choicebox_GUI = true;
+	}
+
+	public int selected_choice {
+		get {
+			return choice_number;
+		}
 	}
 
 	public void hidechoicebox()
@@ -1251,6 +1275,7 @@ public class GameController : MonoBehaviour {
 			choicebuttons[i] = GUI.Button(new Rect((choicebox_width-choicetext_width)/2,((choicebox_height-choicetext_height)/2)+(i*choicetext_height),choicetext_width,choicetext_height),choices_text[i],text_gui);
 			if (choicebuttons[i])
 			{
+				choice_number = i;
 				//colocar acao da escolha
 			}
 		}

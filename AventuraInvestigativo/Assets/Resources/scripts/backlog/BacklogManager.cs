@@ -25,13 +25,13 @@ public class BacklogManager {
 
 	//Adiciona uma fala ao backlog
 	public void addToBacklog(DialogLine dialogLine){
-		Debug.Log ("Adicionou para o backlog" + dialogLine.getTexto());
+		//Debug.Log ("Adicionou para o backlog" + dialogLine.getTexto());
 		this.backlog.Add (dialogLine);
 	}
 
 	//Adiciona uma fala ao backlog
 	public void addToBacklog(Conversa conversa){
-		Debug.Log ("Adicionou para o backlog uma conversa");
+		//Debug.Log ("Adicionou para o backlog uma conversa");
 		this.conversas.Add (conversa);
 	}
 
@@ -55,7 +55,7 @@ public class BacklogManager {
 		ArrayList backlogReverse = (ArrayList)backlog.Clone();
 		backlogReverse.Reverse();
 		for (int i = 0; i < backlogReverse.Count; i++) {
-			Debug.Log ("Retornou" + ((DialogLine)backlogReverse[i]).getTexto());
+			//Debug.Log ("Retornou" + ((DialogLine)backlogReverse[i]).getTexto());
 		}
 		return backlogReverse;
 	}
