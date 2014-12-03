@@ -53,9 +53,9 @@ public class states_TableObject: DicionarioAcoes
 		DialogLine dialogoTapeteVazio = new DialogLine ("Mesa", "Nao ha nada aqui", -1);
 		//ArrayList dialogosTapeteVazio = new ArrayList();
 		//dialogosTapeteVazio.Add (tapetevazio);
-		Conversa c1 = new Conversa ("Dialogo tapete vazio", dialogoTapeteVazio);
-		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, c1);
-		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
+		//Conversa c1 = new Conversa ("Dialogo tapete vazio", dialogoTapeteVazio);
+		//Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, c1);
+		//TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
 		
 		AddStateTo(TapeteState1);
 		//acoesHashtable.Add("Tapete-1", TapeteState1);

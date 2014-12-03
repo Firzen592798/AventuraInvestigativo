@@ -54,9 +54,9 @@ public class states_CarpetObject: DicionarioAcoes
 		DialogLine dialogoTapeteVazio = new DialogLine ("Tapete", "Nao ha nada aqui", -1);
 		//ArrayList dialogosTapeteVazio = new ArrayList();
 		//dialogosTapeteVazio.Add (tapetevazio);
-		Conversa c1 = new Conversa ("Tapete sem nada", dialogosTapete);
-		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, c1);
-		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
+		//Conversa c1 = new Conversa ("Tapete sem nada", dialogosTapete);
+		//Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, c1);
+		//TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
 
 		
 		AddStateTo(TapeteState1);
