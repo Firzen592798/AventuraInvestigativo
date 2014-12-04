@@ -350,11 +350,15 @@ public class GameController : MonoBehaviour {
 			inventorio = new Inventorio();
 			gerEstados.reset();
 
-			Debug.Log("itempegos: "+save.itempegos.Length);
-			foreach(Item item in save.itempegos) {
-				Debug.Log("item: "+item.getNome()+", sprite: "+item.getSpritePath());
-				inventorio.addItem(item.getNome(), item.getSpritePath());
+			Debug.Log("itempegos: "+save.itempegos.GetLength(0));
+			for(int i = 0; i < save.itempegos.GetLength(0); i++) {
+				Debug.Log("item: "+save.itempegos[i,0]+", sprite: "+save.itempegos[i,1]);
+				inventorio.addItem(save.itempegos[i,0], save.itempegos[i,1]);
 			}
+			//foreach(Item item in save.itempegos) {
+			//	Debug.Log("item: "+item.getNome()+", sprite: "+item.getSpritePath());
+			//	inventorio.addItem(item.getNome(), item.getSpritePath());
+			//}
 			for (int i = 0; i < save.events.Length; i++) {
 				if (save.events[i]) {
 					gerEstados.setEventActive(i);
@@ -363,18 +367,34 @@ public class GameController : MonoBehaviour {
 					gerEstados.setEventDeactive(i);
 				}
 			}
-			foreach(string nome in save.states.Keys) {
-				gerEstados.alterarEstado(nome, ((int)save.states[nome]), null);
-				if (nome != "Player") {
-					PositionGlobal p = save.getPositionGlobal(nome);
+
+			string[] nomes = save.nomes;
+			for(int i = 0; i < nomes.Length; i++) {
+				gerEstados.alterarEstado(nomes[i], save.states[i], null);
+				PositionGlobal p = save.getPositionGlobal(i);
+				if (nomes[i] != "Player") {
 					if (p.initialized) {
-						gerEstados.setGlobalPosition(nome, p.position, p.scene_index);
+						gerEstados.setGlobalPosition(nomes[i], p.position, p.scene_index);
 					}
 				}
+				else {
+					init_spot.transform.position = p.position;
+					init_scene = p.scene_index;
+				}
 			}
-			PositionGlobal playerPos = save.getPositionGlobal("Player");
-			init_spot.transform.position = playerPos.position;
-			init_scene = playerPos.scene_index;
+
+			//foreach(string nome in save.states.Keys) {
+			//	gerEstados.alterarEstado(nome, ((int)save.states[nome]), null);
+			//	if (nome != "Player") {
+			//		PositionGlobal p = save.getPositionGlobal(nome);
+			//		if (p.initialized) {
+			//			gerEstados.setGlobalPosition(nome, p.position, p.scene_index);
+			//		}
+			//	}
+			//}
+			//PositionGlobal playerPos = save.getPositionGlobal("Player");
+			//init_spot.transform.position = playerPos.position;
+			//init_scene = playerPos.scene_index;
 
 			init_music = save.music;
 			init_anbient = save.anbient;
