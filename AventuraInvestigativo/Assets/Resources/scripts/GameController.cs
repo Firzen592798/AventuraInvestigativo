@@ -1166,6 +1166,7 @@ public class GameController : MonoBehaviour {
 			{
 				show_inventory_GUI = true;
 				show_profiles_GUI = false;
+				show_backlog_GUI = false;
 				IM_Appear = true;
 				persona.lockplayer();
 			}
@@ -1205,6 +1206,7 @@ public class GameController : MonoBehaviour {
 			{
 				show_inventory_GUI = false;
 				show_profiles_GUI = true;
+				show_backlog_GUI = false;
 				IM_Appear = true;
 				persona.lockplayer();
 			}
@@ -1235,12 +1237,20 @@ public class GameController : MonoBehaviour {
 		}
 		if (blbtn)
 		{
-			show_backlog_GUI = true;
 			soundplayer.loadsound(4);
 			soundplayer.playsound();
-			//show_inventory_GUI = true;
-			IM_Appear = true;
-			persona.lockplayer();
+			if (show_backlog_GUI)
+			{
+				IM_Appear = false;
+				persona.unlockplayer();
+			}else
+			{
+				show_backlog_GUI = true;
+				show_inventory_GUI = false;
+				show_profiles_GUI = false;
+				IM_Appear = true;
+				persona.lockplayer();
+			}
 		}
 		//Botao 4 - Anotacoes
 		GUIStyle anot_style = new GUIStyle();
@@ -1808,7 +1818,9 @@ public class GameController : MonoBehaviour {
 				show_backlog_GUI = false;
 			}
 		}
-		
+
+		if (!show_backlog_GUI) {return;}
+
 		//Fazer a area delimitante do menu
 		GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,menu_width,menu_height));
 		
