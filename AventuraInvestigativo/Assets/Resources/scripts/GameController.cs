@@ -888,7 +888,7 @@ public class GameController : MonoBehaviour {
 		if (blbtn)
 		{
 
-			show_inventory_GUI = true;
+			show_backlog_GUI = true;
 			IM_Appear = true;
 			persona.lockplayer();
 		}
@@ -919,43 +919,72 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void showBacklogGUI(){
-
-		//Fazer a area delimitante da caixa de dialogo;
-
-		if(backlogList == null)
-			backlogList = backlog.getPersonagemBacklog("Eduardo Hastings");
-		//AKI
+		
+		float lpos = Wdef - menu_width;
+		
+		if (IM_Appear == true)
+		{
+			if (QM_movecounter < 10)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10);
+				QM_movecounter++;
+			}
+		}else
+		{
+			if (QM_movecounter > 0)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10); 
+				QM_movecounter--;
+			}else
+			{
+				QM_movecounter = 0;
+				show_inventory_GUI = false;
+			}
+		}
+		
+		if (backlogList == null) {
+			backlogList = backlog.getPersonagemBacklog ("Eduardo Hastings");
+		}
+			//AKI
 		//Fazer a area delimitante do backlog
-		GUI.BeginGroup(new Rect(50,50, backlog_width, backlog_height));
+		GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,menu_width,menu_height));
+		
+		//Desenhar o background do menu
+		GUI.Box(new Rect(0,0,menu_width,menu_height),"","MenuBackground");
+		
+		//Definir area superior
+		GUI.BeginGroup(new Rect(0,0,uparea_width,uparea_height));
 		//Desenhar o background do backlog
-		scrollPosition = GUI.BeginScrollView (new Rect(0, 0, backlog_width, backlog_height),scrollPosition, new Rect(0, 0, backlog_width, backlog_height / 5 * backlogList.Count));
+		scrollPosition = GUI.BeginScrollView (new Rect(0, 0, uparea_width, uparea_height),scrollPosition, new Rect(0, 0, uparea_width, backlog_height / 5 * backlogList.Count));
 		GUI.Box(new Rect(0,0,backlog_width,backlog_height),"Backlog","MenuBackground");
 		for(int i = 0; i < backlogList.Count; i++){
-
+			
 			//Fazer a area delimitante da caixa de texto
-			GUI.BeginGroup(new Rect(0,backlog_height * i / 5,backlog_width,backlog_height / 5));
+			GUI.BeginGroup(new Rect(0,backlog_height * i / 5,uparea_width,backlog_height / 3));
 			
 			//Desenhar o texto da caixa de texto
 			GUIStyle text_gui = GUI.skin.GetStyle("TextBackground");
 			text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
 			Conversa conversa = (Conversa)backlogList[i];
-			//DialogLine dialog = (DialogLine)backlogList[i];
-			GUI.Box(new Rect(0, 0, backlog_width / 5, backlog_height / 5),"TESTE",text_gui);
-			GUI.Box(new Rect(backlog_width / 5, 0, 4 * backlog_width / 5, backlog_height / 5),conversa.getRotulo(),text_gui);
+			//DialogLine dialog = (DialogLine)backlogList[i];;
+			GUI.Box(new Rect(0, 0, uparea_width, uparea_height / 3),conversa.getRotulo(),text_gui);
 			
 			GUI.EndGroup ();
 		}
 		GUI.EndScrollView ();
 		GUI.EndGroup ();
-		GUI.BeginGroup(new Rect(50, backlog_height + 50, backlog_width, lbutton_height * 1.5f));		
+		GUI.BeginGroup(new Rect(50, backlog_height + 50, uparea_width, lbutton_height * 1.5f));		
 		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
 		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
-		bool closebutton = GUI.Button(new Rect(0,0,backlog_width,lbutton_height * 1.5f),"Fechar",lbutton);	
+		bool closebutton = GUI.Button(new Rect(0,0,uparea_width,lbutton_height * 1.5f),"Fechar",lbutton);	
 		if(closebutton){
 			backlogList = null;
 			show_backlog_GUI= false;
+			IM_Appear = false;
+			persona.unlockplayer();
 		}
 		GUI.EndGroup();
+		GUI.EndGroup ();
 	}
 
 	public void showInventoryGUI()

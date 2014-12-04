@@ -31,15 +31,19 @@ public class BacklogManager {
 
 	//Adiciona uma fala ao backlog
 	public void addToBacklog(Conversa conversa){
-		Debug.Log ("Adicionou para o backlog uma conversa");
-		this.conversas.Add (conversa);
+		conversas.Add (conversa);
 	}
 
 	public ArrayList getPersonagemBacklog(String nome){
 		ArrayList conversasBacklog = new ArrayList ();
 		for(int i = conversas.Count - 1; i >= 0; i--){
 			Conversa c = (Conversa)conversas[i];
-			for(int j = 0; j < c.getPersonagens().Count; j++){
+			Debug.Log (c);
+			int count = 0;
+			if(c != null){
+				count = c.getPersonagens().Count;
+			}
+			for(int j = 0; j < count; j++){
 				string personagem = (String)c.getPersonagens()[j];
 				if(personagem.Equals(nome)){
 					conversasBacklog.Add(c);
