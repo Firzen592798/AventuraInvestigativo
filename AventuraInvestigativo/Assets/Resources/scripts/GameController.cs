@@ -1854,6 +1854,8 @@ public class GameController : MonoBehaviour {
 		}
 		if (rightarrow)
 		{
+			selectedConversaIndex = -1;
+			backlogList = null;
 			if (selectedProfile < perfis.Length-1)
 			{
 				selectedProfile = selectedProfile + 1;
@@ -1879,6 +1881,8 @@ public class GameController : MonoBehaviour {
 		}
 		if (leftarrow)
 		{
+			selectedConversaIndex = -1;
+			backlogList = null;
 			if (selectedProfile > 0)
 			{
 				selectedProfile = selectedProfile -1;
@@ -1891,9 +1895,9 @@ public class GameController : MonoBehaviour {
 		
 		if (backlogList == null && show_backlog_GUI) {
 			if(selectedProfile == 0){
+				//backlogList = backlog.getPersonagemBacklog ("");
 				backlogList = backlog.getPersonagemBacklog ("");
 			}else if(selectedProfile == 1){
-				
 				backlogList = backlog.getPersonagemBacklog ("Eduardo Hastings");
 			}
 		}
