@@ -1371,6 +1371,11 @@ public class GameController : MonoBehaviour {
 		//Definir area superior backlog
 		GUI.BeginGroup(new Rect(0,0,uparea_width,uparea_height));
 		//Desenhar o background do backlog(parte de cima)
+		int backlogCount;
+		if (backlogList != null) {
+			backlogCount = backlogList.Count;
+		}else
+			backlogCount = 0;
 		scrollPosition = GUI.BeginScrollView (new Rect(0, 0, uparea_width, uparea_height),scrollPosition, new Rect(0, 0, uparea_width, backlog_height / 5 * backlogList.Count));
 		GUI.Box(new Rect(0,0,backlog_width,backlog_height),"Backlog","MenuBackground");
 		for(int i = 0; i < backlogList.Count; i++){
@@ -1406,8 +1411,9 @@ public class GameController : MonoBehaviour {
 		GUI.BeginGroup(new Rect(0,0,uparea_width,uparea_height));
 		//Desenhar o background inferior backlog
 		GUI.Box(new Rect(0,0,backlog_width,backlog_height),"Dialogos","MenuBackground");
-		scrollPosition2 = GUI.BeginScrollView (new Rect(0, 0, uparea_width, uparea_height),scrollPosition2, new Rect(0, 0, uparea_width, backlog_height));
 		if(selectedConversaIndex > -1){
+		scrollPosition2 = GUI.BeginScrollView (new Rect(0, 0, uparea_width, uparea_height),scrollPosition2, new Rect(0, 0, uparea_width, ((Conversa)backlogList[selectedConversaIndex]).getDialogos().Count * uparea_height/3));
+
 		
 			for(int i = 0; i < ((Conversa)backlogList[selectedConversaIndex]).getDialogos().Count; i++){
 				
@@ -1423,9 +1429,10 @@ public class GameController : MonoBehaviour {
 				GUI.Box(new Rect(0, 0, uparea_width, uparea_height / 3), dl.getPersonagem() +" - "+dl.getTexto());
 				GUI.EndGroup ();
 			}
-
+			GUI.EndScrollView ();
 		}
-		GUI.EndScrollView ();
+
+
 		GUI.EndGroup ();
 		GUI.EndGroup ();
 
