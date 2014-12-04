@@ -7,7 +7,8 @@ public class MusicManager : MonoBehaviour {
 	public AudioClip[] musics;
 	public AudioClip[] sounds;
 	public AudioClip[] ambient;
-
+	private int current_music;
+	private int current_anbient;
 
 	// Use this for initialization
 	void Start () {
@@ -21,11 +22,24 @@ public class MusicManager : MonoBehaviour {
 	
 	}
 
+	public int Music {
+		get {
+			return current_music;
+		}
+	}
+
+	public int Anbient {
+		get {
+			return current_anbient;
+		}
+	}
+
 	public void playnew(int n)
 	{
 		asources[0].Stop();
 		asources[0].clip = musics [n];
 		asources[0].Play();
+		current_music = n;
 	}
 
 	public void loadsound(int n)
@@ -44,5 +58,6 @@ public class MusicManager : MonoBehaviour {
 		asources[2].Stop();
 		asources[2].clip = ambient [n];
 		asources[2].Play();
+		current_anbient = n;
 	}
 }

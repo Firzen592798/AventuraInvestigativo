@@ -5,6 +5,12 @@ public class states_Player : DicionarioAcoes
 {
 	GameController gm;
 	public states_Player() {
+
+		Profile janeprof0 = new Profile ("Jane Miss Terry", "33 anos", "Feminino",
+		                                "Detetive particular na JMT Consultoria. Formada em Direito pela Universidade Católica de Campos Verdes e Doutorado em Filosofia do Direito e Psicologia Forense pela UFEN.");
+		Profile eduprof0 = new Profile ("Eduardo Hastings", "36 anos", "Masculino",
+		                                "Capitão da Polícia Distrital do Município de Campos Verdes.");
+
 		setInitState(1);
 		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
@@ -53,12 +59,14 @@ public class states_Player : DicionarioAcoes
 		yes.addAcao(new FadeInScreen (gm));
 		yes.addAcao(new Esperar(gm, 0.1));
 		yes.addAcao(new PlayWaitingAnimation(gm, false));
-		yes.addAcao(new MostrarDialogos(gm, dialogoTESTE));
+		//yes.addAcao(new MostrarDialogos(gm, dialogoTESTE));
 		yes.addAcao(new TocarMusica(gm, 4,0));
 		yes.addAcao(new TornarExaminavel (gm, "Eduardo", true));
 		yes.addAcao(new TornarExaminavel (gm, "Mesa", true));
 		yes.addAcao(new TornarExaminavel (gm, "Tapete", true));
 		yes.addAcao(new HabilitarMenu (gm, true));
+		yes.addAcao(new MudarPerfil(gm,0,janeprof0));
+		yes.addAcao(new MudarPerfil(gm,1,eduprof0));
 		yes.addAcao(new MudarEstado(gm, "Player", 0));
 
 		Escolha no = new Escolha("Nao");
@@ -222,6 +230,8 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add(new TornarExaminavel(gm, "Mesa", true));
 		PlayerState1.OnInitActions.Add(new TornarExaminavel(gm, "Tapete", true));
 		PlayerState1.OnInitActions.Add(new HabilitarMenu(gm, true));
+		PlayerState1.OnInitActions.Add(new MudarPerfil(gm,0,janeprof0));
+	    PlayerState1.OnInitActions.Add(new MudarPerfil(gm,1,eduprof0));
 		PlayerState1.OnInitActions.Add(new MudarEstado(gm, "Player", 0));
 
 

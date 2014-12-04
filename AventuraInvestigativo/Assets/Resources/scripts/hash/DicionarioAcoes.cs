@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
+[Serializable]
 public struct PositionGlobal {
 	public bool initialized;
 	public Vector3 position;

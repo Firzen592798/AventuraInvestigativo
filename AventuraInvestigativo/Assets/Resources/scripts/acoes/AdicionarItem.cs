@@ -14,7 +14,8 @@ public class AdicionarItem : Acao{
 	}
 	
 	public override bool Update(){
-		gm.PegarItem(item, Resources.Load<Sprite>(spritepath));
+		//gm.PegarItem(item, Resources.Load<Sprite>(spritepath));
+		gm.PegarItem(item, spritepath);
 		if(destroy){
 			GameObject go = GameObject.FindGameObjectWithTag (item);
 			//ObjectController npcController = (ObjectController)go.GetComponent (typeof(ObjectController));
