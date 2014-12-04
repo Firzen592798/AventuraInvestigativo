@@ -1,43 +1,42 @@
 using System.Collections;
 using UnityEngine;
 public class Inventorio{
-	private Item[] itemsPegos;
+	private ArrayList itemsPegos;
+	//private Item[] itemsPegos;
 	private Hashtable items;
-	private int itemIndex;
-	private int size;
-	public Inventorio(int size){
-		itemIndex = 0;
-		itemsPegos = new Item[size];
-		this.size = size;
+	private int items_quant;
+	public Inventorio(){
+		itemsPegos = new ArrayList();
+		items_quant = 0;
 		items = new Hashtable ();
-		items.Add ("Papel", new Papel ("Papel", "Um papel encontrado na sala da mansao", false, null));
-
-		items.Add ("Chave", new Chave ("Chave", "Uma misteriosa chave que abre alguma porta da mansao", false, null));
+		items.Add ("Papel", new Item ("Papel", "Um papel encontrado na sala da mansao", false, null));
+		items.Add ("Chave", new Item ("Chave", "Uma misteriosa chave que abre alguma porta da mansao", false, null));
 
 	}
 
 	public Item[] getItems(){
-		return itemsPegos;
+		Item[] _items = new Item[items_quant];
+		for(int i = 0; i < items_quant; i++) {
+			_items[i] = (Item)itemsPegos[i];
+		}
+		return _items;
 	}
 
 	public int count(){
-		return itemIndex;
+		return items_quant;
 	}
 
-	public void addItem(string item, Sprite sprite){
-		if (itemIndex < size) {
-			Debug.Log ("Pegou " + item);	
-			((Item)items[item]).setSprite(sprite);
-			Debug.Log (sprite);
-			itemsPegos [itemIndex] = (Item)items [item];
-			itemIndex++;
-		}
+	public void addItem(string item, string spritepath){
+		Debug.Log ("Pegou " + item);
+		((Item)items[item]).setSprite(spritepath);
+		Debug.Log (spritepath);
+		itemsPegos.Add((Item)items[item]);
+		items_quant++;
 	}
 
 	public bool TemItem(string item){
-		if(itemIndex > 0)
-		for (int i = 0; i < itemIndex; i++) {
-			if(itemsPegos[i].getNome().Equals(item)){
+		for (int i = 0; i < items_quant; i++) {
+			if(((Item)itemsPegos[i]).getNome().Equals(item)){
 				return true;
 			}
 		}
@@ -45,15 +44,10 @@ public class Inventorio{
 	}
 
 	public void removerItem(string item){
-		if(itemIndex > 0)
-			for (int i = 0; i < itemsPegos.Length; i++) {
-				if(itemsPegos[i].getNome().Equals(item)){
-					for(int j = i; j < itemIndex - 1; j++){
-						itemsPegos[j] = itemsPegos[j + 1];
-					}
-					itemIndex --;
-				}
+		for (int i = 0; i < items_quant; i++) {
+			if(((Item)itemsPegos[i]).getNome().Equals(item)){
+				itemsPegos.RemoveAt(i);
 			}
-
+		}
 	}
 }

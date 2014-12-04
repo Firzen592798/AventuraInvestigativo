@@ -95,15 +95,14 @@
      <Compile Include="Assets\Resources\scripts\hash\Object\states_TableObject.cs" />
      <Compile Include="Assets\Resources\scripts\hash\Player\states_Player.cs" />
      <Compile Include="Assets\Resources\scripts\hash\state.cs" />
-     <Compile Include="Assets\Resources\scripts\items\Chave.cs" />
      <Compile Include="Assets\Resources\scripts\items\Inventorio.cs" />
      <Compile Include="Assets\Resources\scripts\items\Item.cs" />
-     <Compile Include="Assets\Resources\scripts\items\Papel.cs" />
      <Compile Include="Assets\Resources\scripts\items\PickUpItem.cs" />
      <Compile Include="Assets\Resources\scripts\model\Conversa.cs" />
      <Compile Include="Assets\Resources\scripts\model\DialogLine.cs" />
      <Compile Include="Assets\Resources\scripts\model\Escolha.cs" />
      <Compile Include="Assets\Resources\scripts\model\Profile.cs" />
+     <Compile Include="Assets\Resources\scripts\model\SaveGameStructure.cs" />
      <None Include="Assets\GameData\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

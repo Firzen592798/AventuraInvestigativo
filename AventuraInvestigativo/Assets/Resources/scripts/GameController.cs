@@ -3,6 +3,10 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 	public GameObject player;
+	private GameObject init_spot;
+	private int init_scene;
+	private int init_music;
+	private int init_anbient;
 	private PlayerController persona;
 	private Item selectedItem;
 	private int selectedProfile;
@@ -164,13 +168,23 @@ public class GameController : MonoBehaviour {
 	bool fadingtoblack;
 	bool fadingtoclear;
 	bool pendingstart;
+	bool pendingshowmenuGUI;
 
 	GUITexture guiTexture;
 	// Use this for initialization
 	void Start () {
+		init_spot = Instantiate(Resources.Load("prefab/initial_spot", typeof(GameObject))) as GameObject;
+		init_spot.name = "initial_spot";
+		init_spot.transform.position = new Vector3(2.55f, 0.023f);
+
+		init_scene = -1;
+
+		init_music = -1;
+		init_anbient = -1;
+
 		selectedItem = null;
 		selectedProfile = 0;
-		inventorio = new Inventorio(5);
+		inventorio = new Inventorio();
 		player = null;
 		persona = null;
 		current_scene_index = Application.loadedLevel;
@@ -284,6 +298,7 @@ public class GameController : MonoBehaviour {
 		fadingtoblack = false;
 		fadingtoclear = false;
 		pendingstart = false;
+		pendingshowmenuGUI = false;
 
 		backlog = BacklogManager.getInstance ();
 	}
@@ -304,6 +319,57 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void SaveGame(string savefile) {
+		SaveGameStructure save = new SaveGameStructure();
+		initializeGameDataDirectory();
+		if (!fm.checkFile("GameData/saves", savefile, "sav")) {
+			fm.createFile("GameData/saves", savefile, "sav");
+		}
+		fm.WriteBinaryFile("GameData/saves", savefile, "sav", save);
+	}
+
+	public bool LoadGame(string savefile) {
+		if (fm.checkFile("GameData/saves", savefile, "sav")) {
+			SaveGameStructure save = (SaveGameStructure)fm.ReadBinaryFile("GameData/saves", savefile, "sav");
+			inventorio = new Inventorio();
+			gerEstados.reset();
+
+			Debug.Log("itempegos: "+save.itempegos.Length);
+			foreach(Item item in save.itempegos) {
+				Debug.Log("item: "+item.getNome()+", sprite: "+item.getSpritePath());
+				inventorio.addItem(item.getNome(), item.getSpritePath());
+			}
+			for (int i = 0; i < save.events.Length; i++) {
+				if (save.events[i]) {
+					gerEstados.setEventActive(i);
+				}
+				else {
+					gerEstados.setEventDeactive(i);
+				}
+			}
+			foreach(string nome in save.states.Keys) {
+				gerEstados.alterarEstado(nome, ((int)save.states[nome]), null);
+				if (nome != "Player") {
+					PositionGlobal p = save.getPositionGlobal(nome);
+					if (p.initialized) {
+						gerEstados.setGlobalPosition(nome, p.position, p.scene_index);
+					}
+				}
+			}
+			PositionGlobal playerPos = save.getPositionGlobal("Player");
+			init_spot.transform.position = playerPos.position;
+			init_scene = playerPos.scene_index;
+
+			init_music = save.music;
+			init_anbient = save.anbient;
+
+			pendingshowmenuGUI = save.show_menu;
+
+			return true;
+		}
+		return false;
+	}
+
 	public void enableppbutton() {
 		this.can_showppbutton = true;
 	}
@@ -316,7 +382,7 @@ public class GameController : MonoBehaviour {
 	{
 		// Lerp the colour of the texture between itself and transparent.
 		guiTexture.color = Color.Lerp(guiTexture.color, Color.clear, 3f * Time.deltaTime);
-		if (guiTexture.color.a <= 0.01f)
+		if (guiTexture.color.a <= 0.05f)
 		{
 			Debug.Log("acabou fadetoclear");
 			guiTexture.color = Color.clear;
@@ -354,7 +420,20 @@ public class GameController : MonoBehaviour {
 				fadingtoblack = false;
 				if (pendingstart)
 				{
-					TransiteScene("CenaQuarto1", "initial_spot");
+					if (init_scene == -1) {
+						TransiteScene("CenaQuarto1", "initial_spot", init_spot);
+					}
+					else {
+						TransiteScene(init_scene, "initial_spot", init_spot);
+						fadingtoclear = true;
+					}
+
+					if (init_music != -1) {
+						playSound(init_music, 0);
+					}
+					if (init_anbient != -1) {
+						playSound(init_anbient, 1);
+					}
 					pendingstart = false;
 					//fadingtoclear = true;
 				}
@@ -366,6 +445,9 @@ public class GameController : MonoBehaviour {
 			if (faded)
 			{
 				fadingtoclear = false;
+				if (pendingshowmenuGUI) {
+					show_menu_GUI = true;
+				}
 			}
 		}
 
@@ -476,7 +558,91 @@ public class GameController : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 		DontDestroyOnLoad(this.cam);
 		Application.LoadLevel(NextScene);
+	}
 
+	public void TransiteScene(int NextScene, string SpawnPoint) {
+		if (player != null) {
+			//persona = (PlayerController) player.GetComponent(typeof(PlayerController));
+			persona.set_spot(SpawnPoint);
+			DontDestroyOnLoad(player);
+		}
+		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(this.cam);
+		Application.LoadLevel(NextScene);
+	}
+
+	public void TransiteScene(string NextScene, string SpawnPoint, GameObject door) {
+		if (player != null) {
+			//persona = (PlayerController) player.GetComponent(typeof(PlayerController));
+			persona.set_spot(SpawnPoint);
+			DontDestroyOnLoad(player);
+		}
+		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(this.cam);
+		DontDestroyOnLoad(door);
+		Application.LoadLevel(NextScene);
+	}
+
+	public void TransiteScene(int NextScene, string SpawnPoint, GameObject door) {
+		if (player != null) {
+			//persona = (PlayerController) player.GetComponent(typeof(PlayerController));
+			persona.set_spot(SpawnPoint);
+			DontDestroyOnLoad(player);
+		}
+		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(this.cam);
+		DontDestroyOnLoad(door);
+		Application.LoadLevel(NextScene);
+	}
+
+	public void TransiteScene(string NextScene, string SpawnPoint, int dirX, int dirY) {
+		if (player != null) {
+			//persona = (PlayerController) player.GetComponent(typeof(PlayerController));
+			persona.changeDirection(dirX, dirY);
+			persona.set_spot(SpawnPoint);
+			DontDestroyOnLoad(player);
+		}
+		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(this.cam);
+		Application.LoadLevel(NextScene);
+	}
+
+	public void TransiteScene(int NextScene, string SpawnPoint, int dirX, int dirY) {
+		if (player != null) {
+			//persona = (PlayerController) player.GetComponent(typeof(PlayerController));
+			persona.changeDirection(dirX, dirY);
+			persona.set_spot(SpawnPoint);
+			DontDestroyOnLoad(player);
+		}
+		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(this.cam);
+		Application.LoadLevel(NextScene);
+	}
+
+	public void TransiteScene(string NextScene, string SpawnPoint, int dirX, int dirY, GameObject door) {
+		if (player != null) {
+			//persona = (PlayerController) player.GetComponent(typeof(PlayerController));
+			persona.changeDirection(dirX, dirY);
+			persona.set_spot(SpawnPoint);
+			DontDestroyOnLoad(player);
+		}
+		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(this.cam);
+		DontDestroyOnLoad(door);
+		Application.LoadLevel(NextScene);
+	}
+
+	public void TransiteScene(int NextScene, string SpawnPoint, int dirX, int dirY, GameObject door) {
+		if (player != null) {
+			//persona = (PlayerController) player.GetComponent(typeof(PlayerController));
+			persona.changeDirection(dirX, dirY);
+			persona.set_spot(SpawnPoint);
+			DontDestroyOnLoad(player);
+		}
+		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(this.cam);
+		DontDestroyOnLoad(door);
+		Application.LoadLevel(NextScene);
 	}
 
 	void OnGUI(){      
@@ -559,6 +725,25 @@ public class GameController : MonoBehaviour {
 
 	}
 
+	public int getMusic() {
+		return soundplayer.Music;
+	}
+
+	public int getAnbient() {
+		return soundplayer.Anbient;
+	}
+
+	public bool[] getEvents() {
+		return gerEstados.Events;
+	}
+
+	public ArrayList getNomePersonagens() {
+		return gerEstados.getNomePersonagens();
+	}
+
+	public Item[] getItems() {
+		return inventorio.getItems();
+	}
 
 	public int getStateIndex(string personagem) {
 		return gerEstados.getEstadoIndex(personagem);
@@ -607,6 +792,19 @@ public class GameController : MonoBehaviour {
 	}
 
 	public PositionGlobal getGlobalPosition(string personagem) {
+		if (personagem == "Player") {
+			PositionGlobal p;
+			if (player != null) {
+				p.initialized = true;
+				p.position = player.transform.position;
+			}
+			else {
+				p.initialized = false;
+				p.position = new Vector3();
+			}
+			p.scene_index = Application.loadedLevel;
+			return p;
+		}
 		return gerEstados.getGlobalPosition(personagem);
 	}
 
@@ -636,8 +834,8 @@ public class GameController : MonoBehaviour {
 		return inventorio.TemItem (item);
 	}	
 
-	public void PegarItem(string item, Sprite sprite){
-		inventorio.addItem (item, sprite);
+	public void PegarItem(string item, string spritepath){
+		inventorio.addItem (item, spritepath);
 	}	
 
 	public void InstancePlayer() {
@@ -1170,7 +1368,11 @@ public class GameController : MonoBehaviour {
 		//Desenhar area dos botoes dos menus(botoes)
 		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
 		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
-		GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Salvar",lbutton);
+		bool savebutton = GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Salvar",lbutton);
+		if (savebutton) {
+			SaveGame("save00");
+			Debug.Log("JOGO SALVO!");
+		}
 
 		//botao de backlog
 		GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Carregar",lbutton);
@@ -1294,8 +1496,11 @@ public class GameController : MonoBehaviour {
 		//Desenhar area dos botoes dos menus(botoes)
 		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
 		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
-		GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Salvar",lbutton);
-		
+		bool savebutton = GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Salvar",lbutton);
+		if (savebutton) {
+			SaveGame("save00");
+			Debug.Log("JOGO SALVO!");
+		}
 
 		GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Carregar",lbutton);
 
@@ -1460,7 +1665,13 @@ public class GameController : MonoBehaviour {
 		bool loadbtn = GUI.Button(new Rect(0,startbtn_height,startbtn_width,startbtn_height),"Carregar Jogo",sbstl);
 		if (loadbtn)
 		{
-
+			if (LoadGame("save00")) {;
+				on_mainmenu = false;
+				fadingtoblack = true;	
+				pendingstart = true;
+				soundplayer.loadsound(1);
+				soundplayer.playsound();
+			}
 		}
 
 		bool optbtn = GUI.Button(new Rect(0,2*startbtn_height,startbtn_width,startbtn_height),"Configurar",sbstl);
@@ -1472,14 +1683,10 @@ public class GameController : MonoBehaviour {
 		bool extbtn = GUI.Button(new Rect(0,3*startbtn_height,startbtn_width,startbtn_height),"Fechar Jogo",sbstl);
 		if (extbtn)
 		{
-			
+
 		}
 		
 		GUI.EndGroup();
 
 	}
-
-
-
-
 }

@@ -3,7 +3,7 @@ using System.Collections;
 public class PickUpItem : MonoBehaviour {
 	public string nome;
 	GameController gm;
-	public Sprite sprite;
+	public string spritepath;
 	// Use this for initialization
 	void Start () {
 		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
@@ -18,7 +18,7 @@ public class PickUpItem : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.CompareTag ("Player")) {
-			gm.PegarItem(nome, sprite);
+			gm.PegarItem(nome, spritepath);
 			//gm.SendMessage("PegarItem", nome);
 			Destroy(gameObject);
 			Debug.Log("Colidiu");

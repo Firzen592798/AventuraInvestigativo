@@ -24,6 +24,10 @@ public class GerenciadorEstados {
 		hash.Add ("Player", new states_Player());
 	}
 
+	public void reset() {
+		instance = new GerenciadorEstados();
+	}
+
 	public void alterarEstado(string personagem, int novoEstado, string condit){
 
 		bool THE_ANSWER = true;
@@ -70,6 +74,20 @@ public class GerenciadorEstados {
 		if (hash.ContainsKey(personagem)&&THE_ANSWER) {
 			((DicionarioAcoes)hash[personagem]).setAState(novoEstado);
 		}
+	}
+
+	public bool[] Events {
+		get {
+			return this.eventos;
+		}
+	}
+
+	public ArrayList getNomePersonagens() {
+		ArrayList nomes = new ArrayList();
+		foreach(string nome in hash.Keys) {
+			nomes.Add(nome);
+		}
+		return nomes;
 	}
 
 	public int getEstadoIndex(string personagem) {
