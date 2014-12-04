@@ -170,6 +170,8 @@ public class GameController : MonoBehaviour {
 	bool pendingstart;
 	bool pendingshowmenuGUI;
 
+	bool hoversoundplayed;
+
 	GUITexture guiTexture;
 	// Use this for initialization
 	void Start () {
@@ -1096,13 +1098,23 @@ public class GameController : MonoBehaviour {
 		bool hoverinv = HoverCheck (invrect);
 		if (hoverinv)
 		{
+			if (!hoversoundplayed)
+			{
+				soundplayer.loadsound(5);
+				soundplayer.playsound();
+				hoversoundplayed = true;
+			}
 			string tooltiptext = ("Inventório");
 			Rect tooltiparea = new Rect (0,0, lbutton_width, intbutton_height);
 			DrawOutline (tooltiparea, tooltiptext, tooltipstyle, Color.black, Color.white);
+		}else
+		{
+			hoversoundplayed = false;
 		}
 		if (invbtn)
 		{
-
+			soundplayer.loadsound(4);
+			soundplayer.playsound();
 			show_inventory_GUI = true;
 			show_profiles_GUI = false;
 			IM_Appear = true;
@@ -1124,7 +1136,8 @@ public class GameController : MonoBehaviour {
 		}
 		if (prbtn)
 		{
-
+			soundplayer.loadsound(4);
+			soundplayer.playsound();
 			show_inventory_GUI = false;
 			show_profiles_GUI = true;
 			IM_Appear = true;
@@ -1146,7 +1159,8 @@ public class GameController : MonoBehaviour {
 		}
 		if (blbtn)
 		{
-
+			soundplayer.loadsound(4);
+			soundplayer.playsound();
 			show_inventory_GUI = true;
 			IM_Appear = true;
 			persona.lockplayer();
@@ -1167,7 +1181,8 @@ public class GameController : MonoBehaviour {
 		}
 		if (abtn)
 		{
-
+			soundplayer.loadsound(4);
+			soundplayer.playsound();
 			show_inventory_GUI = true;
 			IM_Appear = true;
 			persona.lockplayer();
@@ -1345,6 +1360,8 @@ public class GameController : MonoBehaviour {
 					GUI.Box (new Rect(posX,posY,slot_width,slot_height),"",litimg);
 					if (itemshow[j,i])
 					{
+						soundplayer.loadsound(4);
+						soundplayer.playsound();
 						selectedItem = item_grid[j,i,page];
 					}
 				}else
@@ -1387,6 +1404,8 @@ public class GameController : MonoBehaviour {
 		{
 			//show_menu_GUI = false;
 			//show_inventory_GUI = false;
+			soundplayer.loadsound(4);
+			soundplayer.playsound();
 			IM_Appear = false;
 			persona.unlockplayer();
 		}
@@ -1509,6 +1528,8 @@ public class GameController : MonoBehaviour {
 		bool closebutton = GUI.Button(new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Sair do jogo",lbutton);
 		if (closebutton)
 		{
+			soundplayer.loadsound(4);
+			soundplayer.playsound();
 			IM_Appear = false;
 			persona.unlockplayer();
 		}
@@ -1613,7 +1634,26 @@ public class GameController : MonoBehaviour {
 		GUI.Box(new Rect(0,0,textarea_width,textarea_height),dialog_text,text_gui);
 
 		GUI.EndGroup ();
-		
+
+		Rect passbuttonarea = new Rect ((dialogbox_width - dialogbox_width / 4) / 2, textarea_height+ ((dialogbox_height - textarea_height)/2), dialogbox_width / 4, (dialogbox_height - textarea_height)/2);
+		GUIStyle passbuttonstyle = GUI.skin.FindStyle ("Tooltip");
+		passbuttonstyle.fontSize = Mathf.RoundToInt(lbutton_fontsize);
+		string passtext;
+		if (showing_dialog)
+		{
+			passtext = Teclas.Confirma+" - Mostrar tudo";
+		}else
+		{
+			passtext = Teclas.Confirma+" - Continuar";
+		}
+		DrawOutline (passbuttonarea, passtext, passbuttonstyle, Color.black, Color.white);
+		/*
+		bool passbutton = GUI.Button (passbuttonarea,passtext,passbuttonstyle);
+		if (passbutton)
+		{
+			//passar o texto com botao
+		}
+		*/
 		GUI.EndGroup();
 	}
 
@@ -1630,11 +1670,28 @@ public class GameController : MonoBehaviour {
 		bool[] choicebuttons = new bool[nchoices];
 		GUIStyle text_gui = GUI.skin.GetStyle("ButtonBackground");
 		text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
+		Rect[] choiceboxes = new Rect[nchoices];
 		for (int i = 0;i<nchoices;i++)
 		{
-			choicebuttons[i] = GUI.Button(new Rect((choicebox_width-choicetext_width)/2,((choicebox_height-choicetext_height)/2)+(i*choicetext_height),choicetext_width,choicetext_height),choices_text[i],text_gui);
+			choiceboxes[i] = new Rect((choicebox_width-choicetext_width)/2,((choicebox_height-choicetext_height)/2)+(i*choicetext_height),choicetext_width,choicetext_height);
+			choicebuttons[i] = GUI.Button(choiceboxes[i],choices_text[i],text_gui);
+			bool hoverbox = HoverCheck(choiceboxes[i]);
+			if (hoverbox)
+			{
+				if (!hoversoundplayed)
+				{
+					soundplayer.loadsound(5);
+					soundplayer.playsound();
+					hoversoundplayed = true;
+				}
+			}else
+			{
+				hoversoundplayed = false;
+			}
 			if (choicebuttons[i])
 			{
+				soundplayer.loadsound(4);
+				soundplayer.playsound();
 				choice_number = i;
 				//colocar acao da escolha
 			}

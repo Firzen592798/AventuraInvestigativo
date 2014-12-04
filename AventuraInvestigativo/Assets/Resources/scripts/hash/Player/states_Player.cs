@@ -82,12 +82,6 @@ public class states_Player : DicionarioAcoes
 		textos0 [0] = "4 de março \n15:00h";
 		int[] imgs0 = new int[1] {-1};
 
-		string[] textos1 = new string[3];
-		textos1[0] = "Para passar textos ou interagir com os objetos do cenário pressione Z.";
-		textos1[1] = "Para mover o personagem use as setas do teclado.";
-		textos1[2] = "Para acessar o menu clique com o botao direito do mouse";
-		int[] imgs1 = new int[3] {-1,-1,-1};
-
 		string[] textos2 = new string[6];
 		textos2 [0] = "Cheguei hoje pela manhã na Mansão Christie a convite de meu amigo, o Capitão Eduardo Hastings.";
 		textos2 [1] = "Hastings estava me devendo um favor como este já que no último inverno salvei sua vida mais de uma vez, enquanto juntos buscávamos respostas para o Caso do Maníaco do Circo. Aquela época foi um tanto intensa, todos vocês que acompanham o blog sabem o que aconteceu. O assassino foi pego, apesar das consequências e de todo o mal que ele causou às pobres crianças.";
@@ -115,7 +109,6 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add (new MudarDirecao(gm, "Player", 'N', 'D'));
 		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 1,0));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 2));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs1,1f,1f,0f,0.3f,0.1f,textos1,Color.white,TextAnchor.UpperCenter,new double[3] {1,1,1}));
 		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs0, 1f, 1f, 0f, 0.4f, 0.15f, textos0, Color.white,TextAnchor.UpperCenter,new double[1] {1}));
 		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
