@@ -30,6 +30,8 @@ public class GameController : MonoBehaviour {
 	float backlog_height;
 	int selectedConversaIndex; //Indice da conversa selecionada no backlog. Se for -1 e pq nao ta selecionado nada
     
+	string[] playernotes;
+	int noteindex;
 
 	bool can_showppbutton;
 	int choice_number;
@@ -331,6 +333,13 @@ public class GameController : MonoBehaviour {
 			{false,false,false,false},
 			{false,false,false,false},
 			{false,false,false,false}};
+
+		playernotes = new string[50];
+		for (int note = 0;note<50;note++)
+		{
+			playernotes[note] = "";
+		}
+		noteindex = 0;
 	}
 
 	public void initializeGameDataDirectory() {
@@ -755,6 +764,11 @@ public class GameController : MonoBehaviour {
 				showBacklogGUI();
 			}
 
+			if (show_notes_GUI)
+			{
+				showNotesGUI();
+			}
+
 		}else
 		{
 			//Menu principal
@@ -1167,6 +1181,7 @@ public class GameController : MonoBehaviour {
 				show_inventory_GUI = true;
 				show_profiles_GUI = false;
 				show_backlog_GUI = false;
+				show_notes_GUI = false;
 				IM_Appear = true;
 				persona.lockplayer();
 			}
@@ -1207,6 +1222,7 @@ public class GameController : MonoBehaviour {
 				show_inventory_GUI = false;
 				show_profiles_GUI = true;
 				show_backlog_GUI = false;
+				show_notes_GUI = false;
 				IM_Appear = true;
 				persona.lockplayer();
 			}
@@ -1227,7 +1243,7 @@ public class GameController : MonoBehaviour {
 				soundplayer.playsound();
 				hoverqmsoundplayed[2] = true;
 			}
-			string tooltiptext = ("Backlog");
+			string tooltiptext = ("Arquivo");
 			Rect tooltiparea = new Rect (0,intbutton_height*2, lbutton_width, intbutton_height);
 			DrawOutline (tooltiparea, tooltiptext, tooltipstyle, Color.black, Color.white);
 		}
@@ -1248,6 +1264,7 @@ public class GameController : MonoBehaviour {
 				show_backlog_GUI = true;
 				show_inventory_GUI = false;
 				show_profiles_GUI = false;
+				show_notes_GUI = false;
 				IM_Appear = true;
 				persona.lockplayer();
 			}
@@ -1279,9 +1296,19 @@ public class GameController : MonoBehaviour {
 		{
 			soundplayer.loadsound(4);
 			soundplayer.playsound();
-			show_inventory_GUI = true;
-			IM_Appear = true;
-			persona.lockplayer();
+			if (show_notes_GUI)
+			{
+				IM_Appear = false;
+				persona.unlockplayer();
+			}else
+			{
+				show_notes_GUI = true;
+				show_backlog_GUI = false;
+				show_inventory_GUI = false;
+				show_profiles_GUI = false;
+				IM_Appear = true;
+				persona.lockplayer();
+			}
 		}
 
 		GUI.EndGroup();
@@ -1943,7 +1970,7 @@ public class GameController : MonoBehaviour {
 			GUI.EndScrollView ();
 
 		}
-
+		text_gui2.alignment = TextAnchor.MiddleCenter;
 		GUI.EndGroup ();
 		
 		GUI.BeginGroup(new Rect(0,menu_height-btnarea_height,btnarea_width,btnarea_height));
@@ -2035,6 +2062,189 @@ public class GameController : MonoBehaviour {
 		GUI.EndGroup();
 
 		
+	}
+
+	public void showNotesGUI()
+	{
+		float lpos = Wdef - menu_width;
+		
+		if (IM_Appear == true)
+		{
+			if (QM_movecounter < 10)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10);
+				QM_movecounter++;
+			}
+		}else
+		{
+			if (QM_movecounter > 0)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10); 
+				QM_movecounter--;
+			}else
+			{
+				QM_movecounter = 0;
+				show_notes_GUI = false;
+			}
+		}
+		
+		if (!show_notes_GUI) {return;}
+		
+		//Fazer a area delimitante do menu
+		GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,menu_width,menu_height));
+		
+		//Desenhar o background do menu
+		GUI.Box(new Rect(0,0,menu_width,menu_height),"","MenuBackground");
+
+		Rect raarea = new Rect (0.95f * slotarea_width - charslot_width/2, slotarea_height-lbutton_height, charslot_width/2, charslot_height/2);
+		bool rightarrow = GUI.Button(raarea,"","ArrowRBackground");
+		bool rahover = HoverCheck (raarea);
+		if (rahover)
+		{
+			if (!hoverarsoundplayed[1])
+			{
+				soundplayer.loadsound(5);
+				soundplayer.playsound();
+				hoverarsoundplayed[1] = true;
+			}
+		}else
+		{
+			hoverarsoundplayed[1] = false;
+		}
+		if (rightarrow)
+		{
+			if (noteindex < playernotes.Length-1)
+			{
+				noteindex++;
+			}else
+			{
+				noteindex = 0;
+			}
+		}
+		Rect laarea = new Rect(0.05f*slotarea_width,slotarea_height-lbutton_height,charslot_width/2,charslot_height/2);
+		bool leftarrow = GUI.Button(laarea,"","ArrowLBackground");
+		bool lahover = HoverCheck (laarea);
+		if (lahover)
+		{
+			if (!hoverarsoundplayed[0])
+			{
+				soundplayer.loadsound(5);
+				soundplayer.playsound();
+				hoverarsoundplayed[0] = true;
+			}
+		}else
+		{
+			hoverarsoundplayed[0] = false;
+		}
+		if (leftarrow)
+		{
+			if (noteindex > 0)
+			{
+				noteindex--;
+			}else
+			{
+				noteindex = playernotes.Length-1;
+			}			
+		}
+
+		GUIStyle numlabel = GUI.skin.GetStyle("Tooltip");
+		numlabel.normal.textColor = Color.black;
+		numlabel.fontSize = Mathf.RoundToInt(lbutton_fontsize);
+		GUI.Box (new Rect (0, slotarea_height-lbutton_height, lowarea_width, lbutton_height), ("Página "+(noteindex+1)+" de "+playernotes.Length), numlabel);
+
+		Rect txtarea = new Rect (0.05f * menu_width, slotarea_height+ menu_height*0.05f, menu_width* 0.9f, menu_height - btnarea_height - 0.05f * menu_height - slotarea_height);
+		GUI.Box(new Rect(0,slotarea_height,menu_width,menu_height - slotarea_height -btnarea_height),"","DialogboxBackground");
+		GUIStyle txtstyl = GUI.skin.FindStyle ("DialogtextBackground");
+		txtstyl.fontSize = Mathf.RoundToInt(desc_fontsize);
+		playernotes [noteindex] = GUI.TextArea (txtarea, playernotes [noteindex], 475,txtstyl);
+
+		GUI.BeginGroup(new Rect(0,menu_height-btnarea_height,btnarea_width,btnarea_height));
+		
+		//Desenhar area dos botoes dos menus(botoes)
+		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
+		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
+		
+		Rect savebuttonarea = new Rect(0,0,lbutton_width,lbutton_height);
+		bool savebutton = GUI.Button(savebuttonarea,"Salvar",lbutton);
+		bool savehover = HoverCheck (savebuttonarea);
+		if (savehover)
+		{
+			if (!hoverlbsoundplayed[0])
+			{
+				soundplayer.loadsound(5);
+				soundplayer.playsound();
+				hoverlbsoundplayed[0] = true;
+			}
+		}else
+		{
+			hoverlbsoundplayed[0] = false;
+		}
+		if (savebutton) {
+			SaveGame("save00");
+			Debug.Log("JOGO SALVO!");
+		}
+		
+		Rect loadbuttonarea = new Rect(lbutton_width,0,lbutton_width,lbutton_height);
+		bool loadbutton = GUI.Button(loadbuttonarea,"Carregar",lbutton);
+		bool loadhover = HoverCheck (loadbuttonarea);
+		if (loadhover)
+		{
+			if (!hoverlbsoundplayed[1])
+			{
+				soundplayer.loadsound(5);
+				soundplayer.playsound();
+				hoverlbsoundplayed[1] = true;
+			}
+		}else
+		{
+			hoverlbsoundplayed[1] = false;
+		}
+		
+		Rect confbuttonarea = new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height);
+		bool confbutton = GUI.Button(confbuttonarea,"Configurações",lbutton);
+		bool confcheck = HoverCheck (confbuttonarea);
+		if (confcheck)
+		{
+			if (!hoverlbsoundplayed[2])
+			{
+				soundplayer.loadsound(5);
+				soundplayer.playsound();
+				hoverlbsoundplayed[2] = true;
+			}
+		}else
+		{
+			hoverlbsoundplayed[2] = false;
+		}
+		
+		//Botao de fechar menu
+		Rect closebuttonarea = new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height);
+		bool closebutton = GUI.Button(closebuttonarea,"Sair do jogo",lbutton);
+		bool closecheck = HoverCheck (closebuttonarea);
+		if (closecheck)
+		{
+			if (!hoverlbsoundplayed[3])
+			{
+				soundplayer.loadsound(5);
+				soundplayer.playsound();
+				hoverlbsoundplayed[3] = true;
+			}
+		}else
+		{
+			hoverlbsoundplayed[3] = false;
+		}
+		if (closebutton)
+		{
+			//show_menu_GUI = false;
+			//show_inventory_GUI = false;
+			soundplayer.loadsound(4);
+			soundplayer.playsound();
+			IM_Appear = false;
+			persona.unlockplayer();
+		}
+		
+		GUI.EndGroup();
+		
+		GUI.EndGroup();
 	}
 
 	public void showFacesGUI()
