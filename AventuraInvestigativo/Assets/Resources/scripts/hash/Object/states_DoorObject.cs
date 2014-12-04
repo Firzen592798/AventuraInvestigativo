@@ -19,7 +19,7 @@ public class states_DoorObject: DicionarioAcoes
 		//=================================
 		//  Acoes Settings do estado 0
 		//=================================
-		DoorState0.SettingActions.Add(new SalvarPosicaoGlobal(gm, "Porta"));
+		DoorState0.SettingActions.Add(new InicializarPosicaoGlobal(gm, "Porta"));
 
 		//**********************************************
 		//*******  Acoes OnExamine do estado 0 do papel

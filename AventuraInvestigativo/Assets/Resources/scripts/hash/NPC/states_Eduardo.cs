@@ -9,26 +9,19 @@ public class states_Eduardo : DicionarioAcoes
 	{
 		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
 		gm = (GameController) g.GetComponent(typeof(GameController));
-		setInitState(-1);
-
-		//********************************************
-		//*****      Eduardo - Estado I      *********
-		//********************************************
-		state EduardoStateI = new state(-1);
-		
-		//=================================
-		//  Acoes Settings do estado I
-		//=================================
-		EduardoStateI.SettingActions.Add(new SalvarPosicaoGlobal(gm, "Eduardo"));
-		EduardoStateI.SettingActions.Add(new MudarEstado(gm, "Eduardo", 0));
-
-
-		AddStateTo(EduardoStateI);
+		setInitState(0);
 
 		//********************************************
 		//*****      Eduardo - Estado 0      *********
 		//********************************************
 		state EduardoState0 = new state(0);
+
+		//=================================
+		//  Acoes Settings do estado 0
+		//=================================
+
+		EduardoState0.SettingActions.Add(new InicializarPosicaoGlobal(gm, "Eduardo"));
+		EduardoState0.SettingActions.Add(new MudarEstado(gm, "Eduardo", 0));
 
 		//=================================
 		//  Acoes OnExamine do estado 0
@@ -37,7 +30,7 @@ public class states_Eduardo : DicionarioAcoes
 		dEduardo_s0_e.Add(new DialogLine ("Eduardo Hastings", "E então Jane, encontrou algo?", 1, 1));
 		dEduardo_s0_e.Add(new DialogLine ("Jane", "Não... não estou com sorte", 0, 0));
 		dEduardo_s0_e.Add(new DialogLine ("Eduardo Hastings", "Ora... não a conheci desistindo assim tão fácil. Continue... estou certo de que encontrará algo intrigante.", 1, 1));
-		Conversa c0 = new Conversa ("Inicio", dEduardo_s0_e);
+		Conversa c0 = new Conversa ("Encontrou algo?", dEduardo_s0_e);
 		
 		Acao eduardo_s0_a0_e = new MostrarDialogos (gm, c0);
 		EduardoState0.OnExamineAction.Add(eduardo_s0_a0_e);
@@ -77,7 +70,7 @@ public class states_Eduardo : DicionarioAcoes
 		dEduardo_s2.Add(new DialogLine ("Jane", "Sim, veja: encontrei este pedaço de papel com algumas palavras riscadas.", 0, 0));
 		dEduardo_s2.Add(new DialogLine ("Eduardo Hastings", "Hum... curioso... o nome parece ter sido escrito à caneta... ", 1, 1));
 		dEduardo_s2.Add(new DialogLine ("Eduardo Hastings", "mas os rabiscos rudes que foram feitos por cima foram feitos à lápis... nada que uma borracha não resolva, acredito.", 1, 1));
-		Conversa c2 = new Conversa ("Encontrando a chave", dEduardo_s2);
+		Conversa c2 = new Conversa ("Encontrando o papel", dEduardo_s2);
 		Acao eduardo_s2_a0_e = new MostrarDialogos (gm, c2);
 		EduardoState2.OnExamineAction.Add(new MudarEstado(gm, "Eduardo",3,"(0 & 1)"));
 		EduardoState2.OnExamineAction.Add (eduardo_s2_a0_e);

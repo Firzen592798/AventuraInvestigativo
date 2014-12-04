@@ -19,7 +19,8 @@ public class states_PaperObject : DicionarioAcoes
 		//=================================
 		//  Acoes Settings do estado 0
 		//=================================
-		PapelState0.SettingActions.Add(new SalvarPosicaoGlobal(gm, "Papel"));
+
+		PapelState0.SettingActions.Add(new InicializarPosicaoGlobal(gm, "Papel"));
 
 		//=================================
 		//  Acoes OnExamine do estado 0

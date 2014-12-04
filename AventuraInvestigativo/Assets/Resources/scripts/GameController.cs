@@ -5,6 +5,7 @@ public class GameController : MonoBehaviour {
 	public GameObject player;
 	private PlayerController persona;
 	private Item selectedItem;
+	private int selectedProfile;
 	private Inventorio inventorio;
 
 	private int current_scene_index;
@@ -15,12 +16,21 @@ public class GameController : MonoBehaviour {
 	private MusicManager soundplayer;
 	private FileManager fm;
 
+	Profile[] perfis;
+
 	BacklogManager backlog;
 	ArrayList backlogList;
 	Vector2 scrollPosition;
+	Vector2 scrollPosition2;
 	float backlog_width;
 	float backlog_height;
+	int selectedConversaIndex; //Indice da conversa selecionada no backlog. Se for -1 e pq nao ta selecionado nada
     
+
+	bool can_showppbutton;
+	int choice_number;
+
+
     //testes do victor
 	public Camera cam;
 
@@ -97,6 +107,15 @@ public class GameController : MonoBehaviour {
 	float grid_width;
 	float slot_width;
 	float slot_height;
+		//variaveis do menu de perfis
+	float charslot_width;
+	float charslot_height;
+	float slotarea_width;
+	float slotarea_height;
+	float imagearea_width;
+	float imagearea_height;
+	float descarea_width;
+	float descarea_height;
 		//variaveis da caixa de dialogo
 		// - Area da caixa de dialogo cobre 1/5 da tela, alinhado para baixo
 		// - Area da caixa de texto cobre 80% da altura e 85% da largura da caixa de dialogo, centralizada
@@ -153,6 +172,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		selectedItem = null;
+		selectedProfile = 0;
 		inventorio = new Inventorio(5);
 		player = null;
 		persona = null;
@@ -165,12 +185,16 @@ public class GameController : MonoBehaviour {
 		fm = FileManager.getInstance();
 		Debug.Log("diretorio GameData criado em:\n"+fm.gamedirectory);
 		initializeGameDataDirectory();
+		
+		enableppbutton();
+		perfis = new Profile[2];
 
         //testes do victor
 		on_mainmenu = true;
 		//menu_button_press = false;
 		show_menu_GUI = false;
 		show_inventory_GUI = false;
+		show_profiles_GUI = false;
 		show_bigimage_GUI = false;
 		item_grid = new Item[4,4,3];
 		page = 0;
@@ -211,6 +235,15 @@ public class GameController : MonoBehaviour {
 		grid_width = grid_height;
 		slot_width = grid_width / 4;
 		slot_height = grid_height / 4;
+		//variaveis do menu de perfis
+		slotarea_width = menu_width;
+		slotarea_height = 1.5f * menu_height / 10;
+		charslot_height = 0.9f * menu_width / 4;
+		charslot_width = charslot_height;
+		imagearea_width = menu_width;
+		imagearea_height = 3 * menu_height / 10;
+		descarea_width = menu_width;
+		descarea_height = 4.5f * menu_height / 10;
 		//variaveis da caixa de dialogo
 		dialogbox_width = Wdef;
 		dialogbox_height = Hdef / 4;
@@ -243,6 +276,7 @@ public class GameController : MonoBehaviour {
 		//variaveis do backlog
 		backlog_width = 4* Wdef / 5;
 		backlog_height =  4*Hdef / 5;
+		selectedConversaIndex = -1;
 
 		QM_movecounter = 0;
 		QM_Appear = false;
@@ -272,6 +306,14 @@ public class GameController : MonoBehaviour {
 				fm.createFile("GameData", "README", "txt");
 			}
 		}
+	}
+
+	public void enableppbutton() {
+		this.can_showppbutton = true;
+	}
+
+	public void disableppbutton() {
+		this.can_showppbutton = false;
 	}
 
 	public bool FadeToClear ()
@@ -456,10 +498,13 @@ public class GameController : MonoBehaviour {
 		{//Mostrando os componentes de GUI
 			
 			//Botao de interacao
-			if (show_intbutton_GUI) 
+			if (show_intbutton_GUI && can_showppbutton) 
 			{
 				showExamineGUI();
 			}
+			//else if (show_intbutton_GUI) {
+			//	hideppbutton();
+			//}
 
 			//Botao de acesso ao menu (inventario)
 			if (show_menu_GUI)
@@ -494,6 +539,12 @@ public class GameController : MonoBehaviour {
 			if (show_inventory_GUI)
 			{
 				showInventoryGUI();
+			}
+
+			//Menu perfis
+			if (show_profiles_GUI)
+			{
+				showProfilesGUI();
 			}
 
 			//Caixa de backlog
@@ -545,6 +596,10 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void setGlobalPosition(string personagem, Vector3 pos, int scene_index) {
+		gerEstados.setGlobalPosition(personagem, pos, scene_index);
+	}
+
 	public void setExaminable(string personagem,bool examinable)
 	{
 		ObjectController npc = getNPC(personagem);
@@ -553,10 +608,6 @@ public class GameController : MonoBehaviour {
 			npc.setExaminable(examinable);
 			Debug.Log(personagem+" examinavel = "+npc.examinable);
 		}
-	}
-
-	public void setGlobalPosition(string personagem, Vector3 pos, int scene_index) {
-		//TODO
 	}
 
 	public PositionGlobal getGlobalPosition(string personagem) {
@@ -711,7 +762,14 @@ public class GameController : MonoBehaviour {
 	public void showchoicebox(string[] choices)
 	{
 		choices_text = choices;
+		choice_number = -1;
 		show_choicebox_GUI = true;
+	}
+
+	public int selected_choice {
+		get {
+			return choice_number;
+		}
 	}
 
 	public void hidechoicebox()
@@ -757,6 +815,11 @@ public class GameController : MonoBehaviour {
 	public bool isShowingDialog()
 	{
 		return showing_dialog;
+	}
+
+	public void SetProfile(int num, Profile prof)
+	{
+		perfis [num] = prof;
 	}
 
 	public void DrawOutline(Rect pos, string text, GUIStyle styl, Color colOut, Color colIn){
@@ -847,6 +910,7 @@ public class GameController : MonoBehaviour {
 		{
 
 			show_inventory_GUI = true;
+			show_profiles_GUI = false;
 			IM_Appear = true;
 			persona.lockplayer();
 		}
@@ -867,7 +931,8 @@ public class GameController : MonoBehaviour {
 		if (prbtn)
 		{
 
-			show_inventory_GUI = true;
+			show_inventory_GUI = false;
+			show_profiles_GUI = true;
 			IM_Appear = true;
 			persona.lockplayer();
 		}
@@ -919,9 +984,18 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void showBacklogGUI(){
-		
+		/*float charslot_width;
+		float charslot_height;
+		float slotarea_width;
+		float slotarea_height;
+		float imagearea_width;
+		float imagearea_height;
+		float descarea_width;
+		float descarea_height;
+*/
+
 		float lpos = Wdef - menu_width;
-		
+
 		if (IM_Appear == true)
 		{
 			if (QM_movecounter < 10)
@@ -938,23 +1012,76 @@ public class GameController : MonoBehaviour {
 			}else
 			{
 				QM_movecounter = 0;
-				show_inventory_GUI = false;
+				backlogList = null;
+				selectedConversaIndex = -1;
+				show_backlog_GUI = false;
 			}
 		}
-		
-		if (backlogList == null) {
-			backlogList = backlog.getPersonagemBacklog ("Eduardo Hastings");
-		}
-			//AKI
-		//Fazer a area delimitante do backlog
+
+		//Fazer a area delimitante do menu
 		GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,menu_width,menu_height));
 		
 		//Desenhar o background do menu
 		GUI.Box(new Rect(0,0,menu_width,menu_height),"","MenuBackground");
 		
-		//Definir area superior
+		//area superior
+		GUI.BeginGroup(new Rect(0,0,slotarea_width,slotarea_height));
+
+		GUI.Box(new Rect(0,0,slotarea_width,slotarea_height),"","TextBackground");
+		//slot
+		GUI.Box(new Rect((slotarea_width-charslot_width)/2,(slotarea_height-charslot_height)/2,charslot_width,charslot_height),"","TextBackground");
+		GUIStyle facestyl = new GUIStyle ();
+		facestyl.normal.background = face_sets[selectedProfile].texture;
+		GUI.Box(new Rect((slotarea_width-charslot_width)/2,(slotarea_height-charslot_height)/2,charslot_width,charslot_height),"",facestyl);
+		//setas
+		bool rightarrow = GUI.Button(new Rect(0.9f*slotarea_width-charslot_width,0.125f*slotarea_height,charslot_width,charslot_height),"","ArrowRBackground");
+		if (rightarrow)
+		{
+			backlogList = null;
+			selectedConversaIndex = -1;
+			if (selectedProfile < perfis.Length-1)
+			{
+				selectedProfile = selectedProfile + 1;
+			}else
+			{
+				selectedProfile = 0;
+			}
+		}
+		
+		bool leftarrow = GUI.Button(new Rect(0.1f*slotarea_width,0.125f*slotarea_height,charslot_width,charslot_height),"","ArrowLBackground");
+		if (leftarrow)
+		{
+			backlogList = null;
+			selectedConversaIndex = -1;
+			if (selectedProfile > 0)
+			{
+				selectedProfile = selectedProfile -1;
+			}else
+			{
+				selectedProfile = perfis.Length-1;
+			}			
+		}
+		GUI.EndGroup();
+		
+		if (backlogList == null && show_backlog_GUI) {
+			if(selectedProfile == 0){
+				backlogList = backlog.getPersonagemBacklog ("");
+			}else if(selectedProfile == 1){
+
+				backlogList = backlog.getPersonagemBacklog ("Eduardo Hastings");
+			}
+		}
+			//AKI
+		//Fazer a area delimitante do backlog
+		GUI.BeginGroup (new Rect (0, slotarea_height, menu_width, imagearea_height));
+		//GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,,menu_height));
+		
+		//Desenhar o background do menu
+		GUI.Box(new Rect(0,0,menu_width,imagearea_height),"","MenuBackground");
+		
+		//Definir area superior backlog
 		GUI.BeginGroup(new Rect(0,0,uparea_width,uparea_height));
-		//Desenhar o background do backlog
+		//Desenhar o background do backlog(parte de cima)
 		scrollPosition = GUI.BeginScrollView (new Rect(0, 0, uparea_width, uparea_height),scrollPosition, new Rect(0, 0, uparea_width, backlog_height / 5 * backlogList.Count));
 		GUI.Box(new Rect(0,0,backlog_width,backlog_height),"Backlog","MenuBackground");
 		for(int i = 0; i < backlogList.Count; i++){
@@ -967,24 +1094,75 @@ public class GameController : MonoBehaviour {
 			text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
 			Conversa conversa = (Conversa)backlogList[i];
 			//DialogLine dialog = (DialogLine)backlogList[i];;
-			GUI.Box(new Rect(0, 0, uparea_width, uparea_height / 3),conversa.getRotulo(),text_gui);
-			
+			bool backlogItemClick =GUI.Button(new Rect(0, 0, uparea_width, uparea_height / 3),conversa.getRotulo(),text_gui);
+			//GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),conversa.getRotulo(),text_gui);
+			if(backlogItemClick){
+				selectedConversaIndex = i;
+			}
 			GUI.EndGroup ();
 		}
 		GUI.EndScrollView ();
 		GUI.EndGroup ();
-		GUI.BeginGroup(new Rect(50, backlog_height + 50, uparea_width, lbutton_height * 1.5f));		
+		GUI.EndGroup ();
+		
+
+		//Grupo dos dialogos de cada conversa
+		GUI.BeginGroup (new Rect (0, slotarea_height + imagearea_height + 5, menu_width, imagearea_height));
+		//GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,,menu_height));
+		
+		//Desenhar o background do menu
+		GUI.Box(new Rect(0,0,menu_width,imagearea_height),"","MenuBackground");
+		
+		//Definir area inferior do backlog
+		GUI.BeginGroup(new Rect(0,0,uparea_width,uparea_height));
+		//Desenhar o background inferior backlog
+		GUI.Box(new Rect(0,0,backlog_width,backlog_height),"Dialogos","MenuBackground");
+		scrollPosition2 = GUI.BeginScrollView (new Rect(0, 0, uparea_width, uparea_height),scrollPosition2, new Rect(0, 0, uparea_width, backlog_height));
+		if(selectedConversaIndex > -1){
+		
+			for(int i = 0; i < ((Conversa)backlogList[selectedConversaIndex]).getDialogos().Count; i++){
+				
+				//Fazer a area delimitante da caixa de texto
+				GUI.BeginGroup(new Rect(0,backlog_height * i / 5,uparea_width,backlog_height / 3));
+				
+				//Desenhar o texto da caixa de texto de uma linha de dialogo
+				GUIStyle text_gui = GUI.skin.GetStyle("TextBackground");
+				text_gui.fontSize = Mathf.RoundToInt(dialog_fontsize);
+				//Conversa conversa = (Conversa)backlogList[i];
+				DialogLine dl =((DialogLine)((Conversa)backlogList[selectedConversaIndex]).getDialogos()[i]);
+				//DialogLine dialog = (DialogLine)backlogList[i];;
+				GUI.Box(new Rect(0, 0, uparea_width, uparea_height / 3), dl.getPersonagem() +" - "+dl.getTexto());
+				GUI.EndGroup ();
+			}
+
+		}
+		GUI.EndScrollView ();
+		GUI.EndGroup ();
+		GUI.EndGroup ();
+
+		GUI.BeginGroup(new Rect(0,menu_height-btnarea_height,btnarea_width,btnarea_height));
+		
+		//Desenhar area dos botoes dos menus(botoes)
 		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
 		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
-		bool closebutton = GUI.Button(new Rect(0,0,uparea_width,lbutton_height * 1.5f),"Fechar",lbutton);	
-		if(closebutton){
-			backlogList = null;
-			show_backlog_GUI= false;
+		GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Salvar",lbutton);
+		
+		
+		GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Carregar",lbutton);
+		
+		GUI.Button(new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Configurações",lbutton);
+		
+		bool closebutton = GUI.Button(new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Sair do jogo",lbutton);
+		if (closebutton)
+		{
 			IM_Appear = false;
 			persona.unlockplayer();
 		}
+		
 		GUI.EndGroup();
+		
 		GUI.EndGroup ();
+
 	}
 
 	public void showInventoryGUI()
@@ -1082,8 +1260,7 @@ public class GameController : MonoBehaviour {
 			}else
 			{
 				page = 2;
-			}
-			
+			}			
 		}
 		bool rightarrow = GUI.Button(new Rect(0.98f*lowarea_width-slot_width,2*lowarea_height/5,slot_width,slot_height),"","ArrowRBackground");
 		if (rightarrow)
@@ -1161,6 +1338,125 @@ public class GameController : MonoBehaviour {
 		GUI.EndGroup();		
 		
 		GUI.EndGroup();
+	}
+
+	public void showProfilesGUI()
+	{
+	/*
+	float charslot_width;
+	float charslot_height;
+	float slotarea_width;
+	float slotarea_height;
+	float imagearea_width;
+	float imagearea_height;
+	float descarea_width;
+	float descarea_height;
+	*/
+		float lpos = Wdef - menu_width;
+		
+		if (IM_Appear == true)
+		{
+			if (QM_movecounter < 10)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10);
+				QM_movecounter++;
+			}
+		}else
+		{
+			if (QM_movecounter > 0)
+			{
+				lpos = Wdef - QM_movecounter*(menu_width/10); 
+				QM_movecounter--;
+			}else
+			{
+				QM_movecounter = 0;
+				show_profiles_GUI = false;
+			}
+		}
+
+		//Fazer a area delimitante do menu
+		GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,menu_width,menu_height));
+		
+		//Desenhar o background do menu
+		GUI.Box(new Rect(0,0,menu_width,menu_height),"","MenuBackground");
+
+		//area superior
+		GUI.BeginGroup(new Rect(0,0,slotarea_width,slotarea_height));
+
+		GUI.Box(new Rect(0,0,slotarea_width,slotarea_height),"","TextBackground");
+		//slot
+		GUI.Box(new Rect((slotarea_width-charslot_width)/2,(slotarea_height-charslot_height)/2,charslot_width,charslot_height),"","TextBackground");
+		GUIStyle facestyl = new GUIStyle ();
+		facestyl.normal.background = face_sets[selectedProfile].texture;
+		GUI.Box(new Rect((slotarea_width-charslot_width)/2,(slotarea_height-charslot_height)/2,charslot_width,charslot_height),"",facestyl);
+		//setas
+		bool rightarrow = GUI.Button(new Rect(0.9f*slotarea_width-charslot_width,0.125f*slotarea_height,charslot_width,charslot_height),"","ArrowRBackground");
+		if (rightarrow)
+		{
+			if (selectedProfile < perfis.Length-1)
+			{
+				selectedProfile = selectedProfile + 1;
+			}else
+			{
+				selectedProfile = 0;
+			}
+		}
+
+		bool leftarrow = GUI.Button(new Rect(0.1f*slotarea_width,0.125f*slotarea_height,charslot_width,charslot_height),"","ArrowLBackground");
+		if (leftarrow)
+		{
+			if (selectedProfile > 0)
+			{
+				selectedProfile = selectedProfile -1;
+			}else
+			{
+				selectedProfile = perfis.Length-1;
+			}			
+		}
+		GUI.EndGroup();
+
+		//area central
+		GUI.BeginGroup (new Rect (0, slotarea_height, imagearea_width, imagearea_height));
+
+		GUIStyle bfacestyl = new GUIStyle ();
+		bfacestyl.normal.background = face_sets[selectedProfile].texture;
+		GUI.Box(new Rect((imagearea_width-imagearea_height)/2,0,imagearea_height,imagearea_height),"",bfacestyl);
+		GUIStyle ftxtstyl = GUI.skin.FindStyle("Tooltip");
+		ftxtstyl.fontSize = Mathf.RoundToInt(intbutton_height / 3);
+		DrawOutline (new Rect (0, imagearea_height / 2, imagearea_width, imagearea_height / 2), "Texto \nmais texto \nainda mais texto", ftxtstyl, Color.black, Color.white);
+		GUI.EndGroup ();
+
+		//area inferior
+		GUI.BeginGroup (new Rect (0, slotarea_height + imagearea_height, descarea_width, descarea_height));
+
+		GUIStyle descstyl = GUI.skin.FindStyle ("TextBackground");
+		descstyl.fontSize = Mathf.RoundToInt(desc_fontsize);
+		GUI.Box (new Rect (0, 0, descarea_width, descarea_height), "ULUULULULLLULULLULULULULLULULLULULULULULULLU", descstyl);
+
+		GUI.EndGroup ();
+
+		GUI.BeginGroup(new Rect(0,menu_height-btnarea_height,btnarea_width,btnarea_height));
+		
+		//Desenhar area dos botoes dos menus(botoes)
+		GUIStyle lbutton = GUI.skin.GetStyle("ButtonBackground");
+		lbutton.fontSize = Mathf.RoundToInt(lbutton_fontsize);
+		GUI.Button(new Rect(0,0,lbutton_width,lbutton_height),"Salvar",lbutton);
+		
+
+		GUI.Button(new Rect(lbutton_width,0,lbutton_width,lbutton_height),"Carregar",lbutton);
+
+		GUI.Button(new Rect(0,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Configurações",lbutton);
+		
+		bool closebutton = GUI.Button(new Rect(lbutton_width,btnarea_height-lbutton_height,lbutton_width,lbutton_height),"Sair do jogo",lbutton);
+		if (closebutton)
+		{
+			IM_Appear = false;
+			persona.unlockplayer();
+		}
+
+		GUI.EndGroup();
+
+		GUI.EndGroup ();
 	}
 
 	public void showFacesGUI()
@@ -1258,7 +1554,26 @@ public class GameController : MonoBehaviour {
 		GUI.Box(new Rect(0,0,textarea_width,textarea_height),dialog_text,text_gui);
 
 		GUI.EndGroup ();
-		
+
+		Rect passbuttonarea = new Rect ((dialogbox_width - dialogbox_width / 4) / 2, textarea_height+ ((dialogbox_height - textarea_height)/2), dialogbox_width / 4, (dialogbox_height - textarea_height)/2);
+		GUIStyle passbuttonstyle = GUI.skin.FindStyle ("Tooltip");
+		passbuttonstyle.fontSize = Mathf.RoundToInt(lbutton_fontsize);
+		string passtext;
+		if (showing_dialog)
+		{
+			passtext = Teclas.Confirma+" - Mostrar tudo";
+		}else
+		{
+			passtext = Teclas.Confirma+" - Continuar";
+		}
+		DrawOutline (passbuttonarea, passtext, passbuttonstyle, Color.black, Color.white);
+		/*
+		bool passbutton = GUI.Button (passbuttonarea,passtext,passbuttonstyle);
+		if (passbutton)
+		{
+			//passar o texto com botao
+		}
+		*/
 		GUI.EndGroup();
 	}
 
@@ -1280,6 +1595,7 @@ public class GameController : MonoBehaviour {
 			choicebuttons[i] = GUI.Button(new Rect((choicebox_width-choicetext_width)/2,((choicebox_height-choicetext_height)/2)+(i*choicetext_height),choicetext_width,choicetext_height),choices_text[i],text_gui);
 			if (choicebuttons[i])
 			{
+				choice_number = i;
 				//colocar acao da escolha
 			}
 		}

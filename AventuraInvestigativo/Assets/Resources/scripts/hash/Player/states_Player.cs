@@ -39,15 +39,48 @@ public class states_Player : DicionarioAcoes
 		//  Acoes OnInit do estado 1
 		//=================================
 
+		ArrayList escolhas = new ArrayList();
+
+		Escolha yes = new Escolha("Sim, por favor!");
+		ArrayList dialogoTESTE = new ArrayList ();
+		dialogoTESTE.Add(new DialogLine ("Jane", "TESTE!", 0, 0));
+
+		yes.addAcao(new SalvarPosicaoGlobal(gm, "Eduardo", new Vector3(-0.7f,-1.6f), 4));
+		yes.addAcao(new MudarCena (gm, "CenaSalao", "SpawnJane"));
+		yes.addAcao(new MudarDirecao(gm, "Player", 'L', 'N'));
+		yes.addAcao(new TocarMusica(gm, 3,0));
+		yes.addAcao(new TocarMusica(gm, 0,1));
+		yes.addAcao(new FadeInScreen (gm));
+		yes.addAcao(new Esperar(gm, 0.1));
+		yes.addAcao(new PlayWaitingAnimation(gm, false));
+		yes.addAcao(new MostrarDialogos(gm, dialogoTESTE));
+		yes.addAcao(new TocarMusica(gm, 4,0));
+		yes.addAcao(new TornarExaminavel (gm, "Eduardo", true));
+		yes.addAcao(new TornarExaminavel (gm, "Mesa", true));
+		yes.addAcao(new TornarExaminavel (gm, "Tapete", true));
+		yes.addAcao(new HabilitarMenu (gm, true));
+		yes.addAcao(new MudarEstado(gm, "Player", 0));
+
+		Escolha no = new Escolha("Nao");
+
+		Escolha about = new Escolha("Como assim? Explique-me.");
+		ArrayList explicacao = new ArrayList();
+		explicacao.Add(new DialogLine("", "Bem, se você escolher \"Sim, por favor\", então você irá pular a animação inicial.", -1));
+		explicacao.Add(new DialogLine("", "E se você escolher \"Não\"... acho que nem preciso falar, né?", -1));
+		explicacao.Add(new DialogLine("", "Então, vá em frente e faça sua escolha!", -1));
+		about.addAcao(new MostrarDialogos(gm, explicacao));
+
+		DialogLine esc_dialog = new DialogLine("", "Você deseja pular a introdução do jogo?", -1);
+		escolhas.Add(yes);
+		escolhas.Add(no);
+		escolhas.Add(about);
+		PlayerState1.OnInitActions.Add(new MostrarEscolhas(gm, esc_dialog, escolhas, 2));
+		//Acao me = (Acao) new MostrarEscolhas(gm, ?, ?, ?);
+
+
 		string[] textos0 = new string[1];
 		textos0 [0] = "4 de março \n15:00h";
 		int[] imgs0 = new int[1] {-1};
-
-		string[] textos1 = new string[3];
-		textos1[0] = "Para passar textos ou interagir com os objetos do cenário pressione Z.";
-		textos1[1] = "Para mover o personagem use as setas do teclado.";
-		textos1[2] = "Para acessar o menu clique com o botao direito do mouse";
-		int[] imgs1 = new int[3] {-1,-1,-1};
 
 		string[] textos2 = new string[6];
 		textos2 [0] = "Cheguei hoje pela manhã na Mansão Christie a convite de meu amigo, o Capitão Eduardo Hastings.";
@@ -73,10 +106,10 @@ public class states_Player : DicionarioAcoes
 
 		// Cena 1
 
+		PlayerState1.OnInitActions.Add (new MudarDirecao(gm, "Player", 'N', 'D'));
 		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 1,0));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 2));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs1,1f,1f,0f,0.3f,0.1f,textos1,Color.white,TextAnchor.UpperCenter,new double[3] {0.1,0.1,0.1}));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs0, 1f, 1f, 0f, 0.4f, 0.15f, textos0, Color.white,TextAnchor.UpperCenter,new double[1] {0.1}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs0, 1f, 1f, 0f, 0.4f, 0.15f, textos0, Color.white,TextAnchor.UpperCenter,new double[1] {1}));
 		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new MoverPersonagem (gm, "Player", "initial_spot2", false));
@@ -84,22 +117,22 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 2));
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2, Color.black,TextAnchor.UpperLeft,new double[6] {0.1,0.1,0.1,0.1,0.1,0.1}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2, Color.black,TextAnchor.UpperLeft,new double[6] {1,1,1,1,1,1}));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 4));
 		//Cena 2
 		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 2,0));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs3, 1f, 1f, 0f, 0.4f, 0.15f, textos3, Color.white,TextAnchor.UpperCenter,new double[2] {0.1,0.1}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs3, 1f, 1f, 0f, 0.4f, 0.15f, textos3, Color.white,TextAnchor.UpperCenter,new double[2] {1,1}));
 		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4, Color.black,TextAnchor.UpperLeft,new double[2] {0.1,0.1}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4, Color.black,TextAnchor.UpperLeft,new double[2] {1,1}));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
 		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 3));
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs5, 1f, 1f, 0f, 0f, 0f, textos5, Color.clear,TextAnchor.UpperLeft,new double[1] {0.1}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs5, 1f, 1f, 0f, 0f, 0f, textos5, Color.clear,TextAnchor.UpperLeft,new double[1] {1}));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		//Cena 3
 		PlayerState1.OnInitActions.Add (new MudarCena (gm, "CenaSalao", "SpawnJane"));
@@ -108,18 +141,14 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
 
 
-
-
-
-
 		Acao mover0 = new MoverPersonagem(gm, "Player", "MoveJane1", true);
 		Acao mover1 = new MoverPersonagem(gm, "Player", "SpawnJane", true);
 		Acao dialog1 = new MostrarDialogos(gm, new DialogLine("Jane", "...", 0, 0));
 		Acao dialog2 = new MostrarDialogos(gm, new DialogLine ("Jane", "...!", 0, 0));
 
 		ArrayList dialogoEduardo = new ArrayList ();
-		dialogoEduardo.Add(new DialogLine ("Jane", "TESTE!", 0, 0));
-		/*
+		//dialogoEduardo.Add(new DialogLine ("Jane", "TESTE!", 0, 0));
+
 
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Sinto que vou me arrepender em tê-la convidado a passar este fim-desemana na Mansão Christie. Você parece um tanto chateada.", 1, 1));
 		dialogoEduardo.Add(new DialogLine ("Jane", "Não se incomode comigo, Hastings. Você sabe que meu temperamento não é dos mais sociáveis.", 0, 0));
@@ -178,7 +207,7 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add(mover0);
 		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm));
 		PlayerState1.OnInitActions.Add(dialog1);
-		*/
+
 		PlayerState1.OnInitActions.Add(new Esperar(gm, 2));
 
 		PlayerState1.OnInitActions.Add(new PlayWaitingAnimation(gm, false));
@@ -189,10 +218,10 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add(new MostrarDialogos(gm, dialogoEduardo));
 		PlayerState1.OnInitActions.Add(new SalvarPosicaoGlobal(gm, "Eduardo"));
 		PlayerState1.OnInitActions.Add(new TocarMusica(gm, 4,0));
-		PlayerState1.OnInitActions.Add (new TornarExaminavel (gm, "Eduardo", true));
-		PlayerState1.OnInitActions.Add (new TornarExaminavel (gm, "Mesa", true));
-		PlayerState1.OnInitActions.Add (new TornarExaminavel (gm, "Tapete", true));
-		PlayerState1.OnInitActions.Add (new HabilitarMenu (gm, true));
+		PlayerState1.OnInitActions.Add(new TornarExaminavel(gm, "Eduardo", true));
+		PlayerState1.OnInitActions.Add(new TornarExaminavel(gm, "Mesa", true));
+		PlayerState1.OnInitActions.Add(new TornarExaminavel(gm, "Tapete", true));
+		PlayerState1.OnInitActions.Add(new HabilitarMenu(gm, true));
 		PlayerState1.OnInitActions.Add(new MudarEstado(gm, "Player", 0));
 
 

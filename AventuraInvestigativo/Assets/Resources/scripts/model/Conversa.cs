@@ -35,10 +35,10 @@ public class Conversa {
 		this.personagens = new ArrayList ();
 		for (int i = 0; i < dialogos.Count; i++) {
 			DialogLine d = ((DialogLine)dialogos[i]);
-			Debug.Log ("Personagem: "+d.getPersonagem ());
+			//Debug.Log ("Personagem: "+d.getPersonagem ());
 			if(d.getPersonagem() != null && !d.getPersonagem().Equals("") && !personagens.Contains(d.getPersonagem())){
 				personagens.Add(d.getPersonagem());
-				Debug.Log ("ROTULO: "+rotulo+" - Adicionou Personagem "+d.getPersonagem ());
+				//ebug.Log ("ROTULO: "+rotulo+" - Adicionou Personagem "+d.getPersonagem ());
 			}
 		}
 	}

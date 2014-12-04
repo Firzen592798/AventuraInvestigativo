@@ -25,33 +25,41 @@ public class BacklogManager {
 
 	//Adiciona uma fala ao backlog
 	public void addToBacklog(DialogLine dialogLine){
-		Debug.Log ("Adicionou para o backlog" + dialogLine.getTexto());
+		//Debug.Log ("Adicionou para o backlog" + dialogLine.getTexto());
 		this.backlog.Add (dialogLine);
 	}
 
 	//Adiciona uma fala ao backlog
 	public void addToBacklog(Conversa conversa){
-		conversas.Add (conversa);
+		//Debug.Log ("Adicionou para o backlog uma conversa");
+		this.conversas.Add (conversa);
 	}
 
 	public ArrayList getPersonagemBacklog(String nome){
 		ArrayList conversasBacklog = new ArrayList ();
 		for(int i = conversas.Count - 1; i >= 0; i--){
 			Conversa c = (Conversa)conversas[i];
-			Debug.Log (c);
+			//Debug.Log (c);
 			int count = 0;
 			if(c != null){
 				count = c.getPersonagens().Count;
 			}
 			for(int j = 0; j < count; j++){
 				string personagem = (String)c.getPersonagens()[j];
-				if(personagem.Equals(nome)){
-					conversasBacklog.Add(c);
+				if(personagem.Contains(nome)){
+					if(!conversasBacklog.Contains(c)){
+						conversasBacklog.Add(c);
+					}
 					j = c.getPersonagens().Count;
+					
 				}
 			}
 		}
 		return conversasBacklog;
+	}
+
+	public ArrayList getDialogos(Conversa c){
+		return c.getDialogos ();
 	}
 
 	//Recupera o backlog inteiro, ja na ordem do mais atual para o mais antigo
@@ -59,7 +67,7 @@ public class BacklogManager {
 		ArrayList backlogReverse = (ArrayList)backlog.Clone();
 		backlogReverse.Reverse();
 		for (int i = 0; i < backlogReverse.Count; i++) {
-			Debug.Log ("Retornou" + ((DialogLine)backlogReverse[i]).getTexto());
+			//Debug.Log ("Retornou" + ((DialogLine)backlogReverse[i]).getTexto());
 		}
 		return backlogReverse;
 	}

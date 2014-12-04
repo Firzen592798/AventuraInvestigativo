@@ -19,7 +19,7 @@ public class states_CarpetObject: DicionarioAcoes
 		//=================================
 		//  Acoes Settings do estado 0
 		//=================================
-		TapeteState0.SettingActions.Add(new SalvarPosicaoGlobal(gm, "Tapete"));
+		TapeteState0.SettingActions.Add(new InicializarPosicaoGlobal(gm, "Tapete"));
 
 		//=================================
 		//  Acoes OnExamine do estado 0
@@ -37,8 +37,9 @@ public class states_CarpetObject: DicionarioAcoes
 		TapeteState0.OnExamineAction.Add(new AdicionarItem(gm, "Chave", "sprites/Key item", false));
 		TapeteState0.OnExamineAction.Add(new AtivarEvento(gm, 0));
 		TapeteState0.OnExamineAction.Add(new MudarEstado(gm, "Eduardo",1,"(0 & !1)"));
+		TapeteState0.OnExamineAction.Add(new TornarExaminavel(gm, "Tapete", false));
 		TapeteState0.OnExamineAction.Add(new MudarEstado(gm, "Tapete", 1));
-		
+
 		AddStateTo(TapeteState0);
 		//acoesHashtable.Add("Tapete-0", TapeteState0);
 		
@@ -47,16 +48,16 @@ public class states_CarpetObject: DicionarioAcoes
 		//********************************************
 		state TapeteState1 = new state(1);
 
-		TapeteState1.OnInitActions.Add (new TornarExaminavel (gm, "Tapete", false));
+		TapeteState1.SettingActions.Add(new TornarExaminavel (gm, "Tapete", false));
 		//=================================
 		//  Acoes OnExamine do estado 1
 		//=================================
 		DialogLine dialogoTapeteVazio = new DialogLine ("Tapete", "Nao ha nada aqui", -1);
 		//ArrayList dialogosTapeteVazio = new ArrayList();
 		//dialogosTapeteVazio.Add (tapetevazio);
-		Conversa c1 = new Conversa ("Tapete sem nada", dialogosTapete);
-		Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, c1);
-		TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
+		//Conversa c1 = new Conversa ("Tapete sem nada", dialogosTapete);
+		//Acao mostrarDialogoTapeteVazio = new MostrarDialogos(gm, c1);
+		//TapeteState1.OnExamineAction.Add(mostrarDialogoTapeteVazio);
 
 		
 		AddStateTo(TapeteState1);
