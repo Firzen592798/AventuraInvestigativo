@@ -5,7 +5,7 @@ public class MostrarEscolhas : Acao {
 
 	DialogLine dialogLine;
 	ArrayList escolhas;
-	bool mostrouNaTela = false;
+	bool choosing = false;
 	//bool down_button_pressed;
 	//bool up_button_pressed;
 	//bool dialog_button_pressed;
@@ -63,8 +63,8 @@ public class MostrarEscolhas : Acao {
 		if (Input.GetKeyUp (KeyCode.UpArrow)) {
 			up_button_pressed = false;
 		}*/
-		if(!mostrouNaTela) {
-			mostrouNaTela = true;
+		if(!choosing) {
+			choosing = true;
 			gm.showdialogbox();
 			gm.lockplayer();
 			string[] escolhasArray = new string[escolhas.Count];
@@ -74,7 +74,7 @@ public class MostrarEscolhas : Acao {
 			gm.showchoicebox(escolhasArray);
 			gm.LoadShowTxt(dialogLine.getTexto());
 		}
-		if (mostrouNaTela) {
+		else {
 			/*if (up_button_pressed) {
 				if ( choiceindex > 0) {
 					choiceindex = choiceindex - 1;
@@ -96,7 +96,7 @@ public class MostrarEscolhas : Acao {
 					choiceindex = gm.selected_choice;
 					gm.hidechoicebox();
 					gm.hidedialogbox();
-					gm.unlockplayer();
+					//gm.unlockplayer();
 
 					this.ListaAcoes =((Escolha)escolhas[choiceindex]).getListaAcoes();
 
@@ -124,11 +124,12 @@ public class MostrarEscolhas : Acao {
 						}
 					}
 					//bool exit = ((exit_on == choiceindex)||(exit_on == -1));
-					mostrouNaTela = false;
+					choosing = false;
 					choiceindex = -1;
 					prox_action = 0;
 					ListaAcoes = new ArrayList();
 					if (!repeat) {
+						gm.unlockplayer();
 						return true;
 					}
 				}

@@ -23,6 +23,8 @@ public class SaveGameStructure {
 
 	public string[,] itempegos;
 
+	public string[,] profiles;
+
 	public int music;
 	public int anbient;
 
@@ -31,11 +33,9 @@ public class SaveGameStructure {
 		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
 		GameController gm = (GameController) g.GetComponent(typeof(GameController));
 
-		//this.current_scene = Application.loadedLevel;
-
 		show_menu = gm.show_menu_GUI;
 
-		this.events = gm.getEvents();
+		events = gm.getEvents();
 
 		ArrayList l = gm.getNomePersonagens();
 		nomes = new string[l.Count];
@@ -55,19 +55,6 @@ public class SaveGameStructure {
 			positions[i] = pgs;
 		}
 
-		/*
-		foreach(string nome in gm.getNomePersonagens()) {
-			states.Add(nome, gm.getStateIndex(nome));
-			PositionGlobal pg = gm.getGlobalPosition(nome);
-			PositionGlobalSerializable pgs;
-			pgs.is_initialized = pg.initialized;
-			pgs.x = pg.position.x;
-			pgs.y = pg.position.y;
-			pgs.z = pg.position.z;
-			pgs.scene_index = pg.scene_index;
-			positions.Add(nome, pgs);
-		}*/
-
 		Item[] IL = gm.getItems();
 
 		itempegos = new string[IL.Length,2];
@@ -75,11 +62,18 @@ public class SaveGameStructure {
 			itempegos[i,0] = IL[i].getNome();
 			itempegos[i,1] = IL[i].getSpritePath();
 		}
-		//itempegos = gm.getItems();
+
+		Profile[] perfis = gm.Profiles;
+		profiles = new string[perfis.Length, 4];
+		for(int i = 0; i < perfis.Length; i++) {
+			profiles[i,0] = perfis[i].Nome;
+			profiles[i,1] = perfis[i].Idade;
+			profiles[i,2] = perfis[i].Sexo;
+			profiles[i,3] = perfis[i].Descricao;
+		}
 
 		music = gm.getMusic();
 		anbient = gm.getAnbient();
-
 	}
 
 	public PositionGlobal getPositionGlobal(int index) {

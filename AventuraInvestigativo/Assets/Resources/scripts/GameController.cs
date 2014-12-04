@@ -355,10 +355,7 @@ public class GameController : MonoBehaviour {
 				Debug.Log("item: "+save.itempegos[i,0]+", sprite: "+save.itempegos[i,1]);
 				inventorio.addItem(save.itempegos[i,0], save.itempegos[i,1]);
 			}
-			//foreach(Item item in save.itempegos) {
-			//	Debug.Log("item: "+item.getNome()+", sprite: "+item.getSpritePath());
-			//	inventorio.addItem(item.getNome(), item.getSpritePath());
-			//}
+
 			for (int i = 0; i < save.events.Length; i++) {
 				if (save.events[i]) {
 					gerEstados.setEventActive(i);
@@ -383,18 +380,11 @@ public class GameController : MonoBehaviour {
 				}
 			}
 
-			//foreach(string nome in save.states.Keys) {
-			//	gerEstados.alterarEstado(nome, ((int)save.states[nome]), null);
-			//	if (nome != "Player") {
-			//		PositionGlobal p = save.getPositionGlobal(nome);
-			//		if (p.initialized) {
-			//			gerEstados.setGlobalPosition(nome, p.position, p.scene_index);
-			//		}
-			//	}
-			//}
-			//PositionGlobal playerPos = save.getPositionGlobal("Player");
-			//init_spot.transform.position = playerPos.position;
-			//init_scene = playerPos.scene_index;
+			int n = save.profiles.GetLength(0);
+			perfis = new Profile[n];
+			for(int i = 0; i < n; i++) {
+				perfis[i] = new Profile(save.profiles[i,0], save.profiles[i,1], save.profiles[i,2], save.profiles[i,3]);
+			}
 
 			init_music = save.music;
 			init_anbient = save.anbient;
@@ -759,6 +749,12 @@ public class GameController : MonoBehaviour {
 
 		GUI.matrix = oldMatrix;
 
+	}
+
+	public Profile[] Profiles {
+		get {
+			return perfis;
+		}
 	}
 
 	public int getMusic() {
@@ -1350,6 +1346,7 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
+		if (!show_inventory_GUI) {return;}
 		//Fazer a area delimitante do menu
 		GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,menu_width,menu_height));
 		
@@ -1622,6 +1619,8 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
+		if (!show_profiles_GUI) {return;}
+
 		//Fazer a area delimitante do menu
 		GUI.BeginGroup(new Rect(lpos,Hdef-menu_height,menu_width,menu_height));
 		
@@ -1706,7 +1705,7 @@ public class GameController : MonoBehaviour {
 
 		GUIStyle descstyl = GUI.skin.FindStyle ("TextBackground");
 		descstyl.fontSize = Mathf.RoundToInt(desc_fontsize);
-		GUI.Box (new Rect (0, 0, descarea_width, descarea_height), perfis[selectedProfile].getDesc(), descstyl);
+		GUI.Box (new Rect (0, 0, descarea_width, descarea_height), perfis[selectedProfile].Descricao, descstyl);
 
 		GUI.EndGroup ();
 

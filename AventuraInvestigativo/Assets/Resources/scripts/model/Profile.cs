@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections;
 public class Profile
 {
-	string nome;
-	string idade;
-	string sexo;
-	string descricao;
+	private string nome;
+	private string idade;
+	private string sexo;
+	private string descricao;
 
 	public Profile(string nome,string idade,string sexo,string descricao)
 	{
@@ -21,9 +21,28 @@ public class Profile
 		return info;
 	}
 
-	public string getDesc()
-	{
-		return descricao;
+	public string Nome {
+		get {
+			return nome;
+		}
+	}
+
+	public string Idade {
+		get {
+			return idade;
+		}
+	}
+
+	public string Sexo {
+		get {
+			return sexo;
+		}
+	}
+
+	public string Descricao {
+		get {
+			return descricao;
+		}
 	}
 	
 }
