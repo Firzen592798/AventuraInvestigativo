@@ -1408,7 +1408,26 @@ public class GameController : MonoBehaviour {
 		GUI.Box(new Rect(0,0,textarea_width,textarea_height),dialog_text,text_gui);
 
 		GUI.EndGroup ();
-		
+
+		Rect passbuttonarea = new Rect ((dialogbox_width - dialogbox_width / 4) / 2, textarea_height+ ((dialogbox_height - textarea_height)/2), dialogbox_width / 4, (dialogbox_height - textarea_height)/2);
+		GUIStyle passbuttonstyle = GUI.skin.FindStyle ("Tooltip");
+		passbuttonstyle.fontSize = Mathf.RoundToInt(lbutton_fontsize);
+		string passtext;
+		if (showing_dialog)
+		{
+			passtext = Teclas.Confirma+" - Mostrar tudo";
+		}else
+		{
+			passtext = Teclas.Confirma+" - Continuar";
+		}
+		DrawOutline (passbuttonarea, passtext, passbuttonstyle, Color.black, Color.white);
+		/*
+		bool passbutton = GUI.Button (passbuttonarea,passtext,passbuttonstyle);
+		if (passbutton)
+		{
+			//passar o texto com botao
+		}
+		*/
 		GUI.EndGroup();
 	}
 
