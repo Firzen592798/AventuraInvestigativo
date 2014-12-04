@@ -17,10 +17,11 @@ public class SaveGameStructure {
 	public bool show_menu;
 
 	public bool[] events;
-	public Hashtable states;
-	public Hashtable positions;
+	public string[] nomes;
+	public int[] states;
+	public PositionGlobalSerializable[] positions;
 
-	public Item[] itempegos;
+	public string[,] itempegos;
 
 	public int music;
 	public int anbient;
@@ -36,9 +37,25 @@ public class SaveGameStructure {
 
 		this.events = gm.getEvents();
 
-		states = new Hashtable();
-		positions = new Hashtable();
+		ArrayList l = gm.getNomePersonagens();
+		nomes = new string[l.Count];
+		states = new int[l.Count];
+		positions = new PositionGlobalSerializable[l.Count];
 
+		for(int i = 0; i < l.Count; i++) {
+			nomes[i] = (string)l[i];
+			states[i] = gm.getStateIndex(nomes[i]);
+			PositionGlobal pg = gm.getGlobalPosition(nomes[i]);
+			PositionGlobalSerializable pgs;
+			pgs.is_initialized = pg.initialized;
+			pgs.x = pg.position.x;
+			pgs.y = pg.position.y;
+			pgs.z = pg.position.z;
+			pgs.scene_index = pg.scene_index;
+			positions[i] = pgs;
+		}
+
+		/*
 		foreach(string nome in gm.getNomePersonagens()) {
 			states.Add(nome, gm.getStateIndex(nome));
 			PositionGlobal pg = gm.getGlobalPosition(nome);
@@ -49,18 +66,26 @@ public class SaveGameStructure {
 			pgs.z = pg.position.z;
 			pgs.scene_index = pg.scene_index;
 			positions.Add(nome, pgs);
-		}
+		}*/
 
-		itempegos = gm.getItems();
+		Item[] IL = gm.getItems();
+
+		itempegos = new string[IL.Length,2];
+		for(int i = 0; i < IL.Length; i++) {
+			itempegos[i,0] = IL[i].getNome();
+			itempegos[i,1] = IL[i].getSpritePath();
+		}
+		//itempegos = gm.getItems();
 
 		music = gm.getMusic();
 		anbient = gm.getAnbient();
 
 	}
 
-	public PositionGlobal getPositionGlobal(string nome) {
+	public PositionGlobal getPositionGlobal(int index) {
+		string nome = nomes[index];
 		PositionGlobal pg;
-		PositionGlobalSerializable pgs = (PositionGlobalSerializable)positions[nome];
+		PositionGlobalSerializable pgs = positions[index];
 		pg.initialized = pgs.is_initialized;
 		pg.position = new Vector3(pgs.x, pgs.y, pgs.z);
 		pg.scene_index = pgs.scene_index;

@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System;
 
-[Serializable]
 public class Item{
 	private string descricao;
 	private string nome;
