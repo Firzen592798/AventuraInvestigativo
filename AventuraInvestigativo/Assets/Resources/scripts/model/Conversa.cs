@@ -22,19 +22,23 @@ public class Conversa {
 		dialogos = new ArrayList ();
 		dialogos.Add (dialog);
 		personagens = new ArrayList ();
+		Debug.Log ("Personagem: "+dialog.getPersonagem ());
 		personagens.Add (dialog.getPersonagem ());
 	}
 
 
 
 	public Conversa(string rotulo, ArrayList dialogos){
+		Debug.Log ("AKI");
 		this.rotulo = rotulo;
 		this.dialogos = dialogos;
 		this.personagens = new ArrayList ();
 		for (int i = 0; i < dialogos.Count; i++) {
 			DialogLine d = ((DialogLine)dialogos[i]);
+			//Debug.Log ("Personagem: "+d.getPersonagem ());
 			if(d.getPersonagem() != null && !d.getPersonagem().Equals("") && !personagens.Contains(d.getPersonagem())){
 				personagens.Add(d.getPersonagem());
+				//ebug.Log ("ROTULO: "+rotulo+" - Adicionou Personagem "+d.getPersonagem ());
 			}
 		}
 	}

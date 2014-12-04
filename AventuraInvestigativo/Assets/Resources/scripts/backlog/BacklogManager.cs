@@ -39,15 +39,27 @@ public class BacklogManager {
 		ArrayList conversasBacklog = new ArrayList ();
 		for(int i = conversas.Count - 1; i >= 0; i--){
 			Conversa c = (Conversa)conversas[i];
-			for(int j = 0; j < c.getPersonagens().Count; j++){
+			//Debug.Log (c);
+			int count = 0;
+			if(c != null){
+				count = c.getPersonagens().Count;
+			}
+			for(int j = 0; j < count; j++){
 				string personagem = (String)c.getPersonagens()[j];
-				if(personagem.Equals(nome)){
-					conversasBacklog.Add(c);
+				if(personagem.Contains(nome)){
+					if(!conversasBacklog.Contains(c)){
+						conversasBacklog.Add(c);
+					}
 					j = c.getPersonagens().Count;
+					
 				}
 			}
 		}
 		return conversasBacklog;
+	}
+
+	public ArrayList getDialogos(Conversa c){
+		return c.getDialogos ();
 	}
 
 	//Recupera o backlog inteiro, ja na ordem do mais atual para o mais antigo

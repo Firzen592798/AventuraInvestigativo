@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 public class MostrarDialogos : Acao{
 	ArrayList dialogos;
-	//Conversa conversa;
+	Conversa conversa;
 	int falaAtual;
 	BacklogManager backlogManager;
 	public MostrarDialogos(GameController gm, ArrayList dialogLines){
@@ -14,10 +14,10 @@ public class MostrarDialogos : Acao{
 
 	public MostrarDialogos(GameController gm, Conversa conversa){
 		this.dialogos = conversa.getDialogos();
-		//this.conversa = conversa;
+		Debug.Log ("Conversa - "+  conversa.getRotulo ());
+		this.conversa = conversa;
 		falaAtual = 0;
 		backlogManager = BacklogManager.getInstance ();
-		backlogManager.addToBacklog (conversa);
 		this.gm = gm;
 	}
 
@@ -32,7 +32,7 @@ public class MostrarDialogos : Acao{
 	public override bool Update(){
 		gm.lockplayer();
 		if (falaAtual == 0) {
-
+			backlogManager.addToBacklog (conversa);
 			DialogLine dl = ((DialogLine)dialogos[falaAtual]);
 			//backlogManager.addToBacklog(dl);
 			string texto = dl.getTexto();
@@ -48,6 +48,7 @@ public class MostrarDialogos : Acao{
 			{
 				if(falaAtual == dialogos.Count){
 					//Debug.Log("Terminou");
+					backlogManager.addToBacklog (conversa);
 					falaAtual = 0;
 					gm.hideface(0);
 					gm.hideface(1);

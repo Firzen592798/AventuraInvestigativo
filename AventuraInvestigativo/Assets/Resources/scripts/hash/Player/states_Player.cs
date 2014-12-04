@@ -223,7 +223,8 @@ public class states_Player : DicionarioAcoes
 
 		PlayerState1.OnInitActions.Add(new MoverPersonagem(gm, "Eduardo", "point1", false));
  		PlayerState1.OnInitActions.Add(new MoverPersonagem(gm, "Eduardo", "point2", true));
-		PlayerState1.OnInitActions.Add(new MostrarDialogos(gm, dialogoEduardo));
+		Conversa c0 = new Conversa ("Introduçao", dialogoEduardo);
+		PlayerState1.OnInitActions.Add(new MostrarDialogos(gm, c0));
 		PlayerState1.OnInitActions.Add(new SalvarPosicaoGlobal(gm, "Eduardo"));
 		PlayerState1.OnInitActions.Add(new TocarMusica(gm, 4,0));
 		PlayerState1.OnInitActions.Add(new TornarExaminavel(gm, "Eduardo", true));
