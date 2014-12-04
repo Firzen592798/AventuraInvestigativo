@@ -1929,10 +1929,10 @@ public class GameController : MonoBehaviour {
 		text_gui2.fontSize = Mathf.RoundToInt(dialog_fontsize/2.3f);
 		text_gui2.alignment = TextAnchor.UpperLeft;
 		text_gui2.padding.left = Mathf.RoundToInt(0.02f*logcontent_width);
-		scrollPosition2 = GUI.BeginScrollView (new Rect(0, 0, logcontent_width, logcontent_height),scrollPosition2, new Rect(0, 0, 0.94f*logcontent_width, (logcontent_height/4)*backlogList.Count));
 
 		if(selectedConversaIndex > -1){
-			
+			scrollPosition2 = GUI.BeginScrollView (new Rect(0, 0, logcontent_width, logcontent_height),scrollPosition2, new Rect(0, 0, 0.94f*logcontent_width, (logcontent_height/4)*((Conversa)backlogList[selectedConversaIndex]).getDialogos().Count));
+
 			for(int i = 0; i < ((Conversa)backlogList[selectedConversaIndex]).getDialogos().Count; i++){
 
 				DialogLine dl =((DialogLine)((Conversa)backlogList[selectedConversaIndex]).getDialogos()[i]);
@@ -1940,9 +1940,9 @@ public class GameController : MonoBehaviour {
 				GUI.Box(new Rect(0, i*(logcontent_height/4), 0.94f*logcontent_width, logcontent_height /4), dl.getPersonagem() +" - "+dl.getTexto(),text_gui2);
 
 			}
-			
+			GUI.EndScrollView ();
+
 		}
-		GUI.EndScrollView ();
 
 		GUI.EndGroup ();
 		
