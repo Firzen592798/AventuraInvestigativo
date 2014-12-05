@@ -300,8 +300,8 @@ public class GameController : MonoBehaviour {
 		faceplate_height = faceplate_width / 6;
 		faceplate_fontsize = 7 * faceplate_height / 10;
 		//variaveis dos botoes do menu principal
-		startbtn_width = Wdef/8;
-		startbtn_height = startbtn_width / 3;
+		startbtn_width = Wdef/8.5f;
+		startbtn_height = startbtn_width / 3.5f;
 		//
 		bigimage_height = Hdef - dialogbox_height;
 		bigimage_width = bigimage_height;
@@ -2403,7 +2403,7 @@ public class GameController : MonoBehaviour {
 	public void showMainMenuGUI()
 	{
 		//Definir area dos botoes
-		GUI.BeginGroup(new Rect((0.45f*Wdef-startbtn_width)/2,Hdef/2+startbtn_height*2.5f,2*startbtn_width,8*startbtn_height));
+		GUI.BeginGroup(new Rect((0.47f*Wdef-startbtn_width)/2,Hdef/2+startbtn_height*3.3f,2*startbtn_width,8*startbtn_height));
 
 
 
@@ -2430,13 +2430,13 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
-		bool optbtn = GUI.Button(new Rect(0.15f*startbtn_width,1.6f*startbtn_height,startbtn_width,startbtn_height*0.8f),"","Opcoes");
+		bool optbtn = GUI.Button(new Rect(0.2f*startbtn_width,1.6f*startbtn_height,startbtn_width*0.8f,startbtn_height*0.8f),"","Opcoes");
 		if (optbtn)
 		{
 			//Application.LoadLevel("InputManager");
 		}
 
-		bool extbtn = GUI.Button(new Rect(0.35f*startbtn_width,2.4f*startbtn_height,startbtn_width,startbtn_height*0.8f),"","Sair");
+		bool extbtn = GUI.Button(new Rect(0.4f*startbtn_width,2.4f*startbtn_height,startbtn_width*0.7f,startbtn_height*0.8f),"","Sair");
 		if (extbtn)
 		{
 			Application.Quit();
