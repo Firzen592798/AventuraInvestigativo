@@ -92,9 +92,9 @@ public class states_Player : DicionarioAcoes
 
 		string[] textos2 = new string[6];
 		textos2 [0] = "Cheguei hoje pela manhã na Mansão Christie a convite de meu amigo, o Capitão Eduardo Hastings.";
-		textos2 [1] = "Hastings estava me devendo um favor como este já que no último inverno salvei sua vida mais de uma vez, enquanto juntos buscávamos respostas para o Caso do Maníaco do Circo. Aquela época foi um tanto intensa, todos vocês que acompanham o blog sabem o que aconteceu. O assassino foi pego, apesar das consequências e de todo o mal que ele causou às pobres crianças.";
-		textos2 [2] = "Não convém relembrar fantasmas tão soturnos agora. O capitão acertou em cheio me convidando para passar este fim-de semana na Mansão Christie, era exatamente o que eu estava precisando depois de tantos anos sem tirar uma folga sequer. O trabalho de consultoria em investigações particulares pode ser um tanto exaustivo se você é um dos únicos profissionais ainda na ativa.";
-		textos2 [3] = "Mesmo estando me sentindo aliviada e de reconhecer que a Mansão Christie é um lugar um tanto isolado e calmo para quem quer descansar por alguns dias, não devo deixar de comentar que me sinto um bocado incomodada com o fato de que eu e Hastings somos os únicos hóspedes aqui instalados neste fim de semana que não fazem parte da família Christie.";
+		textos2 [1] = "Hastings estava me devendo um favor como este, já que no último inverno salvei sua vida mais de uma vez, enquanto juntos buscávamos respostas para o Caso do Maníaco do Circo. Aquela época foi um tanto intensa, todos vocês que acompanham o blog sabem o que aconteceu. O assassino foi pego, apesar das consequências e de todo o mal que ele causou às pobres crianças.";
+		textos2 [2] = "Não convém relembrar fantasmas tão soturnos agora. O capitão acertou em cheio me convidando para passar este fim de semana na Mansão Christie, era exatamente o que eu estava precisando depois de tantos anos sem tirar uma folga sequer. O trabalho de consultoria em investigações particulares pode ser um tanto exaustivo se você é um dos únicos profissionais ainda na ativa.";
+		textos2 [3] = "Mesmo me sentindo aliviada e de reconhecer que a Mansão Christie é um lugar um tanto isolado e calmo para quem quer descansar por alguns dias, não devo deixar de comentar que me sinto um bocado incomodada com o fato de que eu e Hastings somos os únicos hóspedes aqui instalados neste fim de semana que não fazem parte da família Christie.";
 		textos2 [4] = "A profissão de Capitão de Polícia nesta pequena cidade dá a Hastings determinados privilégios um tanto antiéticos, como ser amigo de uma família que controla maior parte das ofertas de emprego da região através da empresa Christie e Filhos S.A.. Talvez meu incômodo seja apenas receio em estar atrapalhando algo. Parece que os principais membros da família Christie estão reunidos na Mansão para celebrar uma ocasião especial. Não faço ideia do que se trata, mas não levará muito tempo até que eu descubra qualquer coisa.";
 		textos2 [5] = "Esta é minha última postagem desta semana. Talvez estejam estranhando ler algo neste blog que não envolva assassinatos ou desaparecimentos, mas eu estava realmente precisando de alguns dias de descanso. Voltarei a postar por aqui amanhã mesmo com uma cobertura provavelmente muito chata sobre como eu passei o dia deitada em uma rede. \n \n Desejando Mistérios \n JANE MISS TERRY";
 		int[] imgs2 = new int[6] {0,0,0,0,0,0};
@@ -158,15 +158,15 @@ public class states_Player : DicionarioAcoes
 		//dialogoEduardo.Add(new DialogLine ("Jane", "TESTE!", 0, 0));
 
 
-		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Sinto que vou me arrepender em tê-la convidado a passar este fim-desemana na Mansão Christie. Você parece um tanto chateada.", 1, 1));
+		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Sinto que vou me arrepender em tê-la convidado a passar este fim de semana na Mansão Christie. Você parece um tanto chateada.", 1, 1));
 		dialogoEduardo.Add(new DialogLine ("Jane", "Não se incomode comigo, Hastings. Você sabe que meu temperamento não é dos mais sociáveis.", 0, 0));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Sim, sim... espero que se divirta, contudo.", 1,1));
-		dialogoEduardo.Add(new DialogLine ("Jane", "O que me incomoda mais é essa sensação de isolamento... não que seja de todo ruim passar um fim-de-semana mais isolado... mas ouça essa chuva...", 0,0));
+		dialogoEduardo.Add(new DialogLine ("Jane", "O que me incomoda mais é essa sensação de isolamento... não que seja de todo ruim passar um fim de semana mais isolado... mas ouça essa chuva...", 0,0));
 		dialogoEduardo.Add(new DialogLine ("Jane", "mesmo que qualquer um de nós precisasse ir lá fora por uma emergência sequer, não poderíamos de tão forte que cai a tempestade... ", 0,0));
 		dialogoEduardo.Add(new DialogLine ("Jane", "estar tão longe de tudo e a este nível de encarceramento desperta meus sentimentos mais alertas.", 0,0));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Haha, não é necessário estar alerta na mansão Christie. É perfeitamente seguro... se não há como sair, não como entrar, ou seja: nenhum mal virá", 1,1));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "de fora.", 1, 1));
-		dialogoEduardo.Add(new DialogLine ("Jane", "Não me entenda mal, Hastings... não tenho medo de que algo entre aqui... me sinto terrivelmente desconfortável estando preso com essas pessoas...", 0,0));
+		dialogoEduardo.Add(new DialogLine ("Jane", "Não me entenda mal, Hastings... não tenho medo de que algo entre aqui... me sinto terrivelmente desconfortável estando presa com essas pessoas...", 0,0));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Os Christie? Eles são totalmente inofensivos pessoalmente... você deveria temê-los se fosse um empregado da empresa deles... estes sim sofrem em", 1,1));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "suas mãos...", 1, 1));
 		dialogoEduardo.Add(new DialogLine ("Jane", "Nunca se sabe Hastings... acredito que é melhor ficarmos com olhos e ouvidos preparados... estou sentindo que a noite vai ser longa..", 0,0));
@@ -177,14 +177,14 @@ public class states_Player : DicionarioAcoes
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Os Christie são de fato, inofensivos... poderosos para os que não os conhecem bem, mas pessoas terrivelmente inseguras no fundo... Mesmo ", 1,1));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "assim, te trouxe aqui apenas para agradecer por ter me tirado daquelas situações arriscadas em que meti na época que investigávamos o ", 1, 1));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "caso do Maníaco do Circo. Não te trouxe para que se sentisse tão incomodada ao redor de pessoas que não conhece bem", 1, 1));
-		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "durante todo um fim-de-semana... Se a chuva melhorar até amanhecer podemos ir embora se quiser...", 1, 1));
+		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "durante todo um fim de semana... Se a chuva melhorar até amanhecer podemos ir embora se quiser...", 1, 1));
 		dialogoEduardo.Add(new DialogLine ("Jane", "Relaxe, capitão. Estou precisando socializar um pouco realmente. É só um fim de semana, não é possível que estas pessoas sejam tão insuportáveis Só preciso", 0,0));
 		dialogoEduardo.Add(new DialogLine ("Jane", "que você me explique o que tanto eles estão comemorando nesta ocasião, para que fique mais fácil de interagir caso alguém puxe assunto.", 0,0));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Eu não estou bem certo... o senhor Joseph Christie me convidou apenas por gentileza e disse que eu trouxesse quem eu quisesse. ", 1,1));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Somos muito amigos desde que eles se mudaram para esta cidadezinha e instalaram a Christie e Filhos S.A. por aqui.", 1,1));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Faz cerca de 20 anos isso. Mas ouvi da Sra. Marques, a empregada, que esta é uma noite importante para a família e para a empresa.", 1,1));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Eles estão prestes a decidir algo importante e optaram por esta reunião para fazer isto.", 1,1));
-		dialogoEduardo.Add(new DialogLine ("Jane", "Estou me sentindo terrivelmente pior: agora estou no meio de uma reunião de família... que furada Hastings!", 0,0));
+		dialogoEduardo.Add(new DialogLine ("Jane", "Estou me sentindo terrivelmente pior: agora estou no meio de uma reunião de família... que furada, Hastings!", 0,0));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Hahaha, como você me diverte Jane. Bem, Se está realmente incomodada e curiosa assim como eu estou, faça um favor para nós dois: ", 1,1));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "descubra qual é a real razão desta cerimônia e me informe assim que tiver certeza do que se trata, o que acha? ", 1,1));
 		dialogoEduardo.Add(new DialogLine ("Eduardo Hastings", "Também servirá como maneira de socializar. ", 1,1));
