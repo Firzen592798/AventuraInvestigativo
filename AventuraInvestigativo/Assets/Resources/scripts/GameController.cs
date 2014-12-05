@@ -2434,7 +2434,7 @@ public class GameController : MonoBehaviour {
 		bool optbtn = GUI.Button(new Rect(0,2*startbtn_height,startbtn_width,startbtn_height),"Configurar",sbstl);
 		if (optbtn)
 		{
-			
+			Application.LoadLevel("InputManager");
 		}
 
 		bool extbtn = GUI.Button(new Rect(0,3*startbtn_height,startbtn_width,startbtn_height),"Fechar Jogo",sbstl);
