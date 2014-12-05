@@ -1,14 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+enum Selec {
+	Confirma, Menu, Esquerda, Direita, Cima, Baixo, Victor
+}
+
 public class Teclas : MonoBehaviour {
 
-	public static string Confirma = "z";
-	public static string Menu = "x";
+	public static KeyCode Confirma = KeyCode.Z;
+	public static KeyCode Menu = KeyCode.X;
+	public static KeyCode Direita = KeyCode.RightArrow;
+	public static KeyCode Esquerda = KeyCode.LeftArrow;
+	public static KeyCode Cima = KeyCode.UpArrow;
+	public static KeyCode Baixo = KeyCode.DownArrow;
+	private static Selec bot = Selec.Victor;
 	GameObject g;
 	GameController gm;
 
-	int largura = 100, altura = 20, posx = 425, yinicial = 139, yinc = 30;
+	int largura = 100, altura = 20, posx = 425, yinicial = 100, yinc = 30;
 	// Use this for initialization
 	void Start () {
 		//g = GameObject.FindGameObjectWithTag("GameManager");
@@ -24,22 +33,98 @@ public class Teclas : MonoBehaviour {
 	}
 
 	public void OnGUI(){
+		Event e = Event.current;
+		if (e.isKey) {
+			switch(bot){
+			case Selec.Confirma:
+				Confirma = e.keyCode;
+				bot = Selec.Victor;
+				break;
+			case Selec.Menu:
+				Menu = e.keyCode;
+				bot = Selec.Victor;
+				break;
+			case Selec.Esquerda:
+				Esquerda = e.keyCode;
+				bot = Selec.Victor;
+				break;
+			case Selec.Direita:
+				Direita = e.keyCode;
+				bot = Selec.Victor;
+				break;
+			case Selec.Cima:
+				Cima = e.keyCode;
+				bot = Selec.Victor;
+				break;
+			case Selec.Baixo:
+				 Baixo = e.keyCode;
+				bot = Selec.Victor;
+				break;
+			}
+		}
+		bool press;
 
-		Confirma = GUI.TextField(new Rect(posx,yinicial,largura,altura), Confirma);
-		if (Confirma.Length > 1) {
-			Confirma = Confirma[1].ToString().ToLower();
+		press = GUI.Toggle(new Rect(posx,yinicial,largura,altura), bot == Selec.Confirma, "" + (KeyCode) Confirma);
+		if (press) {
+			bot = Selec.Confirma;
 		}
 
-		Menu = GUI.TextField(new Rect(posx,yinicial+yinc,largura,altura), Menu);
-		if (Menu.Length > 1) {
-			Menu = Menu[1].ToString().ToLower();
+		press = GUI.Toggle(new Rect(posx,yinicial+yinc,largura,altura), bot == Selec.Menu, "" + (KeyCode) Menu);
+		if (press) {
+			bot = Selec.Menu;
 		}
+
+		press = GUI.Toggle(new Rect(posx,yinicial+2*yinc,largura,altura), bot == Selec.Esquerda, "" + (KeyCode) Esquerda);
+		if (press) {
+			bot = Selec.Esquerda;
+		}
+
+		press = GUI.Toggle(new Rect(posx,yinicial+3*yinc,largura,altura), bot == Selec.Direita, "" + (KeyCode) Direita);
+		if (press) {
+			bot = Selec.Direita;
+		}
+
+		press = GUI.Toggle(new Rect(posx,yinicial+4*yinc,largura,altura), bot == Selec.Cima, "" + (KeyCode) Cima);
+		if (press) {
+			bot = Selec.Cima;
+		}
+
+		press = GUI.Toggle(new Rect(posx,yinicial+5*yinc,largura,altura), bot == Selec.Baixo, "" + (KeyCode) Baixo);
+		if (press) {
+			bot = Selec.Baixo;
+		}
+
+
 	}
-
-	public string getAcceptKey()
+		
+	public KeyCode getKeyConfirma()
 	{
 		return Confirma;
 	}
 
+	public KeyCode getKeyMenu()
+	{
+		return Menu;
+	}
+
+	public KeyCode getKeyDireita()
+	{
+		return Direita;
+	}
+
+	public KeyCode getKeyEsquerda()
+	{
+		return Esquerda;
+	}
+
+	public KeyCode getKeyCima()
+	{
+		return Cima;
+	}
+
+	public KeyCode getKeyBaixo()
+	{
+		return Baixo;
+	}
 
 }
