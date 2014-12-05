@@ -75,22 +75,22 @@ public class PlayerController : ObjectController {
 			bool hor = false;
 			bool ver = false;
 			if (!playlock) {
-				if (Input.GetKey(KeyCode.RightArrow)) {
+				if (Input.GetKey(Teclas.getKeyDireita())) {
 					velx = 1f;
 					dirX = 1f;
 					hor = true;
 				}
-				if (Input.GetKey(KeyCode.LeftArrow)) {
+				if (Input.GetKey(Teclas.getKeyEsquerda())) {
 					velx = -1f;
 					dirX = -1f;
 					hor = true;
 				}
-				if (Input.GetKey(KeyCode.UpArrow)) {
+				if (Input.GetKey(Teclas.getKeyCima())) {
 					vely = 1f;
 					dirY = 1f;
 					ver = true;
 				}
-				if (Input.GetKey(KeyCode.DownArrow)) {
+				if (Input.GetKey(Teclas.getKeyBaixo())) {
 					vely = -1f;
 					dirY = -1f;
 					ver = true;

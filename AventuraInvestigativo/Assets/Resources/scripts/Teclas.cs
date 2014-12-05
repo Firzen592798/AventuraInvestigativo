@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-enum Selec {
-	Confirma, Menu, Esquerda, Direita, Cima, Baixo, Victor
-}
+
 
 public class Teclas : MonoBehaviour {
+	enum Selec {
+		Confirma, Menu, Esquerda, Direita, Cima, Baixo, Victor
+	}
 
 	public static KeyCode Confirma = KeyCode.Z;
 	public static KeyCode Menu = KeyCode.X;
@@ -97,32 +98,32 @@ public class Teclas : MonoBehaviour {
 
 	}
 		
-	public KeyCode getKeyConfirma()
+	public static KeyCode getKeyConfirma()
 	{
 		return Confirma;
 	}
 
-	public KeyCode getKeyMenu()
+	public static KeyCode getKeyMenu()
 	{
 		return Menu;
 	}
 
-	public KeyCode getKeyDireita()
+	public static KeyCode getKeyDireita()
 	{
 		return Direita;
 	}
 
-	public KeyCode getKeyEsquerda()
+	public static KeyCode getKeyEsquerda()
 	{
 		return Esquerda;
 	}
 
-	public KeyCode getKeyCima()
+	public static KeyCode getKeyCima()
 	{
 		return Cima;
 	}
 
-	public KeyCode getKeyBaixo()
+	public static KeyCode getKeyBaixo()
 	{
 		return Baixo;
 	}

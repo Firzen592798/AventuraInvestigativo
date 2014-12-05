@@ -9,8 +9,8 @@ public class Inventorio{
 		itemsPegos = new ArrayList();
 		items_quant = 0;
 		items = new Hashtable ();
-		items.Add ("Papel", new Item ("Papel", "Um papel encontrado na sala da mansao", false, null));
-		items.Add ("Chave", new Item ("Chave", "Uma misteriosa chave que abre alguma porta da mansao", false, null));
+		items.Add ("Papel", new Item ("Papel", "Um papel encontrado na sala da mansão", false, null));
+		items.Add ("Chave", new Item ("Chave", "Uma misteriosa chave que abre alguma porta da mansão", false, null));
 
 	}
 
