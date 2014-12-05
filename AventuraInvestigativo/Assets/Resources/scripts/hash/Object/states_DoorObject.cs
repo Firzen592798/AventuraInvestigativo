@@ -45,6 +45,8 @@ public class states_DoorObject: DicionarioAcoes
 		//**********************************************
 		
 		Acao mudarCenaPorta = new MudarCena(gm, "Creditos", "transitor3");
+		DoorState1.OnExamineAction.Add (new CarregarAudio (gm, 11));
+		DoorState1.OnExamineAction.Add (new TocarAudio (gm));
 		DoorState1.OnExamineAction.Add(mudarCenaPorta);
 		AddStateTo(DoorState1);
 		//acoesHashtable.Add("Papel-0", PapelState0);

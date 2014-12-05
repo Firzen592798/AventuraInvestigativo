@@ -90,33 +90,41 @@ public class states_Player : DicionarioAcoes
 		textos0 [0] = "4 de março \n15:00h";
 		int[] imgs0 = new int[1] {-1};
 
-		string[] textos2 = new string[6];
-		textos2 [0] = "Cheguei hoje pela manhã na Mansão Christie a convite de meu amigo, o Capitão Eduardo Hastings.";
-		textos2 [1] = "Hastings estava me devendo um favor como este, já que no último inverno salvei sua vida mais de uma vez, enquanto juntos buscávamos respostas para o Caso do Maníaco do Circo. Aquela época foi um tanto intensa, todos vocês que acompanham o blog sabem o que aconteceu. O assassino foi pego, apesar das consequências e de todo o mal que ele causou às pobres crianças.";
-		textos2 [2] = "Não convém relembrar fantasmas tão soturnos agora. O capitão acertou em cheio me convidando para passar este fim de semana na Mansão Christie, era exatamente o que eu estava precisando depois de tantos anos sem tirar uma folga sequer. O trabalho de consultoria em investigações particulares pode ser um tanto exaustivo se você é um dos únicos profissionais ainda na ativa.";
-		textos2 [3] = "Mesmo me sentindo aliviada e de reconhecer que a Mansão Christie é um lugar um tanto isolado e calmo para quem quer descansar por alguns dias, não devo deixar de comentar que me sinto um bocado incomodada com o fato de que eu e Hastings somos os únicos hóspedes aqui instalados neste fim de semana que não fazem parte da família Christie.";
-		textos2 [4] = "A profissão de Capitão de Polícia nesta pequena cidade dá a Hastings determinados privilégios um tanto antiéticos, como ser amigo de uma família que controla maior parte das ofertas de emprego da região através da empresa Christie e Filhos S.A.. Talvez meu incômodo seja apenas receio em estar atrapalhando algo. Parece que os principais membros da família Christie estão reunidos na Mansão para celebrar uma ocasião especial. Não faço ideia do que se trata, mas não levará muito tempo até que eu descubra qualquer coisa.";
-		textos2 [5] = "Esta é minha última postagem desta semana. Talvez estejam estranhando ler algo neste blog que não envolva assassinatos ou desaparecimentos, mas eu estava realmente precisando de alguns dias de descanso. Voltarei a postar por aqui amanhã mesmo com uma cobertura provavelmente muito chata sobre como eu passei o dia deitada em uma rede. \n \n Desejando Mistérios \n JANE MISS TERRY";
-		int[] imgs2 = new int[6] {0,0,0,0,0,0};
+		string[] textos2a = new string[1];
+		string[] textos2b = new string[1];
+		string[] textos2c = new string[1];
+		string[] textos2d = new string[1];
+		string[] textos2e = new string[1];
+		string[] textos2f = new string[1];
+		textos2a [0] = "Cheguei hoje pela manhã na Mansão Christie a convite de meu amigo, o Capitão Eduardo Hastings.";
+		textos2b [0] = "Hastings estava me devendo um favor como este, já que no último inverno salvei sua vida mais de uma vez, enquanto juntos buscávamos respostas para o Caso do Maníaco do Circo. Aquela época foi um tanto intensa, todos vocês que acompanham o blog sabem o que aconteceu. O assassino foi pego, apesar das consequências e de todo o mal que ele causou às pobres crianças.";
+		textos2c [0] = "Não convém relembrar fantasmas tão soturnos agora. O capitão acertou em cheio me convidando para passar este fim de semana na Mansão Christie, era exatamente o que eu estava precisando depois de tantos anos sem tirar uma folga sequer. O trabalho de consultoria em investigações particulares pode ser um tanto exaustivo se você é um dos únicos profissionais ainda na ativa.";
+		textos2d [0] = "Mesmo me sentindo aliviada e de reconhecer que a Mansão Christie é um lugar um tanto isolado e calmo para quem quer descansar por alguns dias, não devo deixar de comentar que me sinto um bocado incomodada com o fato de que eu e Hastings somos os únicos hóspedes aqui instalados neste fim de semana que não fazem parte da família Christie.";
+		textos2e [0] = "A profissão de Capitão de Polícia nesta pequena cidade dá a Hastings determinados privilégios um tanto antiéticos, como ser amigo de uma família que controla maior parte das ofertas de emprego da região através da empresa Christie e Filhos S.A.. Talvez meu incômodo seja apenas receio em estar atrapalhando algo. Parece que os principais membros da família Christie estão reunidos na Mansão para celebrar uma ocasião especial. Não faço ideia do que se trata, mas não levará muito tempo até que eu descubra qualquer coisa.";
+		textos2f [0] = "Esta é minha última postagem desta semana. Talvez estejam estranhando ler algo neste blog que não envolva assassinatos ou desaparecimentos, mas eu estava realmente precisando de alguns dias de descanso. Voltarei a postar por aqui amanhã mesmo com uma cobertura provavelmente muito chata sobre como eu passei o dia deitada em uma rede. \n \n Desejando Mistérios \n JANE MISS TERRY";
+		int[] imgs2 = new int[1] {0};
 
-		string[] textos3 = new string[2];
+		string[] textos3 = new string[1];
 		textos3 [0] = "5 de março\n8:20h";
-		textos3 [1] = "5 de março\n8:21h";
-		int[] imgs3 = new int[2] {-1,-1};
+		int[] imgs3 = new int[1] {-1};
+		string[] textos3b = new string[1];
+		textos3b [0] = "5 de março\n8:21h";
 
-		string[] textos4 = new string[2];
-		textos4 [0] = "Bom dia! Na última postagem avisei que quando aparecesse por aqui de novo seria para contar sobre as calmarias do meu fim de semana de descanso na Mansão Christie...";
-		textos4 [1] = "Sinto que todos vocês ficariam desapontados se eu voltasse com qualquer história que não envolvesse algo mais animador e eletrizante. Pois bem... espero que acreditem nas minhas próximas palavras nas quais tentarei descrever com minúcias as situações mais impossíveis e inesperados que de fato aconteceram nesta última noite. Deixe-me convidá-los, assim como eu fui convidada, para esta...";
-		int[] imgs4 = new int[2] {0,0};
+		string[] textos4a = new string[1];
+		string[] textos4b = new string[1];
+		textos4a [0] = "Bom dia! Na última postagem avisei que quando aparecesse por aqui de novo seria para contar sobre as calmarias do meu fim de semana de descanso na Mansão Christie...";
+		textos4b [0] = "Sinto que todos vocês ficariam desapontados se eu voltasse com qualquer história que não envolvesse algo mais animador e eletrizante. Pois bem... espero que acreditem nas minhas próximas palavras nas quais tentarei descrever com minúcias as situações mais impossíveis e inesperados que de fato aconteceram nesta última noite. Deixe-me convidá-los, assim como eu fui convidada, para esta...";
+		int[] imgs4 = new int[1] {0};
 
 		string[] textos5 = new string[1] {""};
 		int[] imgs5 = new int[1] {1};
 
 		// Cena 1
-
 		PlayerState1.OnInitActions.Add (new MudarDirecao(gm, "Player", 'N', 'D'));
 		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 1,0));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 2));
+		PlayerState1.OnInitActions.Add (new CarregarAudio (gm,8));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
 		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs0, 1f, 1f, 0f, 0.4f, 0.15f, textos0, Color.white,TextAnchor.UpperCenter,new double[1] {2}));
 		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
@@ -125,16 +133,37 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 2));
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2, Color.black,TextAnchor.UpperLeft,new double[6] {8,20,20,20,25,20}));
+		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 10));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2a, Color.black,TextAnchor.UpperLeft,new double[1] {8}));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2b, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2c, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2d, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2e, Color.black,TextAnchor.UpperLeft,new double[1] {25}));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2f, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 4));
 		//Cena 2
 		PlayerState1.OnInitActions.Add (new TocarMusica(gm, 2,0));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs3, 1f, 1f, 0f, 0.4f, 0.15f, textos3, Color.white,TextAnchor.UpperCenter,new double[2] {1,0.5}));
+		PlayerState1.OnInitActions.Add (new CarregarAudio (gm,8));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs3, 1f, 1f, 0f, 0.4f, 0.15f, textos3, Color.white,TextAnchor.UpperCenter,new double[1] {1}));
+		PlayerState1.OnInitActions.Add (new CarregarAudio (gm,9));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs3, 1f, 1f, 0f, 0.4f, 0.15f, textos3b, Color.white,TextAnchor.UpperCenter,new double[1] {0.5f}));
 		PlayerState1.OnInitActions.Add (new FadeInScreen (gm));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4, Color.black,TextAnchor.UpperLeft,new double[2] {10,20}));
+		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 10));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4a, Color.black,TextAnchor.UpperLeft,new double[1] {10}));
+		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4b, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));

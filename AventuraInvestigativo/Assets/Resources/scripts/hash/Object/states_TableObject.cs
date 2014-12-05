@@ -29,9 +29,11 @@ public class states_TableObject: DicionarioAcoes
 		ArrayList dialogosTapete = new ArrayList();
 		dialogosTapete.Add (tapete1);
 		dialogosTapete.Add (tapete2);
-		Conversa c0 = new Conversa ("Dialogo da mesa", dialogosTapete);
+		Conversa c0 = new Conversa ("Examinando a mesa...", dialogosTapete);
 		Acao mostrarDialogoTapete = new  MostrarDialogos(gm, c0);
 		TapeteState0.OnExamineAction.Add(mostrarDialogoTapete);
+		TapeteState0.OnExamineAction.Add (new CarregarAudio (gm,6));
+		TapeteState0.OnExamineAction.Add (new TocarAudio (gm));
 		//TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
 		TapeteState0.OnExamineAction.Add(new AdicionarItem(gm, "Papel", "sprites/Paper item", false));
 		TapeteState0.OnExamineAction.Add(new AtivarEvento(gm, 1));

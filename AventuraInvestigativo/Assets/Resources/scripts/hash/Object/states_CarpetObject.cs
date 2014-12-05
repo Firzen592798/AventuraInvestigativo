@@ -30,9 +30,11 @@ public class states_CarpetObject: DicionarioAcoes
 
 		dialogosTapete.Add (tapete1);
 		dialogosTapete.Add (tapete2);
-		Conversa c0 = new Conversa ("Tapetao", dialogosTapete);
+		Conversa c0 = new Conversa ("Examinando o tapete...", dialogosTapete);
 		Acao mostrarDialogoTapete = new  MostrarDialogos(gm, c0);
 		TapeteState0.OnExamineAction.Add(mostrarDialogoTapete);
+		TapeteState0.OnExamineAction.Add (new CarregarAudio (gm,7));
+		TapeteState0.OnExamineAction.Add (new TocarAudio (gm));
 		//TapeteState0.OnExamineAction.Add(new MudarEstadoEduardo(1));
 		TapeteState0.OnExamineAction.Add(new AdicionarItem(gm, "Chave", "sprites/Key item", false));
 		TapeteState0.OnExamineAction.Add(new AtivarEvento(gm, 0));

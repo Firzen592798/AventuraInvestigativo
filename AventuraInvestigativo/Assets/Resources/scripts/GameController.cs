@@ -300,8 +300,8 @@ public class GameController : MonoBehaviour {
 		faceplate_height = faceplate_width / 6;
 		faceplate_fontsize = 7 * faceplate_height / 10;
 		//variaveis dos botoes do menu principal
-		startbtn_width = Wdef/3;
-		startbtn_height = startbtn_width / 6;
+		startbtn_width = Wdef/8;
+		startbtn_height = startbtn_width / 3;
 		//
 		bigimage_height = Hdef - dialogbox_height;
 		bigimage_width = bigimage_height;
@@ -2403,13 +2403,12 @@ public class GameController : MonoBehaviour {
 	public void showMainMenuGUI()
 	{
 		//Definir area dos botoes
-		GUI.BeginGroup(new Rect((Wdef-startbtn_width)/2,3*Hdef/5,startbtn_width,4*startbtn_height));
+		GUI.BeginGroup(new Rect((0.45f*Wdef-startbtn_width)/2,Hdef/2+startbtn_height*2.5f,2*startbtn_width,8*startbtn_height));
 
-		GUIStyle sbstl = GUI.skin.GetStyle ("StartBtnBackground");
-		sbstl.fontSize = Mathf.RoundToInt (startbtn_height);
+
 
 		//Desenhar botao de iniciar jogo
-		bool intbtn = GUI.Button(new Rect(0,0,startbtn_width,startbtn_height),"Iniciar Jogo",sbstl);
+		bool intbtn = GUI.Button(new Rect(0.2f*startbtn_width,0,startbtn_width,0.8f*startbtn_height),"","NovoJogo");
 		if (intbtn)
 		{
 			on_mainmenu = false;
@@ -2419,7 +2418,7 @@ public class GameController : MonoBehaviour {
 			soundplayer.playsound();
 			//TransiteScene("Cena1", "initial_spot");
 		}
-		bool loadbtn = GUI.Button(new Rect(0,startbtn_height,startbtn_width,startbtn_height),"Carregar Jogo",sbstl);
+		bool loadbtn = GUI.Button(new Rect(0.5f*startbtn_width,0.8f*startbtn_height,startbtn_width,0.8f*startbtn_height),"","Carregar");
 		if (loadbtn)
 		{
 			if (LoadGame("save00")) {;
@@ -2431,13 +2430,13 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
-		bool optbtn = GUI.Button(new Rect(0,2*startbtn_height,startbtn_width,startbtn_height),"Configurar",sbstl);
+		bool optbtn = GUI.Button(new Rect(0.15f*startbtn_width,1.6f*startbtn_height,startbtn_width,startbtn_height*0.8f),"","Opcoes");
 		if (optbtn)
 		{
-			Application.LoadLevel("InputManager");
+			//Application.LoadLevel("InputManager");
 		}
 
-		bool extbtn = GUI.Button(new Rect(0,3*startbtn_height,startbtn_width,startbtn_height),"Fechar Jogo",sbstl);
+		bool extbtn = GUI.Button(new Rect(0.35f*startbtn_width,2.4f*startbtn_height,startbtn_width,startbtn_height*0.8f),"","Sair");
 		if (extbtn)
 		{
 			Application.Quit();
