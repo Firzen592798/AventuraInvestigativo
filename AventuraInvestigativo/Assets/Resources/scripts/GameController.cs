@@ -718,10 +718,6 @@ public class GameController : MonoBehaviour {
 			//}
 
 			//Botao de acesso ao menu (inventario)
-			if (show_menu_GUI)
-			{
-				showQuickmenuGUI();
-			}
 
 			if (show_bigimage_GUI)
 			{
@@ -768,6 +764,12 @@ public class GameController : MonoBehaviour {
 			{
 				showNotesGUI();
 			}
+
+			if (show_menu_GUI)
+			{
+				showQuickmenuGUI();
+			}
+
 
 		}else
 		{
@@ -1585,12 +1587,9 @@ public class GameController : MonoBehaviour {
 		}
 		if (closebutton)
 		{
-			//show_menu_GUI = false;
-			//show_inventory_GUI = false;
 			soundplayer.loadsound(4);
 			soundplayer.playsound();
-			IM_Appear = false;
-			persona.unlockplayer();
+			Application.Quit();
 		}
 		
 		GUI.EndGroup();		
@@ -1798,12 +1797,9 @@ public class GameController : MonoBehaviour {
 		}
 		if (closebutton)
 		{
-			//show_menu_GUI = false;
-			//show_inventory_GUI = false;
 			soundplayer.loadsound(4);
 			soundplayer.playsound();
-			IM_Appear = false;
-			persona.unlockplayer();
+			Application.Quit();
 		}
 
 		GUI.EndGroup();
@@ -2050,12 +2046,9 @@ public class GameController : MonoBehaviour {
 		}
 		if (closebutton)
 		{
-			//show_menu_GUI = false;
-			//show_inventory_GUI = false;
 			soundplayer.loadsound(4);
 			soundplayer.playsound();
-			IM_Appear = false;
-			persona.unlockplayer();
+			Application.Quit();
 		}
 		
 		GUI.EndGroup();
@@ -2235,12 +2228,9 @@ public class GameController : MonoBehaviour {
 		}
 		if (closebutton)
 		{
-			//show_menu_GUI = false;
-			//show_inventory_GUI = false;
 			soundplayer.loadsound(4);
 			soundplayer.playsound();
-			IM_Appear = false;
-			persona.unlockplayer();
+			Application.Quit();
 		}
 		
 		GUI.EndGroup();
@@ -2450,7 +2440,7 @@ public class GameController : MonoBehaviour {
 		bool extbtn = GUI.Button(new Rect(0,3*startbtn_height,startbtn_width,startbtn_height),"Fechar Jogo",sbstl);
 		if (extbtn)
 		{
-
+			Application.Quit();
 		}
 		
 		GUI.EndGroup();
