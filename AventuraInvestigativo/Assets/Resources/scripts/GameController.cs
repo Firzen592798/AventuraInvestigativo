@@ -2061,7 +2061,7 @@ public class GameController : MonoBehaviour {
 		GUI.EndGroup();
 
 		GUI.EndGroup();
-
+		
 	}
 
 	public void showNotesGUI()
