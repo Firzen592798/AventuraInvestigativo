@@ -19,6 +19,7 @@ public class MostrarDialogos : Acao{
 		falaAtual = 0;
 		backlogManager = BacklogManager.getInstance ();
 		this.gm = gm;
+		backlogManager.addConversa(conversa);
 	}
 
 	public MostrarDialogos(GameController gm, DialogLine dialogo){
@@ -32,48 +33,50 @@ public class MostrarDialogos : Acao{
 	public override bool Update(){
 		gm.lockplayer();
 		if (falaAtual == 0) {
-			backlogManager.addToBacklog (conversa);
+			//backlogManager.addToBacklog (conversa);
 			DialogLine dl = ((DialogLine)dialogos[falaAtual]);
 			//backlogManager.addToBacklog(dl);
 			string texto = dl.getTexto();
-			gm.showdialogbox();
-			gm.LoadShowTxt(texto);
+			gm.GameInterface.showdialogbox();
+			gm.GameInterface.LoadShowTxt(texto);
 			if(dl.getSprite() != -1)
-			gm.showface(dl.getPos(), dl.getSprite(), 0);
+			gm.GameInterface.showface(dl.getPos(), dl.getSprite(), 0);
 			falaAtual++;
 		}
 		else if (Input.GetKeyDown (Teclas.Confirma)) {
 			//gm.lockplayer();
-			if (!gm.isShowingDialog())
+			if (!gm.GameInterface.ShowingDialog)//.isShowingDialog())
 			{
 				if(falaAtual == dialogos.Count){
 					//Debug.Log("Terminou");
-					backlogManager.addToBacklog (conversa);
+					if (conversa != null) {
+						backlogManager.addToBacklog (conversa.getRotulo());
+					}
 					falaAtual = 0;
-					gm.hideface(0);
-					gm.hideface(1);
-					gm.hidedialogbox();
+					gm.GameInterface.hideface(0);
+					gm.GameInterface.hideface(1);
+					gm.GameInterface.hidedialogbox();
 					gm.unlockplayer();
 
 					return true;
 				}
 				DialogLine dl = ((DialogLine)dialogos[falaAtual]);
-				backlogManager.addToBacklog(dl);
+				//backlogManager.addToBacklog(dl);
 				string texto = dl.getTexto();
 
 				if(dl.getSprite() != -1)
 				{	
 					//gm.hideface(1 - dl.getSprite ());
-					gm.showface(dl.getPos(), dl.getSprite(), 0);
+					gm.GameInterface.showface(dl.getPos(), dl.getSprite(), 0);
 				}
-				gm.showdialogbox();
-				gm.LoadShowTxt(texto);
+				gm.GameInterface.showdialogbox();
+				gm.GameInterface.LoadShowTxt(texto);
 				//Debug.Log (texto);
 
 				falaAtual++;
 			}else
 			{
-				gm.quickPassTxt();
+				gm.GameInterface.quickPassTxt();
 			}
 		}
 		return false;

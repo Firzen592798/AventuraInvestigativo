@@ -22,6 +22,20 @@ public class Inventorio{
 		return _items;
 	}
 
+	public Item[,,] getItemGrid() {
+		Item[,,] item_grid = new Item[4,4,3];
+
+		int i, j, k;
+		int q = Mathf.Min(items_quant, 48);
+		for (int n = 0; n < q; n++) {
+			i = (n/4)%4;
+			j = n%4;
+			k = n/16;
+			item_grid[i,j,k] = (Item)itemsPegos[n];
+		}
+		return item_grid;
+	}
+
 	public int count(){
 		return items_quant;
 	}

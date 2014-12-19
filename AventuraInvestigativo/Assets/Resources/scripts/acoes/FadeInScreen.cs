@@ -10,6 +10,6 @@ public class FadeInScreen : Acao{
 
 	public override bool Update()
 	{
-		return gm.FadeToClear ();
+		return gm.GameInterface.FadeToClear ();
 	}
 }

@@ -60,6 +60,8 @@ public class PlayerController : ObjectController {
 	// Update is called once per frame
 	void Update () {
 
+		if (Time.timeScale == 0.0f) {return;}
+
 		int test_state = gm.getStateIndex("Player");
 		if (actualstate != test_state) {
 			Debug.Log("player mudou para o estado: "+test_state);

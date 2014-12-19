@@ -135,17 +135,17 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));
 		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 10));
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2a, Color.black,TextAnchor.UpperLeft,new double[1] {8}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2a, Color.black,TextAnchor.UpperLeft,new double[1] {-1}));//8
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2b, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2b, Color.black,TextAnchor.UpperLeft,new double[1] {-1}));//20
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2c, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2c, Color.black,TextAnchor.UpperLeft,new double[1] {-1}));//20
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2d, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2d, Color.black,TextAnchor.UpperLeft,new double[1] {-1}));//20
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2e, Color.black,TextAnchor.UpperLeft,new double[1] {25}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2e, Color.black,TextAnchor.UpperLeft,new double[1] {-1}));//25
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2f, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs2, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos2f, Color.black,TextAnchor.UpperLeft,new double[1] {-1}));//20
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 4));
@@ -161,9 +161,9 @@ public class states_Player : DicionarioAcoes
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new CarregarAudio (gm, 10));
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4a, Color.black,TextAnchor.UpperLeft,new double[1] {10}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4a, Color.black,TextAnchor.UpperLeft,new double[1] {-1}));//10
 		PlayerState1.OnInitActions.Add (new TocarAudio (gm));
-		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4b, Color.black,TextAnchor.UpperLeft,new double[1] {20}));
+		PlayerState1.OnInitActions.Add (new MostrarImagemCentral (gm, imgs4, 0.9f, 0.8f, 0f, 0.2f, 0.04f, textos4b, Color.black,TextAnchor.UpperLeft,new double[1] {-1}));//20
 		PlayerState1.OnInitActions.Add (new EsconderImagemCentral (gm));
 		PlayerState1.OnInitActions.Add (new FadeOutScreen (gm));
 		PlayerState1.OnInitActions.Add (new Esperar (gm, 1));

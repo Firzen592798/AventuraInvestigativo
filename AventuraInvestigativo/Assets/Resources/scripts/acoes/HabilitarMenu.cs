@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 public class HabilitarMenu : Acao{
-	GameController gm;
+
 	bool hab;
 	public HabilitarMenu(GameController gm, bool hab){
 		this.gm = gm;
@@ -10,7 +10,8 @@ public class HabilitarMenu : Acao{
 	}
 	
 	public override bool Update(){
-		gm.show_menu_GUI = hab;
+		gm.GameInterface.ShowingQuickMenuGUI = hab;
+		//gm.show_menu_GUI = hab;
 		return true;
 	}
 }

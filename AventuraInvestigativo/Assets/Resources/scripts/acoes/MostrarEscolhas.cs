@@ -65,14 +65,14 @@ public class MostrarEscolhas : Acao {
 		}*/
 		if(!choosing) {
 			choosing = true;
-			gm.showdialogbox();
+			gm.GameInterface.showdialogbox();
 			gm.lockplayer();
 			string[] escolhasArray = new string[escolhas.Count];
 			for(int i = 0; i < escolhasArray.Length; i++) {
 				escolhasArray[i] = ((Escolha)escolhas[i]).getEscolha();
 			}
-			gm.showchoicebox(escolhasArray);
-			gm.LoadShowTxt(dialogLine.getTexto());
+			gm.GameInterface.showchoicebox(escolhasArray);
+			gm.GameInterface.LoadShowTxt(dialogLine.getTexto());
 		}
 		else {
 			/*if (up_button_pressed) {
@@ -92,10 +92,10 @@ public class MostrarEscolhas : Acao {
 			//if (dialog_button_pressed) {
 
 			if (choiceindex == -1) {
-				if (gm.selected_choice != -1) {
-					choiceindex = gm.selected_choice;
-					gm.hidechoicebox();
-					gm.hidedialogbox();
+				if (gm.GameInterface.selected_choice != -1) {
+					choiceindex = gm.GameInterface.selected_choice;
+					gm.GameInterface.hidechoicebox();
+					gm.GameInterface.hidedialogbox();
 					//gm.unlockplayer();
 
 					this.ListaAcoes =((Escolha)escolhas[choiceindex]).getListaAcoes();

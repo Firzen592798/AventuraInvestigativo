@@ -26,7 +26,7 @@ public class DoorScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (isfadingout) {
-			if (gm.FadeToBlack()) {
+			if (gm.GameInterface.FadeToBlack()) {
 				this.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
 				if (left||right||up||down) {
 					int dirX = 0;
@@ -53,7 +53,7 @@ public class DoorScript : MonoBehaviour {
 			}
 		}
 		if (isfadingin) {
-			if (gm.FadeToClear()) {
+			if (gm.GameInterface.FadeToClear()) {
 				isfadingin = false;
 				gm.unlockplayer();
 				DestroyObject(this.gameObject);

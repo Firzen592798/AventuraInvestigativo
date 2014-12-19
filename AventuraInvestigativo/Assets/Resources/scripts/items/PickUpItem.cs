@@ -18,7 +18,7 @@ public class PickUpItem : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.CompareTag ("Player")) {
-			gm.PegarItem(nome, spritepath);
+			gm.AddItem(nome, spritepath);
 			//gm.SendMessage("PegarItem", nome);
 			Destroy(gameObject);
 			Debug.Log("Colidiu");

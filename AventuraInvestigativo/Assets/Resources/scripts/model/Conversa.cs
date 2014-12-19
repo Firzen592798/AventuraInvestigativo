@@ -18,9 +18,8 @@ public class Conversa {
 
 	public Conversa(string rotulo, DialogLine dialog){
 		this.rotulo = rotulo;
-		this.dialogos = dialogos;
-		dialogos = new ArrayList ();
-		dialogos.Add (dialog);
+		this.dialogos = new ArrayList ();
+		this.dialogos.Add (dialog);
 		personagens = new ArrayList ();
 		Debug.Log ("Personagem: "+dialog.getPersonagem ());
 		personagens.Add (dialog.getPersonagem ());

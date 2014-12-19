@@ -13,7 +13,7 @@ public class MudarCena : Acao{
 	}
 	
 	public override bool Update(){
-		gm.hideppbutton ();
+		gm.GameInterface.hideppbutton ();
 		gm.TransiteScene(goto_cene, spawn_point);
 		return true;
 	}

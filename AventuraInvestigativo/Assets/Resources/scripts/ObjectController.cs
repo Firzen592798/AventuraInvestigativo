@@ -51,16 +51,16 @@ public class ObjectController : MonoBehaviour {
 
 		PositionGlobal pg = gm.getGlobalPosition(this.nome);
 
-		Vector3 pos;
+		Vector3 pos = pg.position;
 
-		if (pg.position != null) {
-			Debug.Log(this.nome+" position is: x="+pg.position.x+" y="+pg.position.y);
-			pos = pg.position;
-		}
-		else {
-			Debug.Log(this.nome+" position is: null");
-			pos = transform.position;
-		}
+		//if (pg.position != null) {
+		//	Debug.Log(this.nome+" position is: x="+pg.position.x+" y="+pg.position.y);
+		//	pos = pg.position;
+		//}
+		//else {
+		//	Debug.Log(this.nome+" position is: null");
+		//	pos = transform.position;
+		//}
 		pos.z = pos.y;
 		transform.position = pos;
 
@@ -103,7 +103,7 @@ public class ObjectController : MonoBehaviour {
 		if ((c.collider.CompareTag("Player"))&&(examinable))
 		{
 			moveSpeed = 0f;
-			gm.showppbutton ();
+			gm.GameInterface.showppbutton ();
 			onregion = true;
 		}
 	}
@@ -113,7 +113,7 @@ public class ObjectController : MonoBehaviour {
 		if (c.collider.CompareTag("Player"))
 		{
 			moveSpeed = moveSpeed2;
-			gm.hideppbutton ();
+			gm.GameInterface.hideppbutton ();
 			onregion = false;
 		}
 	}
@@ -123,7 +123,7 @@ public class ObjectController : MonoBehaviour {
 		if ((other.CompareTag("Player"))&&(examinable))
 		{
 			moveSpeed = 0f;
-			gm.showppbutton ();
+			gm.GameInterface.showppbutton ();
 			onregion = true;
 		}
 	}
@@ -133,7 +133,7 @@ public class ObjectController : MonoBehaviour {
 		if (other.CompareTag("Player"))
 		{
 			moveSpeed = moveSpeed2;
-			gm.hideppbutton ();
+			gm.GameInterface.hideppbutton ();
 			onregion = false;
 		}
 	}
@@ -200,6 +200,8 @@ public class ObjectController : MonoBehaviour {
 		//transform.position = new Vector3(transform.position.x + velx*0.01f, transform.position.y);
 		//executarAcao ();
 
+		if (Time.timeScale == 0.0f) {return;}
+
 		int test_state = gm.getStateIndex(this.nome);
 		if (actualstate != test_state) {
 			Debug.Log("mudou para o estado: "+test_state);
@@ -215,9 +217,9 @@ public class ObjectController : MonoBehaviour {
 				dialog_button_pressed = false;
 				up_button_pressed = false;
 				down_button_pressed = false;
-				if ((Input.GetKeyDown (Teclas.Confirma)) || (gm.leftmouse_pressed == true)) {
+				if ((Input.GetKeyDown (Teclas.Confirma)) || (gm.GameInterface.leftmouse_pressed == true)) {
 					dialog_button_pressed = true;
-					gm.leftmouse_pressed = false;
+					gm.GameInterface.leftmouse_pressed = false;
 				}
 				if (Input.GetKeyUp (Teclas.Confirma)) {
 					dialog_button_pressed = false;
@@ -319,7 +321,7 @@ public class ObjectController : MonoBehaviour {
 	{
 		if (!exam)
 		{
-			gm.hideppbutton();
+			gm.GameInterface.hideppbutton();
 		}
 		examinable = exam;
 	}

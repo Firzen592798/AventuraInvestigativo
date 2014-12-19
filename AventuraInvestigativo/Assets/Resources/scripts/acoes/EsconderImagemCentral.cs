@@ -8,7 +8,7 @@ public class EsconderImagemCentral : Acao
 	}
 	public override bool Update()
 	{
-		gm.hidebigimage ();
+		gm.GameInterface.hidebigimage ();
 		return true;
 	}
 }

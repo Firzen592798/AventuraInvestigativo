@@ -53,7 +53,7 @@ public class states_TableObject: DicionarioAcoes
 		//=================================
 		//  Acoes OnExamine do estado 1
 		//=================================
-		DialogLine dialogoTapeteVazio = new DialogLine ("Mesa", "Nao ha nada aqui", -1);
+		//DialogLine dialogoTapeteVazio = new DialogLine ("Mesa", "Nao ha nada aqui", -1);
 		//ArrayList dialogosTapeteVazio = new ArrayList();
 		//dialogosTapeteVazio.Add (tapetevazio);
 		//Conversa c1 = new Conversa ("Dialogo tapete vazio", dialogoTapeteVazio);

@@ -4,7 +4,7 @@ using System.Collections;
 public class AtivarEvento : Acao
 {
 	int n;
-	GameController gm;
+
 	public AtivarEvento(GameController gm, int ev_num)
 	{
 		n = ev_num;

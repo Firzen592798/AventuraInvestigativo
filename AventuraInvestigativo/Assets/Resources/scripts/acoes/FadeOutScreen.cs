@@ -10,6 +10,6 @@ public class FadeOutScreen : Acao{
 	
 	public override bool Update()
 	{
-		return gm.FadeToBlack ();
+		return gm.GameInterface.FadeToBlack ();
 	}
 }

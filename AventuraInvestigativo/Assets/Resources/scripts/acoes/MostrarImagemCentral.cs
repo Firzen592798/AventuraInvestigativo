@@ -15,8 +15,26 @@ public class MostrarImagemCentral : Acao
 	double[] ptm;
 	float tempo_inicial;
 	double wait_seconds;
-	public MostrarImagemCentral(GameController gm, int[] n, float xta, float yta, float xdev, float ydev, float fsize, string[] texto, Color color, TextAnchor alin, double[] ptimer)
+
+	public MostrarImagemCentral(GameController gm, int[] n, float xta, float yta, float xdev, float ydev, float fsize, string[] texto, Color color, TextAnchor alin)
 	{
+		nimg = n;
+		tax = xta;
+		tay = yta;
+		xd = xdev;
+		yd = ydev;
+		fs = fsize;
+		textos = texto;
+		tcolor = color;
+		textoatual = 0;
+		ptm = new double[texto.Length];
+		for(int i = 0; i < ptm.Length; i++) {ptm[i] = -1;}
+		alig = alin;
+		tempo_inicial = -1;
+		this.gm = gm;
+	}
+
+	public MostrarImagemCentral(GameController gm, int[] n, float xta, float yta, float xdev, float ydev, float fsize, string[] texto, Color color, TextAnchor alin, double[] ptimer) {
 		nimg = n;
 		tax = xta;
 		tay = yta;
@@ -40,7 +58,7 @@ public class MostrarImagemCentral : Acao
 			string t = textos [textoatual];
 			int ti = nimg[textoatual];
 			wait_seconds = ptm[textoatual];
-			gm.showbigimage (ti, tax, tay, xd, yd, fs, t, tcolor, alig);
+			gm.GameInterface.showbigimage (ti, tax, tay, xd, yd, fs, t, tcolor, alig);
 			//textoatual++;
 		}
 		else 
@@ -56,7 +74,7 @@ public class MostrarImagemCentral : Acao
 				}
 				string t = textos [textoatual];
 				int ti = nimg[textoatual];
-				gm.showbigimage (ti, tax, tay, xd, yd, fs, t, tcolor, alig);
+				gm.GameInterface.showbigimage (ti, tax, tay, xd, yd, fs, t, tcolor, alig);
 				textoatual++;
 			}
 		}else
@@ -79,7 +97,7 @@ public class MostrarImagemCentral : Acao
 				wait_seconds = ptm[textoatual];
 				string t = textos [textoatual];
 				int ti = nimg[textoatual];
-				gm.showbigimage (ti, tax, tay, xd, yd, fs, t, tcolor, alig);
+				gm.GameInterface.showbigimage (ti, tax, tay, xd, yd, fs, t, tcolor, alig);
 
 
 			}

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Text;
 
 [Serializable]
 public struct PositionGlobalSerializable {
@@ -25,6 +26,11 @@ public class SaveGameStructure {
 
 	public string[,] profiles;
 
+	public string backlog;
+
+	public string notes;
+	//public byte[] bnotes;
+
 	public int music;
 	public int anbient;
 
@@ -33,7 +39,7 @@ public class SaveGameStructure {
 		GameObject g = GameObject.FindGameObjectWithTag("GameManager");
 		GameController gm = (GameController) g.GetComponent(typeof(GameController));
 
-		show_menu = gm.show_menu_GUI;
+		show_menu = gm.GameInterface.ShowingQuickMenuGUI;//.show_menu_GUI;
 
 		events = gm.getEvents();
 
@@ -72,18 +78,77 @@ public class SaveGameStructure {
 			profiles[i,3] = perfis[i].Descricao;
 		}
 
+		BacklogManager bm = BacklogManager.getInstance();
+		Conversa[] historic = bm.getHistoric();
+		backlog = "";
+		for (int i = 0; i < historic.Length; i++) {
+			Conversa c = historic[i];
+			backlog = backlog+c.getRotulo()+"\n";
+		}
+
+		string[] playernotes = gm.GameInterface.PlayerNotes;
+		notes = "";
+		for(int i = 0; i < playernotes.Length; i++) {
+			if (playernotes[i].Length > 0) {
+				notes = notes + i.ToString("00") + playernotes[i] + '\0';
+			}
+		}
+		//bnotes = Encoding.UTF8.GetBytes(notes);
+
 		music = gm.getMusic();
 		anbient = gm.getAnbient();
 	}
 
 	public PositionGlobal getPositionGlobal(int index) {
-		string nome = nomes[index];
 		PositionGlobal pg;
 		PositionGlobalSerializable pgs = positions[index];
 		pg.initialized = pgs.is_initialized;
 		pg.position = new Vector3(pgs.x, pgs.y, pgs.z);
 		pg.scene_index = pgs.scene_index;
 		return pg;
+	}
+
+	public string[] getRotulosBacklog() {
+		ArrayList bk = new ArrayList();
+		if (backlog.Length > 0) {
+			int init = 0;
+			int index = backlog.IndexOf('\n', 0);
+			while (index >= init) {
+				string rotulo = backlog.Substring(init, index-init);
+				bk.Add(rotulo);
+				init = index+1;
+				if (init < backlog.Length) {
+					index = backlog.IndexOf('\n', init);
+				}
+			}
+		}
+		string[] rotulos = new string[bk.Count];
+		for(int i = 0; i < bk.Count; i++) {
+			rotulos[i] = (string)bk[i];
+		}
+		return rotulos;
+	}
+
+	public string[] getPlayerNotes() {
+		string[] playernotes = new string[50];
+		for (int n = 0; n < 50 ;n++) {
+			playernotes[n] = "";
+		}
+		//string notes = Encoding.UTF8.GetString(bnotes);
+		if (notes.Length > 0) {
+			int init = 0;
+			int index = notes.IndexOf('\0', 0);
+			while (index >= init) {
+				int page = Convert.ToInt32(notes.Substring(init, 2));
+				string note = notes.Substring(init+2, index-init-2);
+				playernotes[page] = note;
+				init = index+1;
+				if (init < notes.Length) {
+					index = notes.IndexOf('\0', init);
+				}
+			}
+		}
+		return playernotes;
 	}
 }
 

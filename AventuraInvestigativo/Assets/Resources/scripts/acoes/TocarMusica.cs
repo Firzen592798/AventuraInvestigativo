@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 public class TocarMusica : Acao{
-	GameController gm;
+
 	int n;
 	int t;
 	public TocarMusica(GameController gm, int num,int tp){
